@@ -1,0 +1,31 @@
+from django.db import models
+
+class Commune(models.Model):
+    id = models.IntegerField(primary_key=True)
+    name = models.CharField(max_length=30)
+    region = models.CharField(max_length=30)
+    email = models.CharField(max_length=30)
+    tel_fixe = models.CharField(max_length=30)
+    tel_mobile_1 = models.CharField(max_length=30)
+    tel_mobile_2 = models.CharField(max_length=30)
+    chef_lieu = models.CharField(max_length=30)
+
+class Entity(models.Model):
+    id = models.AutoField(primary_key=True)
+    code = models.IntegerField()
+    ville = models.CharField(max_length=30)
+    quartier = models.CharField(max_length=30)
+    nom = models.CharField(max_length=30)
+    sector = models.CharField(max_length=30)
+    type = models.CharField(max_length=30)
+    speciality = models.CharField(max_length=30)
+    horaire = models.CharField(max_length=30)
+    contact_name = models.CharField(max_length=30)
+    contact_prenom = models.CharField(max_length=30)
+    telephone = models.CharField(max_length=30, unique=True)
+    nbr_porte = models.IntegerField()
+    latitude = models.DecimalField(max_length=30)
+    latitude = models.DecimalField(max_digits=10, decimal_places=8)
+    longitude = models.DecimalField(max_digits=10, decimal_places=8)
+    property = models.CharField(max_length=30)
+    commune = models.ForeignKey(Commune, on_delete=models.CASCADE)
