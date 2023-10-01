@@ -10,6 +10,12 @@ class Commune(models.Model):
     tel_mobile_2 = models.CharField(max_length=30)
     chef_lieu = models.CharField(max_length=30)
 
+    def __str__(self):
+        return str(id)
+
+    def __repr__(self):
+        return str(id)
+
 class Entity(models.Model):
     id = models.AutoField(primary_key=True)
     ville = models.CharField(max_length=30)
