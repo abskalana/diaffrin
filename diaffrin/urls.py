@@ -18,6 +18,11 @@ from django.contrib import admin
 from django.urls import path
 from django.urls import path, include
 
+from diaffrin_api import views_web
+
 urlpatterns = [
     path('api/',include('diaffrin_api.urls')),
+    path('', include('diaffrin_api.urls_web')),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('admin/', admin.site.urls),
 ]

@@ -1,3 +1,6 @@
+from http.client import HTTPResponse
+
+from django.core.exceptions import BadRequest
 from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.viewsets import ViewSetMixin, ModelViewSet
@@ -17,7 +20,6 @@ class EntityList(ViewSetMixin,generics.ListCreateAPIView):
 
     def create(self, request, *args, **kwargs):
         val = request.data
-        print(val)
         writeData(val)
         code = val['code']
         data = val['data']
@@ -27,7 +29,7 @@ class EntityList(ViewSetMixin,generics.ListCreateAPIView):
             serializer.save()
             return Response("OK", status= 200)
         else:
-            return Response("KO", status= 200)
+            raise BadRequest("Error")
 
 class CommuneList(ViewSetMixin,generics.ListCreateAPIView):
     model = Commune
@@ -39,7 +41,7 @@ class CommuneList(ViewSetMixin,generics.ListCreateAPIView):
         serializer = CommuneSerializer(data=data, many=isinstance(data, list))
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return Response("OK", status= 200)
+        return Response("OK",status= 200)
 
 
 class EntityViewSet(ModelViewSet):

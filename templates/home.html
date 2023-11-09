@@ -1,0 +1,39 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Ville</th>
+      <th scope="col">Nom et Prénom</th>
+      <th scope="col">Téléphone</th>
+      <th scope="col">Nombre de porte</th>
+      <th scope="col">Catégorie</th>
+      <th scope="col">Propriété</th>
+      <th scope="col">Nom</th>
+      <th scope="col">Quartier</th>
+      <th scope="col">Specialité</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for o in entities %}
+    <tr class="{% cycle 'row1' 'row2' %}">
+        <td>Mark</td>
+        <td>Otto</td>
+        <td>@mdo</td>
+        <td>Mark</td>
+        <td>Otto</td>
+        <td>@mdo</td>
+        <td>Otto</td>
+        <td>@mdo</td>
+        <td>Mark</td>
+        <td>Otto</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+
+{% endblock %}
