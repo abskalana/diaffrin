@@ -10,19 +10,19 @@
                     <div id="login-box" class="col-md-12">
                         <form id="login-form" class="form" action="" method="post">
                              {% csrf_token %}
-                            <h3 class="text-center text-info">Connexion</h3>
+                            <h3 class="text-center text-primary">Connexion</h3>
                             <div class="form-group">
-                                <label for="username" class="text-info">Identifiant:</label><br>
+                                <label for="username" class="text-primary">Identifiant:</label><br>
                                 <input type="text" name="username" id="username" class="form-control">
                             </div>
                             <br>
                             <div class="form-group">
-                                <label for="password" class="text-info">Mot de passe:</label><br>
-                                <input type="text" name="password" id="password" class="form-control">
+                                <label for="password" class="text-primary">Mot de passe:</label><br>
+                                <input type="password" name="password" id="password" class="form-control">
                             </div>
                             <br>
-                            <div class="form-group">
-                                <input type="submit" name="submit" class="btn btn-info btn-lg btn-block" value="submit">
+                            <div class="form-group ">
+                                <input type="submit" name="submit" class="btn btn-primary btn-lg w-100" value="Connexion">
                             </div>
                         </form>
                     </div>
