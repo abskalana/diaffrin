@@ -1,7 +1,9 @@
 {% extends 'main.html' %}
 
 {% block content %}
-
+<br>
+<h4>Listes des commerces et services de la commune</h4>
+<br>
 <table class="table">
   <thead class="thead-dark">
     <tr>
@@ -18,22 +20,20 @@
     </tr>
   </thead>
   <tbody>
-  {% for o in entities %}
-    <tr class="{% cycle 'row1' 'row2' %}">
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-        <td>Mark</td>
-        <td>Otto</td>
+  {% for entity in entities %}
+    <tr>
+        <td>{{entity.id}}</td>
+        <td>{{entity.ville}}</td>
+        <td>{{entity.nom_complet}}</td>
+        <td>{{entity.telephone}}</td>
+        <td>{{entity.nbr_porte}}</td>
+        <td>{{entity.category}}</td>
+        <td>{{entity.property}}</td>
+        <td>{{entity.nom}}</td>
+        <td>{{entity.quartier}}</td>
+        <td>{{entity.speciality}}</td>
     </tr>
   {% endfor %}
   </tbody>
 </table>
-
-
 {% endblock %}

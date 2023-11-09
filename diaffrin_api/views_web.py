@@ -9,6 +9,6 @@ def home(request):
     commune = get_object_or_404(Commune, pk= request.user.username)
     contexte ={
         "commune" : str(commune),
-        "entities": [0,1,2,3,4,5,6,7,8,9]
+        "entities": commune.entity_set.all()
     }
     return render(request, 'home.html', context=contexte)
