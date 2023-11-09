@@ -1,0 +1,33 @@
+{% extends 'main.html' %}
+
+
+{% block content %}
+  <div id="login align-middle">
+        <h3 class="text-center text-white pt-5">Login form</h3>
+        <div class="container">
+            <div id="login-row" class="row justify-content-center align-items-center">
+                <div id="login-column" class="col-md-4">
+                    <div id="login-box" class="col-md-12">
+                        <form id="login-form" class="form" action="" method="post">
+                             {% csrf_token %}
+                            <h3 class="text-center text-info">Connexion</h3>
+                            <div class="form-group">
+                                <label for="username" class="text-info">Identifiant:</label><br>
+                                <input type="text" name="username" id="username" class="form-control">
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="password" class="text-info">Mot de passe:</label><br>
+                                <input type="text" name="password" id="password" class="form-control">
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <input type="submit" name="submit" class="btn btn-info btn-lg btn-block" value="submit">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
