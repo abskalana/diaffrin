@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-@z#v^damp7%2)#a34*qo(x+%o$wrp_=k)ivlw$)*5#@n_zi9i^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['gouandiaka.pythonanywhere.com']
 
 
 # Application definition
@@ -81,10 +81,11 @@ WSGI_APPLICATION = 'diaffrin.wsgi.application'
 DATABASES = {
     'default': {
         "ENGINE": "django.db.backends.mysql",
-        'NAME': 'gouandiaka$gouandiaka',
+        'NAME': 'gouandiaka$kolenda',
         'USER': 'gouandiaka',
         'PASSWORD': 'Kalanaka1212$',
-        'HOST': 'localhost',  # Or an IP Address that your DB is hosted on
+        'HOST': 'gouandiaka.mysql.pythonanywhere-services.com',
+        # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
 }
@@ -128,5 +129,6 @@ STATICFILES_DIRS = (
 )
 
 LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
