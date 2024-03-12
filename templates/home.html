@@ -5,35 +5,42 @@
 <h4>Listes des commerces et services de la commune</h4>
 <br>
 <table class="table">
-  <thead class="thead-dark">
+    <thead class="thead-dark">
     <tr>
-      <th scope="col">ID</th>
-      <th scope="col">Ville</th>
-      <th scope="col">Nom et Prénom</th>
-      <th scope="col">Téléphone</th>
-      <th scope="col">Nombre de porte</th>
-      <th scope="col">Catégorie</th>
-      <th scope="col">Propriété</th>
-      <th scope="col">Nom</th>
-      <th scope="col">Quartier</th>
-      <th scope="col">Specialité</th>
+        <th scope="col">Ville</th>
+        <th scope="col">Place</th>
+        <th scope="col">Categorie</th>
+        <th scope="col">Secteur</th>
+        <th scope="col">Nom du magazin<th>
+        <th scope="col">Propriété</th>
+        <th scope="col">Nom contact</th>
+        <th scope="col">Prénom contact</th>
+        <th scope="col">Nom contact</th>
+        <th scope="col">Phone</th>
+        <th scope="col">Porte</th>
+        <th scope="col">Coord</th>
+        <th scope="col">Created</th>
+        <th scope="col">Commune</th>
     </tr>
-  </thead>
-  <tbody>
-  {% for entity in entities %}
+    </thead>
+    <tbody>
+    {% for entity in entities %}
     <tr>
-        <td>{{entity.id}}</td>
-        <td>{{entity.ville}}</td>
-        <td>{{entity.nom_complet}}</td>
-        <td>{{entity.telephone}}</td>
-        <td>{{entity.nbr_porte}}</td>
+        <td>{{entity.city}}</td>
+        <td>{{entity.locality}}</td>
         <td>{{entity.category}}</td>
-        <td>{{entity.property}}</td>
-        <td>{{entity.nom}}</td>
-        <td>{{entity.quartier}}</td>
         <td>{{entity.speciality}}</td>
+        <td>{{entity.name}}</td>
+        <td>{{entity.property}}</td>
+        <td>{{entity.contact_last_name}}</td>
+        <td>{{entity.contact_first_name}}</td>
+        <td>{{entity.contact_phone}}</td>
+        <td>{{entity.porte}}</td>
+        <td>{{entity.coord}}</td>
+        <td>{{entity.created}}</td>
+        <td>{{entity.commune}}</td>
     </tr>
-  {% endfor %}
-  </tbody>
+    {% endfor %}
+    </tbody>
 </table>
 {% endblock %}
