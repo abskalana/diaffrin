@@ -35,6 +35,8 @@ class Entity(models.Model):
 class Paiement(models.Model):
     uuid = models.CharField(max_length=50)
     value = models.IntegerField(default=0)
+    annee = models.IntegerField(default=2024)
+    mois = models.CharField(default=0)
     date_ref = models.DateTimeField(auto_now_add=True)
     date_pai = models.DateTimeField(auto_now_add=True)
     entity = models.ForeignKey(Entity, on_delete=models.CASCADE)
