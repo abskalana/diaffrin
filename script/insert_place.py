@@ -3,7 +3,7 @@ import uuid
 hostname = 'localhost'
 username = 'finsharehub'
 password = 'finsharehub$'
-database = 'db_malitrip'
+database = 'db_kolenda'
 
 import  MySQLdb
 import pandas as pd
