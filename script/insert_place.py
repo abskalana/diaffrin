@@ -10,7 +10,7 @@ import pandas as pd
 
 stmt = "INSERT INTO diaffrin_api_entity (slug,city,locality,activity,property,contact_name,contact_phone,porte,coord, status, commune_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
 df = pd.read_excel("data.xlsx")
-
+df.fillna('--', inplace=True)
 dbconnect = MySQLdb.connect(hostname, username, password, database)
 cursor = dbconnect.cursor()
 
