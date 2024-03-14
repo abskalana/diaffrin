@@ -1,1 +1,0 @@
-{'code': '1502021', 'data': {'id': 1, 'ville': 'Kalana', 'quartier': 'Koko', 'category': 'alimentation', 'speciality': 'aaaa', 'nom': 'aaaaaa', 'horaire': 'aaaaaa', 'property': 'aaaaa', 'nom_complet': 'aaaaaa', 'telephone': 'aaaaa', 'nbr_porte': 1, 'coords': 'aaaaa', 'commune': 150202}}

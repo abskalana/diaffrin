@@ -31,8 +31,7 @@ class Entity(models.Model):
     commune = models.ForeignKey(Commune, on_delete=models.CASCADE)
 
     def get_display_name(self):
-        if len(self.name) > 0 : return  self.name
-        return "Entité de "+ self.contact_last_name + " " + self.contact_first_name
+        return "Entité de "+ self.contact_name
 
 
 class Paiement(models.Model):
