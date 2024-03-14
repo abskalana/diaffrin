@@ -1,0 +1,17 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div class="row">
+    <h4>{{entity.get_display_name}}</h4>
+    {{entity.secteur}} {{entity.locality}} {{entity.ville}}<br>
+    {{entity.phone}} {{entity.locality}} {{entity.ville}}<br>
+
+</div>
+<br><br>
+
+<div class="row">
+    <div class="col-md-3">Historique des paiements</div>
+    <div class="col-md-1"></div>
+    <div class="col-md-8">Localisation géographique</div><div id="map"></div></div>
+{% endblock %}

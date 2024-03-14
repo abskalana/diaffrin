@@ -18,8 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('api/',include('diaffrin_api.urls')),
-    path('', include('diaffrin_api.urls_web')),
+    path('',include('diaffrin_api.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
 ]
