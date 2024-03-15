@@ -26,7 +26,7 @@ def insert_row(row):
         porte = row["porte"]
         coord = row["coord"]
         status = row["status"]
-        commune_id = 150202
+        commune_id = 1
         val = (slug,city,locality,activity,property,contact_name,contact_phone,porte,coord,status,commune_id)
         cursor.execute(stmt, val)
     except Exception as e:
