@@ -25,6 +25,71 @@
         </select>
     </div>
 </form>
+<div class="row">
+    <div class="col-md-5">
+
+        <table class="table">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">Ville</th>
+        <th scope="col">Place</th>
+        <th scope="col">Propriété</th>
+        <th scope="col">Nom et prénom</th>
+        <th scope="col">Phone</th>
+        <th scope="col">Porte</th>
+        <th scope="col">Montant</th>
+        <th scope="col">Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for entity in clients_pai %}
+    <tr>
+        <td>{{entity.city}}</td>
+        <td>{{entity.locality}}</td>
+        <td>{{entity.activity}}</td>
+        <td>{{entity.property}}</td>
+        <td>{{entity.contact_name}}</td>
+        <td>{{entity.contact_phone}}</td>
+        <td>{{entity.porte}}</td>
+        <td>{{entity.status}}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+    </div>
+    <div class="col-md-1"></div>
+    <div class="col-md-6">
+        <table class="table">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">Ville</th>
+        <th scope="col">Place</th>
+        <th scope="col">Propriété</th>
+        <th scope="col">Nom et prénom</th>
+        <th scope="col">Phone</th>
+        <th scope="col">Porte</th>
+        <th scope="col">Montant</th>
+        <th scope="col">Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for entity in clients_pai %}
+    <tr>
+        <td>{{entity.city}}</td>
+        <td>{{entity.locality}}</td>
+        <td>{{entity.activity}}</td>
+        <td>{{entity.property}}</td>
+        <td>{{entity.contact_name}}</td>
+        <td>{{entity.contact_phone}}</td>
+        <td>{{entity.porte}}</td>
+        <td>{{entity.status}}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+    </div>
 
 <br>
 <table class="table">
@@ -32,16 +97,16 @@
     <tr>
         <th scope="col">Ville</th>
         <th scope="col">Place</th>
-        <th scope="col">Secteur</th>
         <th scope="col">Propriété</th>
         <th scope="col">Nom et prénom</th>
         <th scope="col">Phone</th>
         <th scope="col">Porte</th>
+        <th scope="col">Montant</th>
         <th scope="col">Status</th>
     </tr>
     </thead>
     <tbody>
-    {% for entity in entities %}
+    {% for entity in client_not_pay %}
     <tr>
         <td>{{entity.city}}</td>
         <td>{{entity.locality}}</td>
