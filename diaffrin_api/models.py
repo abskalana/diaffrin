@@ -46,4 +46,4 @@ class Paiement(models.Model):
     coord = models.CharField(max_length=100)
 
     class Meta:
-        ordering = ["annee","mois"]
+        ordering = ["year","month"]
