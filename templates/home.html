@@ -14,7 +14,7 @@
         <th scope="col">Nom et prénom</th>
         <th scope="col">Phone</th>
         <th scope="col">Porte</th>
-        <th scope="col">Nom du magasin</th>
+        <th scope="col">Status</th>
     </tr>
     </thead>
     <tbody>
@@ -22,12 +22,12 @@
     <tr>
         <td>{{entity.city}}</td>
         <td>{{entity.locality}}</td>
-        <td>{{entity.speciality}}</td>
+        <td>{{entity.activity}}</td>
         <td>{{entity.property}}</td>
-        <td>{{entity.name}}</td>
-        <td>{{entity.contact_last_name}}  {{entity.contact_first_name}}</td>
+        <td>{{entity.contact_name}}</td>
         <td>{{entity.contact_phone}}</td>
         <td>{{entity.porte}}</td>
+        <td>{{entity.status}}</td>
     </tr>
     {% endfor %}
     </tbody>
