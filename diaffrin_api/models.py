@@ -38,8 +38,8 @@ class Entity(models.Model):
 class Paiement(models.Model):
     uuid = models.CharField(unique=True,max_length=120)
     value = models.IntegerField(default=0)
-    annee = models.IntegerField(default=2024)
-    mois = models.CharField(max_length=20)
+    year = models.IntegerField(default=2024)
+    month = models.CharField(max_length=20)
     date_pai = models.DateTimeField(auto_now_add=True)
     entity = models.ForeignKey(Entity, on_delete=models.CASCADE)
     commune = models.ForeignKey(Commune, on_delete=models.CASCADE)

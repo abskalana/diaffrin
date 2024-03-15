@@ -1,5 +1,3 @@
-from django.urls import path
-
 from diaffrin import settings
 from . import views
 from django.urls import path, re_path
@@ -11,6 +9,7 @@ favicon_view = RedirectView.as_view(url='/static/images/favicon.ico', permanent=
 urlpatterns = [
     path("", views.home, name="home"),
     path('entity/<slug:slug>/', views.get_entity, name="entity_detail"),
+    path('paiement/', views.get_paiement, name="paiement_list"),
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
     re_path(r'^favicon\.ico$', favicon_view),

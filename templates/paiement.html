@@ -1,0 +1,58 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<form>
+    <div class="form-group">
+        <label for="year">Année</label>
+        <input type="number" class="form-control" id="year" value="{{year}}">
+    </div>
+    <div class="form-group">
+        <label for="month">Mois</label>
+        <select class="form-control" id="month">
+            <option value="01">Janvier</option>
+            <option value="02">Fevrier</option>
+            <option value="03">Mars</option>
+            <option value="04">Avril</option>
+            <option value="05">Mai</option>
+            <option value="06">Juin</option>
+            <option value="07">Juillet</option>
+            <option value="08">Aout</option>
+            <option value="09">Septembre</option>
+            <option value="10">Octobre</option>
+            <option value="11">Novembre</option>
+            <option value="12">Decembre</option>
+        </select>
+    </div>
+</form>
+
+<br>
+<table class="table">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">Ville</th>
+        <th scope="col">Place</th>
+        <th scope="col">Secteur</th>
+        <th scope="col">Propriété</th>
+        <th scope="col">Nom et prénom</th>
+        <th scope="col">Phone</th>
+        <th scope="col">Porte</th>
+        <th scope="col">Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+    <tr>
+        <td>{{entity.city}}</td>
+        <td>{{entity.locality}}</td>
+        <td>{{entity.activity}}</td>
+        <td>{{entity.property}}</td>
+        <td>{{entity.contact_name}}</td>
+        <td>{{entity.contact_phone}}</td>
+        <td>{{entity.porte}}</td>
+        <td>{{entity.status}}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
