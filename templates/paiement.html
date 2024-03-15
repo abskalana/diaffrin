@@ -50,10 +50,11 @@
 
 </form>
     </div>
-        <div class="col-md-4"></div>
+    <div class="col-md-4"></div></div>
 <br><br><br>
 <div class="row">
-    <div class="col-md-5">
+    <div class="col-md-2"></div>
+        <div class="col-md-8">
         <table class="table">
             <thead class="thead-dark">
             <tr>
@@ -80,38 +81,8 @@
             {% endfor %}
             </tbody>
         </table>
+        </div>
+    <div class="col-md-2"></div>
 
-    </div>
-
-    <div class="col-md-1"></div>
-    <div class="col-md-6">
-        <table class="table">
-            <thead class="thead-dark">
-            <tr>
-                <th scope="col">Place</th>
-                <th scope="col">Propriété</th>
-                <th scope="col">Nom</th>
-                <th scope="col">Phone</th>
-                <th scope="col">Porte</th>
-                <th scope="col">Montant</th>
-                <th scope="col">Status</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for entity in client_not_pay %}
-            <tr>
-                <td>{{entity.locality}}</td>
-                <td>{{entity.property}}</td>
-                <td>{{entity.contact_name}}</td>
-                <td>{{entity.contact_phone}}</td>
-                <th scope="col">Porte</th>
-                <th scope="col">Montant</th>
-                <th scope="col">Status</th>
-            </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-
-    </div>
 </div>
 {% endblock %}
