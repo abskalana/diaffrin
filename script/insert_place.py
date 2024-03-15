@@ -8,7 +8,7 @@ database = 'db_kolenda'
 import  MySQLdb
 import pandas as pd
 
-stmt = "INSERT INTO diaffrin_api_entity (slug,city,locality,activity,property,contact_name,contact_phone,porte,coord, status, commune_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+stmt = "INSERT INTO diaffrin_api_entity (slug,city,locality,activity,property,contact_name,contact_phone,porte,coord,status,commune_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
 df = pd.read_excel("data.xlsx")
 df.fillna('--', inplace=True)
 dbconnect = MySQLdb.connect(hostname, username, password, database)
@@ -25,8 +25,9 @@ def insert_row(row):
         contact_phone = row["contact_phone"]
         porte = row["porte"]
         coord = row["coord"]
+        status = row["status"]
         commune_id = 150202
-        val = (slug,city,locality,activity,property,contact_name,contact_phone,porte,coord,commune_id)
+        val = (slug,city,locality,activity,property,contact_name,contact_phone,porte,coord,status,commune_id)
         cursor.execute(stmt, val)
     except Exception as e:
         print(e)

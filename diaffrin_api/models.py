@@ -26,7 +26,7 @@ class Entity(models.Model):
     contact_phone = models.CharField(max_length=30, blank=True, null=True)
     porte = models.IntegerField(default=1)
     coord = models.CharField(max_length=100)
-    status = models.CharField(max_length=100)
+    status = models.CharField(max_length=20)
     created = models.DateTimeField(auto_now_add=True)
     commune = models.ForeignKey(Commune, on_delete=models.CASCADE)
 
