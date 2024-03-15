@@ -2,7 +2,8 @@ from django.db import models
 
 
 class Commune(models.Model):
-    code = models.CharField(primary_key=True,max_length=12)
+    id = models.CharField(primary_key=True,max_length=12)
+    code = models.CharField(unique=True, max_length=12)
     name = models.CharField(max_length=50)
     coord = models.CharField(max_length=30)
     email = models.CharField(max_length=30)
