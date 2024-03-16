@@ -42,9 +42,9 @@
         <a class="nav-link"  href="{% url 'paiement_list'%}">Paiement</a>
       </li>
         <li class="nav-item">
-                <form method="post" action="{% url 'logout' %}">
+                <form id ='loginform' method="post" action="{% url 'logout' %}">
                     {% csrf_token %}
-                  <input type="submit" class="nav-link">Se deconnecter</input>
+                    <a href="javascript:$('loginform').submit()">Déconnexion</a>
                 </form>
         </li>
     </ul>
