@@ -11,7 +11,7 @@ from diaffrin_api.models import Commune, Entity
 
 @login_required
 def home(request):
-    commune = get_object_or_404(Commune, code=request.user.username)
+    commune = get_object_or_404(Commune, code=request.user.username.lower())
     contexte = {
         "commune": str(commune),
         "entities": commune.entity_set.all()
@@ -21,7 +21,7 @@ def home(request):
 
 @login_required
 def carte(request):
-    commune = get_object_or_404(Commune, code=request.user.username)
+    commune = get_object_or_404(Commune, code=request.user.username.lower())
     contexte = {
         "commune": str(commune),
         "entities": commune.entity_set.all()
@@ -31,7 +31,7 @@ def carte(request):
 
 @login_required
 def get_entity(request, slug):
-    commune = get_object_or_404(Commune, code=request.user.username)
+    commune = get_object_or_404(Commune, code=request.user.username.lower())
     entity = get_object_or_404(Entity, slug=slug)
     coord = entity.coord
     if coord is None or len(coord) < 5: entity.coord = "10.7879168;-8.204519"
@@ -40,7 +40,7 @@ def get_entity(request, slug):
 
 @login_required
 def get_paiement(request):
-    commune = get_object_or_404(Commune, code=request.user.username)
+    commune = get_object_or_404(Commune, code=request.user.username.lower())
     today = datetime.date.today()
     clients = []
     year = today.year
