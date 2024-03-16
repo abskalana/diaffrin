@@ -6,15 +6,8 @@
     <div class="col-md-4">
 <form method="post" action="/paiement">
     <div class="form-group">
-        <label for="month">Ville</label>
-        <select class="form-control" id="city">
-            <option value="Kalana">Kalana</option>
-        </select>
-    </div>
-
-    <div class="form-group">
         <label for="year">Année</label>
-        <input type="number" class="form-control" id="year" value="{{month}}">
+        <input type="number" class="form-control" id="year" value="{{year}}">
     </div>
     <div class="form-group">
         <label for="month">Mois</label>
@@ -33,21 +26,17 @@
             <option value="12">Decembre</option>
         </select>
     </div>
-
-    <div class="form-check">
-  <input class="form-check-input" type="radio" name="exampleRadios" id="retard" value="option1" checked>
-  <label class="form-check-label" for="retard">
-    Non payé
-  </label>
+<br>
+   <div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" id="inlineCheckbox1" value="0">
+  <label class="form-check-label" for="inlineCheckbox1">Non payé</label>
 </div>
-<div class="form-check">
-  <input class="form-check-input" type="radio" name="exampleRadios" id="paye" value="option2">
-  <label class="form-check-label" for="paye">
-    Payé
-  </label>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="radio" id="inlineCheckbox2" value="1">
+  <label class="form-check-label" for="inlineCheckbox2">Payé</label>
 </div>
-    <button type="button" class="btn btn-primary">Primary</button>
-
+    <br><br>
+    <button type="button" class="btn btn-primary btn-block w-100">Primary</button>
 </form>
     </div>
     <div class="col-md-4"></div></div>
@@ -58,6 +47,7 @@
         <table class="table">
             <thead class="thead-dark">
             <tr>
+                <th scope="col">Ville</th>
                 <th scope="col">Place</th>
                 <th scope="col">Propriété</th>
                 <th scope="col">Nom</th>
@@ -65,18 +55,21 @@
                 <th scope="col">Porte</th>
                 <th scope="col">Montant</th>
                 <th scope="col">Status</th>
+                <th scope="col">Detail</th>
             </tr>
             </thead>
             <tbody>
             {% for entity in clients_pai %}
             <tr>
+                <td>{{entity.city}}</td>
                 <td>{{entity.locality}}</td>
                 <td>{{entity.property}}</td>
                 <td>{{entity.contact_name}}</td>
                 <td>{{entity.contact_phone}}</td>
                 <td>{{entity.porte}}</td>
-                <td>{{entity.porte}}</td>
+                <td>20</td>
                 <td>{{entity.status}}</td>
+                 <td ><a href="{{entity.get_absolute_url }}"> Detail </a></td>
             </tr>
             {% endfor %}
             </tbody>

@@ -3,15 +3,16 @@
 {% block content %}
 
 <div class="row">
-    <h4>{{entity.get_display_name}}</h4>
-    {{entity.secteur}} {{entity.locality}} {{entity.ville}}<br>
-    {{entity.phone}} {{entity.locality}} {{entity.ville}}<br>
-
+    <h1 class="font-weight-bold">{{entity.get_display_name}}</h1>
+    <div class="fs-3"><b>Activité : </b>{{entity.activity}}</div>
+    <div class="fs-3"><b>Place : </b>{{entity.city}}</div>
+    <div class="fs-3"><b>Ville : </b>{{entity.locality}}</div>
+    <div class="fs-3"><b>Téléphone :</b>{{entity.contact_phone}}</div>
 </div>
 <br><br>
-
 <div class="row">
     <div class="col-md-3">Historique des paiements</div>
-    <div class="col-md-1"></div>
-    <div class="col-md-8">Localisation géographique</div><div id="map"></div></div>
+    <div class="col-md-1">ddfdfdf</div>
+    <div class="col-md-8">Localisation géographique<div id="map" class="map"></div></div>
+</div>
 {% endblock %}

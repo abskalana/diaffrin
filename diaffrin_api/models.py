@@ -1,8 +1,9 @@
 from django.db import models
+from django.urls import reverse
 
 
 class Commune(models.Model):
-    id = models.CharField(primary_key=True,max_length=12)
+    id = models.CharField(primary_key=True, max_length=12)
     code = models.CharField(unique=True, max_length=12)
     name = models.CharField(max_length=50)
     coord = models.CharField(max_length=30)
@@ -18,7 +19,7 @@ class Commune(models.Model):
 
 
 class Entity(models.Model):
-    slug = models.CharField(unique=True,max_length=120)
+    slug = models.CharField(unique=True, max_length=120)
     city = models.CharField(max_length=30)
     locality = models.CharField(max_length=50, blank=True, null=True)
     activity = models.CharField(max_length=100, blank=True, null=True)
@@ -28,15 +29,18 @@ class Entity(models.Model):
     porte = models.IntegerField(default=1)
     coord = models.CharField(max_length=100)
     status = models.CharField(max_length=20)
-    #created = models.DateTimeField(auto_now_add=True)
+    # created = models.DateTimeField(auto_now_add=True)
     commune = models.ForeignKey(Commune, on_delete=models.CASCADE)
 
+    def get_absolute_url(self):
+        return reverse("entity_detail", kwargs={"slug": self.slug})
+
     def get_display_name(self):
-        return "Entité de "+ self.contact_name
+        return self.activity + " - "+ self.contact_name
 
 
 class Paiement(models.Model):
-    uuid = models.CharField(unique=True,max_length=120)
+    uuid = models.CharField(unique=True, max_length=120)
     value = models.IntegerField(default=0)
     year = models.IntegerField(default=2024)
     month = models.IntegerField(default=-1)
@@ -46,4 +50,4 @@ class Paiement(models.Model):
     coord = models.CharField(max_length=100)
 
     class Meta:
-        ordering = ["year","month"]
+        ordering = ["year", "month"]

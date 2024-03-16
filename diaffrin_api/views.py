@@ -17,24 +17,27 @@ def home(request):
 
 @login_required
 def get_entity(request, slug):
+    commune = get_object_or_404(Commune, code=request.user.username)
     entity = get_object_or_404(Entity, slug= slug)
-    return render(request, 'detail.html', context={'entity': entity})
+    return render(request, 'detail.html', context={'entity': entity, "commune" : str(commune)})
 
 
 @login_required
 def get_paiement(request):
+    commune = get_object_or_404(Commune, code=request.user.username)
     today = datetime.date.today()
     year = request.POST.get('year', today.year)
     month = request.POST.get('month', today.month)
+    status = request.POST.get('month', today.month)
     clients = Entity.objects.filter(paiement__year=year, paiement__month=month).distinct()
-    clients_without_payments = Entity.objects.exclude(paiement__year=year, paiement__month=month)
     context = {'client_pay': clients,
+               'commune': commune,
                'year': year,
                'month': month,
                'client_not_pay': clients}
     return render(request, 'paiement.html', context=context)
 
-
+@login_required
 def insert_data(request ):
     df = pd.read_excel("data.xlsx")
     df.fillna('--', inplace=True)
