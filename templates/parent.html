@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <meta http-equiv="content-language" content="FR">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.ico' %}">
+    <link rel="bookmark icon" href="{% static 'images/favicon.ico' %}"/>
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'images/site.webmanifest' %}">
+    <link rel="mask-icon" href="{% static 'images/safari-pinned-tab.svg' %}" color="#5bbad5">
+      <script src="https://maps.google.com/maps/api/js?key=AIzaSyCNoLp52uDhzJHzSpyfurb8pta7Q-wvDsg" type="text/javascript"></script>
+    <link rel="canonical" href="{{request.build_absolute_uri}}">
+    <meta property="og:url" content="https://kolenda.fr/"/>
+    <meta property="og:site_name" content="kolenda.fr"/>
+    <script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
+    <script src="{% static 'js/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    {% block parent_head %}
+    <title>Kolenda, Service de gestion des taxes pour les collectivités</title>
+    <link href="{% static 'css/main.css' %}" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+
+{% if user.is_authenticated %}
+ <nav class="navbar navbar-expand-lg  navbar-dark bg-dark"  style="background-color: #1A237E;padding-left: 20px;padding-right: 20px;">
+  <a class="navbar-brand" href="#">{{commune}}</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse justify-content-end " id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/entite">Entités <span class="sr-only"> </span></a>
+      </li>
+        <li class="nav-item active">
+        <a class="nav-link" href="/solde">Historique <span class="sr-only"> </span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/paiment/">Paiement</a>
+      </li>
+        <li class="nav-item">
+        <a class="nav-link" href="/accounts/logout/">Déconnexion</a>
+      </li>
+    </ul>
+  </div>
+
+</nav>
+  {% endif %}
+<div style="margin:1%">
+
+    {% block content %}
+
+
+  {% endblock %}
+
+</div>
+
+
+{% block parent_script %}
+
+
+{% endblock %}
+
+<script async type="text/javascript">
+		var lat = 48.852969;
+		var lon = 2.349903;
+		var map = null;
+		function initMap() {
+				map = new google.maps.Map(document.getElementById("map"), {
+					center: new google.maps.LatLng(lat, lon),
+					zoom: 16
+				});
+		}
+		window.onload = function(){
+				initMap();
+		};
+		</script>
+</body>
+</html>
+
