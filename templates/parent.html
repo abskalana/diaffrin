@@ -41,12 +41,12 @@
       <li class="nav-item">
         <a class="nav-link"  href="{% url 'paiement_list'%}">Paiement</a>
       </li>
-        <li class="nav-item">
-                <form id ='loginform' method="post" action="{% url 'logout' %}">
+        <li>
+                <form method="post" action="{% url 'logout' %}">
                     {% csrf_token %}
-                    <a href="javascript:$('loginform').submit()">Déconnexion</a>
+                  <button type="submit" class="btn btn-link">Se deconnecter</button>
                 </form>
-        </li>
+              </li>
     </ul>
   </div>
 
