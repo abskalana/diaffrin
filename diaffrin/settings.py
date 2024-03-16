@@ -72,7 +72,7 @@ TEMPLATES = [
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-__DATABASES = {
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',  # Add 'Lookgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'db_kolenda',  # Or path to database file if using sqlite3.
@@ -83,7 +83,7 @@ __DATABASES = {
     }
 }
 
-DATABASES = {
+__DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": "mydatabase",
