@@ -1,13 +1,12 @@
+import datetime
 import uuid
 
 import pandas as pd
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
-from osqppurepy._osqp import settings
 
 from diaffrin import settings
 from diaffrin_api.models import Commune, Entity
-import datetime
 
 
 @login_required
