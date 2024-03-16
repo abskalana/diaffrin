@@ -21,3 +21,28 @@
  <br><br><br>
     </div>
 {% endblock %}
+
+{% block script %}
+
+<script async type="text/javascript">
+		var coord = "{{entity.coord}}";
+		var lat = coord.split(";")[0];
+		var lon = coord.split(";")[1];
+		var map = null;
+		function initMap() {
+				map = new google.maps.Map(document.getElementById("map"), {
+					center: new google.maps.LatLng(lat, lon),
+					zoom: 14
+				});
+				 new google.maps.Marker({
+                    position: new google.maps.LatLng(lat, lon),
+                map,
+                title: "{{entity.get_display_name}}",
+  });
+		}
+		window.onload = function(){
+				initMap();
+		};
+		</script>
+
+{% endblock %}

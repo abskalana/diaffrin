@@ -3,44 +3,77 @@ import uuid
 import pandas as pd
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
+from osqppurepy._osqp import settings
+
+from diaffrin import settings
 from diaffrin_api.models import Commune, Entity
 import datetime
 
+
 @login_required
 def home(request):
-    commune = get_object_or_404(Commune, code= request.user.username)
-    contexte ={
-        "commune" : str(commune),
+    commune = get_object_or_404(Commune, code=request.user.username)
+    contexte = {
+        "commune": str(commune),
         "entities": commune.entity_set.all()
     }
     return render(request, 'home.html', context=contexte)
 
+
+@login_required
+def carte(request):
+    commune = get_object_or_404(Commune, code=request.user.username)
+    contexte = {
+        "commune": str(commune),
+        "entities": commune.entity_set.all()
+    }
+    return render(request, 'carte.html', context=contexte)
+
+
 @login_required
 def get_entity(request, slug):
     commune = get_object_or_404(Commune, code=request.user.username)
-    entity = get_object_or_404(Entity, slug= slug)
-    return render(request, 'detail.html', context={'entity': entity, "commune" : str(commune)})
+    entity = get_object_or_404(Entity, slug=slug)
+    coord = entity.coord
+    if coord is None or len(coord) < 5: entity.coord = "10.7879168;-8.204519"
+    return render(request, 'detail.html', context={'entity': entity, "commune": str(commune)})
 
 
 @login_required
 def get_paiement(request):
     commune = get_object_or_404(Commune, code=request.user.username)
     today = datetime.date.today()
-    year = request.POST.get('year', today.year)
-    month = request.POST.get('month', today.month)
-    status = request.POST.get('month', today.month)
-    clients = Entity.objects.filter(paiement__year=year, paiement__month=month).distinct()
-    context = {'client_pay': clients,
+    clients = []
+    year = today.year
+    month = today.month
+    status = 0
+    if request.method == "POST":
+        year = int(request.POST.get('year', today.year))
+        month = int(request.POST.get('month', today.month))
+        status = int(request.POST.get('status', 0))
+        if status > 0:
+            clients = Entity.objects.filter(paiement__year=year, paiement__month=month).distinct()
+        else:
+            clients = Entity.objects.exclude(paiement__year=year, paiement__month=month)
+    title = "Liste des defauts de paiements : " + str(settings.MONTH[month-1]) + " - " + str(year)
+    if status > 0: title = "Liste des paiements :  " + str(settings.MONTH[month-1]) + " - " + str(year)
+    context = { 'months' : settings.MONTH,
+                'entity': clients,
+               'title': title,
                'commune': commune,
                'year': year,
                'month': month,
-               'client_not_pay': clients}
+               'status': status}
+    print(list(request.POST.items())) # [('fruits', 'apple'), ('meat', 'beef')]
+
     return render(request, 'paiement.html', context=context)
 
+
 @login_required
-def insert_data(request ):
+def insert_data(request):
     df = pd.read_excel("data.xlsx")
     df.fillna('--', inplace=True)
+
     def insert_row(row):
         try:
             entity = Entity()

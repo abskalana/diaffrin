@@ -72,7 +72,7 @@ TEMPLATES = [
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
+__DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',  # Add 'Lookgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'db_kolenda',  # Or path to database file if using sqlite3.
@@ -83,12 +83,14 @@ DATABASES = {
     }
 }
 
-__DATABASES = {
+DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": "mydatabase",
     }
 }
+
+MONTH= ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin','Juillet', 'Août', 'Octobre', 'Novembre', 'Décembre']
 # Kalanaka1212$
 
 # Password validation

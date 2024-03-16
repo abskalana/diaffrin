@@ -1,0 +1,56 @@
+{% extends 'parent.html' %}
+
+{% block content %}
+
+
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <br>
+<h4>Cartographies des commerces et services de la commune</h4>
+<br>
+        <div id="map2" class="map"></div>
+    </div>
+    <div class="col-md-1"></div>
+</div>
+
+<br><br><br><br><br>
+{% endblock %}
+
+
+{% block script %}
+<script async type="text/javascript">
+		var points = []
+         {% for ville in entities %}
+        data = {}
+        points['coord'] = "{{ville.coord}}"
+        points['label'] = "{{ville.get_display_name}}"
+        points.push(data)
+        {% endfor %}
+
+		var lat = 10.7879168
+		var lon = -8.204519
+		var map2 = null;
+		function initMap2() {
+				map2 = new google.maps.Map(document.getElementById("map2"), {
+					center: new google.maps.LatLng(lat, lon),
+					zoom: 14
+				});
+
+				for (var i = 0; i < points.length; i++){
+                   var coord = points[i]["coord"].coord.split(",");
+                   new google.maps.Marker({
+                    position: new google.maps.LatLng(parseFloat(coord[0]),parseFloat(coord[1])),
+                    map2,
+                    title: points[i]["label"],
+                });
+                }
+
+		};
+		window.onload = function(){
+				initMap2();
+		}
+
+</script>
+
+{% endblock %}
