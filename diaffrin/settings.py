@@ -99,31 +99,36 @@ __DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        "OPTIONS": {
+                    "min_length": 6,
+                },
     },
 ]
 
+
 WSGI_APPLICATION = 'diaffrin.wsgi.application'
 STATIC_URL = 'static/'
-STATIC_ROOT = "/var/www/diaffrin/kolenda/static/"
+STATIC_ROOT = "/var/www/kolenda/diaffrin/static"
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
-STATIC_URL = 'static/'
 
+# Password validation
+# https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
+
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        "OPTIONS": {
+                    "min_length": 6,
+                },
+    },
+]
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'fr-fr'
+LANGUAGE_CODE = 'fr-FR'
 
 TIME_ZONE = 'UTC'
 
@@ -135,9 +140,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# Default primary key field type
+# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
+LOGIN_REDIRECT_URL ='/'
+LOGOUT_REDIRECT_URL = '/'
