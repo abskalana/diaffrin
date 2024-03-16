@@ -4,46 +4,54 @@
 <div class="row">
     <div class="col-md-4"></div>
     <div class="col-md-4">
-<form method="post" action="/paiement">
-    <div class="form-group">
-        <label for="year">Année</label>
-        <input type="number" class="form-control" id="year" value="{{year}}">
+        <form method="post" action="{% url 'paiement_list'%}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="year">Année</label>
+                <input type="number" class="form-control" id="year" name="year" value="{{year}}">
+            </div>
+            <div class="form-group">
+                <label for="month">Mois</label>
+                <select class="form-control" id="month" name="month">
+
+                    {% for mm in months %}
+                    {% if forloop.counter == month %}
+                        <option value="{{forloop.counter}}" selected>{{mm}}</option>
+                    {% else  %}
+                        <option value="{{forloop.counter}}">{{mm}}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <br><br>
+            {% if status == 0 %}
+            <div class="form-check form-check-inline w-100">
+                <input class="form-check-input" type="radio" name="status" value="0" checked>
+                <label class="form-check-label"  >Non payé</label></div>
+                <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="status" value="1">
+                    <label class="form-check-label" >Payé</label></div>
+            {% else  %}
+            <div class="form-check form-check-inline w-100">
+                <input class="form-check-input" type="radio" name="status"  value="0">
+                <label class="form-check-label"  >Non payé</label></div>
+                <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="status" value="1" checked>
+                    <label class="form-check-label">Payé</label></div>
+            {% endif %}
+            <br><br>
+             <input type="submit" name="submit" class="btn btn-primary btn-lg w-100" value="Evaluer">
+        </form>
     </div>
-    <div class="form-group">
-        <label for="month">Mois</label>
-        <select class="form-control" id="month">
-            <option value="01">Janvier</option>
-            <option value="02">Fevrier</option>
-            <option value="03">Mars</option>
-            <option value="04">Avril</option>
-            <option value="05">Mai</option>
-            <option value="06">Juin</option>
-            <option value="07">Juillet</option>
-            <option value="08">Aout</option>
-            <option value="09">Septembre</option>
-            <option value="10">Octobre</option>
-            <option value="11">Novembre</option>
-            <option value="12">Decembre</option>
-        </select>
-    </div>
-<br>
-   <div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" id="inlineCheckbox1" value="0">
-  <label class="form-check-label" for="inlineCheckbox1">Non payé</label>
+    <div class="col-md-4"></div>
 </div>
-<div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" id="inlineCheckbox2" value="1">
-  <label class="form-check-label" for="inlineCheckbox2">Payé</label>
-</div>
-    <br><br>
-    <button type="button" class="btn btn-primary btn-block w-100">Primary</button>
-</form>
-    </div>
-    <div class="col-md-4"></div></div>
 <br><br><br>
 <div class="row">
     <div class="col-md-2"></div>
-        <div class="col-md-8">
+    <div class="col-md-8">
+        <br>
+        <h4>{{title}}</h4>
+        <br>
         <table class="table">
             <thead class="thead-dark">
             <tr>
@@ -69,12 +77,12 @@
                 <td>{{entity.porte}}</td>
                 <td>20</td>
                 <td>{{entity.status}}</td>
-                 <td ><a href="{{entity.get_absolute_url }}"> Detail </a></td>
+                <td><a href="{{entity.get_absolute_url }}"> Detail </a></td>
             </tr>
             {% endfor %}
             </tbody>
         </table>
-        </div>
+    </div>
     <div class="col-md-2"></div>
 
 </div>
