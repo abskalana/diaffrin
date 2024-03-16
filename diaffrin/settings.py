@@ -12,10 +12,10 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-TEMPLATE_DIR = os.path.join(BASE_DIR,"templates")
-
+TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -26,9 +26,7 @@ SECRET_KEY = 'django-insecure-)l#ml$cj&c7q6_$bbpf0v4k)y^e!)0f!*&1835q%2zm^^!v5#m
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['143.110.229.43', 'kolenda.fr','www.kolenda.fr', '127.0.0.1']
-
-
+ALLOWED_HOSTS = ['143.110.229.43', 'kolenda.fr', 'www.kolenda.fr', '127.0.0.1']
 
 # Application definition
 
@@ -71,7 +69,6 @@ TEMPLATES = [
     },
 ]
 
-
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
@@ -92,7 +89,7 @@ __DATABASES = {
         "NAME": "mydatabase",
     }
 }
-#Kalanaka1212$
+# Kalanaka1212$
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -101,11 +98,10 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
         "OPTIONS": {
-                    "min_length": 6,
-                },
+            "min_length": 6,
+        },
     },
 ]
-
 
 WSGI_APPLICATION = 'diaffrin.wsgi.application'
 STATIC_URL = 'static/'
@@ -120,8 +116,8 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
         "OPTIONS": {
-                    "min_length": 6,
-                },
+            "min_length": 6,
+        },
     },
 ]
 
@@ -144,5 +140,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-LOGIN_REDIRECT_URL ='/'
+LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
