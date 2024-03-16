@@ -9,7 +9,7 @@
         <br>
 <h4>Cartographies des commerces et services de la commune</h4>
 <br>
-        <div id="map2" class="map"></div>
+        <div id="map" class="map"></div>
     </div>
     <div class="col-md-1"></div>
 </div>
@@ -30,9 +30,9 @@
 
 		var lat = 10.7879168
 		var lon = -8.204519
-		var map2 = null;
-		function initMap2() {
-				map2 = new google.maps.Map(document.getElementById("map2"), {
+		var map = null;
+		function initMap() {
+				map = new google.maps.Map(document.getElementById("map"), {
 					center: new google.maps.LatLng(lat, lon),
 					zoom: 14
 				});
@@ -41,14 +41,14 @@
                    var coord = points[i]["coord"].coord.split(",");
                    new google.maps.Marker({
                     position: new google.maps.LatLng(parseFloat(coord[0]),parseFloat(coord[1])),
-                    map2,
+                    map,
                     title: points[i]["label"],
                 });
                 }
 
 		};
 		window.onload = function(){
-				initMap2();
+				initMap();
 		}
 
 </script>
