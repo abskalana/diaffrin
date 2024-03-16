@@ -12,10 +12,10 @@ class Commune(models.Model):
     city = models.CharField(max_length=50)
 
     def __str__(self):
-        return str(self.code) + " - " + self.name
+        return str(self.code).upper() + " - " + self.name
 
     def __repr__(self):
-        return str(self.code) + " - " + self.name
+        return str(self.code).upper() + " - " + self.name
 
 
 class Entity(models.Model):
