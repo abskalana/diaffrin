@@ -1,3 +1,6 @@
+import uuid
+
+import pandas as pd
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 from diaffrin_api.models import Commune, Entity
@@ -30,3 +33,34 @@ def get_paiement(request):
                'month': month,
                'client_not_pay': clients}
     return render(request, 'paiement.html', context=context)
+
+
+def insert_data(request ):
+    df = pd.read_excel("data.xlsx")
+    df.fillna('--', inplace=True)
+    def insert_row(row):
+        try:
+            entity = Entity()
+            entity.slug = str(uuid.uuid4().hex)
+            entity.city = row['ville'].lower()
+            entity.locality = row['locality']
+            entity.activity = row["activity"]
+            entity.property = row["property"]
+            entity.contact_name = row["contact_name"]
+            entity.contact_phone = row["contact_phone"]
+            entity.porte = row["porte"]
+            entity.coord = row["coord"]
+            entity.status = row["status"]
+            entity.commune_id = "ml150202"
+            entity.save()
+
+        except Exception as e:
+            print(e)
+
+    i = 0
+    for index, row in df.iterrows():
+        insert_row(row)
+        print(i)
+        i = i + 1
+
+    return render(request, 'paiement.html')

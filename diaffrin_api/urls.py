@@ -4,10 +4,11 @@ from django.urls import path, re_path
 from django.views.generic.base import RedirectView
 from django.views.static import serve
 
-favicon_view = RedirectView.as_view(url='/static/images/favicon.ico', permanent=True)
+favicon_view = RedirectView.as_view(url='../static/images/favicon.ico', permanent=True)
 
 urlpatterns = [
     path("", views.home, name="home"),
+    path("insert/", views.insert_data, name="insert"),
     path('entity/<slug:slug>/', views.get_entity, name="entity_detail"),
     path('paiement/', views.get_paiement, name="paiement_list"),
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),

@@ -18,9 +18,9 @@
     <meta property="og:site_name" content="kolenda.fr"/>
     <script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
     <script src="{% static 'js/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'js/multifilter.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    {% block parent_head %}
     <title>Kolenda, Service de gestion des taxes pour les collectivités</title>
     <link href="{% static 'css/main.css' %}" type="text/css" rel="stylesheet"/>
 </head>
@@ -62,10 +62,6 @@
 </div>
 
 
-{% block parent_script %}
-
-
-{% endblock %}
 
 <script async type="text/javascript">
 		var lat = 48.852969;

@@ -1,9 +1,30 @@
 {% extends 'parent.html' %}
 
 {% block content %}
+
+
 <br>
 <h4>Listes des commerces et services de la commune</h4>
 <br>
+
+<div class='container'>
+<div class='filters'>
+<div class='filter-container'>
+<input autocomplete='off' class='filter' name='name' placeholder='name' data-col='name'/>
+</div>
+<div class='filter-container'>
+<input autocomplete='off' class='filter' name='drink' placeholder='drink' data-col='drink'/>
+</div>
+<div class='filter-container'>
+<input autocomplete='off' class='filter' name='pizza' placeholder='pizza' data-col='pizza'/>
+</div>
+<div class='filter-container'>
+<input autocomplete='off' class='filter' name='movie' placeholder='movie' data-col='movie'/>
+</div>
+<div class='clearfix'></div>
+</div>
+</div>
+<div class='container'>
 <table class="table table-striped">
     <thead class="thead-dark">
     <tr>
@@ -32,4 +53,10 @@
     {% endfor %}
     </tbody>
 </table>
+</div>
+<script type='text/javascript'>
+$(document).ready(function() {
+$('.filter').multifilter()
+})
+</script>
 {% endblock %}
