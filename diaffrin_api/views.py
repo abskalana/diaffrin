@@ -51,7 +51,7 @@ def get_paiement(request):
         month = int(request.POST.get('month', today.month))
         status = int(request.POST.get('status', 0))
         if status > 0:
-            clients = Entity.objects.filter(paiement__year=year, paiement__month=month)
+            clients = Entity.objects.all()
         else:
             clients = Entity.objects.all()
     title = "Liste des defauts de paiements : " + str(settings.MONTH[month-1]) + " - " + str(year)
