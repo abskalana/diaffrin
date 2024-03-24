@@ -52,10 +52,10 @@ def get_paiement(request):
         status = int(request.POST.get('status', 0))
         if status > 0:
             clients = Entity.objects.filter(paiement__year=year, paiement__month=month)
+            title = "Liste des paiements :  " + str(settings.MONTH[month - 1]) + " - " + str(year)
         else:
-            clients = Entity.objects.all(paiement__year=year, paiement__month=month)
-    title = "Liste des defauts de paiements : " + str(settings.MONTH[month-1]) + " - " + str(year)
-    if status > 0: title = "Liste des paiements :  " + str(settings.MONTH[month-1]) + " - " + str(year)
+            clients = Entity.objects.exclude(paiement__year=year, paiement__month=month)
+            title = "Liste des defauts de paiements : " + str(settings.MONTH[month - 1]) + " - " + str(year)
     context = { 'months' : settings.MONTH,
                 'entity': clients,
                'title': title,
@@ -63,8 +63,6 @@ def get_paiement(request):
                'year': year,
                'month': month,
                'status': status}
-    print(list(request.POST.items())) # [('fruits', 'apple'), ('meat', 'beef')]
-
     return render(request, 'paiement.html', context=context)
 
 
