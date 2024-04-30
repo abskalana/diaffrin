@@ -45,6 +45,7 @@ def get_paiement(request):
     clients = []
     year = today.year
     month = today.month
+    title = "Liste des paiements :  " + str(settings.MONTH[month - 1]) + " - " + str(year)
     status = 0
     if request.method == "POST":
         year = int(request.POST.get('year', today.year))
