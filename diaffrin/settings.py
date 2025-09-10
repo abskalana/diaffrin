@@ -107,8 +107,9 @@ AUTH_PASSWORD_VALIDATORS = [
 
 WSGI_APPLICATION = 'diaffrin.wsgi.application'
 STATIC_URL = 'static/'
-STATIC_ROOT = "/var/www/kolenda/diaffrin/static"
+STATIC_ROOT = "/var/www/kalana/diaffrin/static/"
 MEDIA_URL = '/media/'
+MEDIA_ROOT = '/var/www/kalana/diaffrin/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 # Password validation
