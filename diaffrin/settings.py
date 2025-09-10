@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-)l#ml$cj&c7q6_$bbpf0v4k)y^e!)0f!*&1835q%2zm^^!v5#m
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['143.110.229.43', 'kolenda.fr', 'www.kolenda.fr', '127.0.0.1']
+ALLOWED_HOSTS = ['164.90.195.28', 'kolenda.fr', 'www.kolenda.fr', '127.0.0.1']
 
 # Application definition
 
@@ -76,8 +76,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',  # Add 'Lookgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'db_kolenda',  # Or path to database file if using sqlite3.
-        'USER': 'finsharehub',  # Not used with sqlite3.
-        'PASSWORD': 'finsharehub$',  # Not used with sqlite3.
+        'USER': 'root',  # Not used with sqlite3.
+        'PASSWORD': 'KalanaKa@1212s',  # Not used with sqlite3.
         'HOST': '127.0.0.1',  # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '3306',  # Set to empty string for default. Not used with sqlite3.
     }
