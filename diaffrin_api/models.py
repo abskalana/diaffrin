@@ -39,7 +39,7 @@ class Entity(models.Model):
     paiement_status = models.CharField(max_length=20)
     status = models.CharField(max_length=20,default="OUVERT")
     meta_user = models.CharField(max_length=20, default="user")
-    meta_created = models.DateTimeField(auto_now_add=True,default=timezone.now)
+    meta_created = models.DateTimeField(default=timezone.now)
     commune = models.ForeignKey(Commune, on_delete=models.CASCADE)
 
     def get_absolute_url(self):
