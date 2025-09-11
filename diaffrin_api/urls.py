@@ -5,7 +5,7 @@ from django.views.static import serve
 from diaffrin import settings
 from . import views
 
-from serializer import EntityBulkCreateView
+from .serializer import EntityBulkCreateView
 
 favicon_view = RedirectView.as_view(url='../static/images/favicon.ico', permanent=True)
 
