@@ -12,9 +12,11 @@
         <th scope="col">Place</th>
         <th scope="col">Secteur</th>
         <th scope="col">Propriété</th>
+        <th scope="col">Type</th>
         <th scope="col">Nom et prénom</th>
         <th scope="col">Phone</th>
-        <th scope="col">Porte</th>
+        <th scope="col">#Porte</th>
+        <th scope="col">#Montant</th>
         <th scope="col">Status</th>
         <th scope="col">Detail</th>
     </tr>
@@ -26,9 +28,11 @@
         <td>{{entity.locality}}</td>
         <td>{{entity.activity}}</td>
         <td>{{entity.property}}</td>
+        <td>{{entity.typeproperty}}</td>
         <td>{{entity.contact_name}}</td>
         <td>{{entity.contact_phone}}</td>
         <td>{{entity.porte}}</td>
+        <td>{{entity.montant}}</td>
         <td>{{entity.status}}</td>
         <td ><a href="{{entity.get_absolute_url }}"> Detail </a></td>
     </tr>
