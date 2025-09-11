@@ -36,7 +36,7 @@ class Entity(models.Model):
     porte = models.IntegerField(default=1)
     montant = models.IntegerField(default=1)
     coord = models.CharField(max_length=100)
-    paiement_status = models.CharField(max_length=20)
+    paiement_status = models.CharField(max_length=20,default="PAYEE")
     status = models.CharField(max_length=20,default="OUVERT")
     meta_user = models.CharField(max_length=20, default="user")
     meta_created = models.DateTimeField(default=timezone.now)
