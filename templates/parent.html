@@ -38,9 +38,7 @@
       <li class="nav-item active">
         <a class="nav-link" href="{% url 'entity_carte'%}">Carte <span class="sr-only"> </span></a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link"  href="{% url 'paiement_list'%}">Paiement</a>
-      </li>
+
         <li>
                 <form method="post" action="{% url 'logout' %}">
                     {% csrf_token %}

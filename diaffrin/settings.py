@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-)l#ml$cj&c7q6_$bbpf0v4k)y^e!)0f!*&1835q%2zm^^!v5#m
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['164.90.195.28', 'kolenda.fr', 'www.kolenda.fr', '127.0.0.1']
+ALLOWED_HOSTS = ['164.90.195.28', 'www.siguidataxe.com', 'siguidataxe.com', '127.0.0.1']
 
 # Application definition
 
