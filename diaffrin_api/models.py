@@ -19,6 +19,15 @@ class Commune(models.Model):
     def __repr__(self):
         return str(self.code).upper() + " - " + self.name
 
+class Personnel(models.Model):
+    code = models.CharField(primary_key=True, max_length=12)
+    name = models.CharField(max_length=50)
+    prenom = models.CharField(max_length=30)
+    phone = models.CharField(max_length=30)
+    password = models.CharField(max_length=50)
+    status = models.IntegerField(default=0)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
 
 class Entity(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)

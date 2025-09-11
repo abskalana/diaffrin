@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 
 from diaffrin import settings
-from diaffrin_api.models import Commune, Entity
+from diaffrin_api.models import Commune, Entity,Personnel
 
 
 @login_required
@@ -17,6 +17,21 @@ def home(request):
         "entities": commune.entity_set.all()
     }
     return render(request, 'home.html', context=contexte)
+
+@csrf_exempt
+def login_view(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body.decode("utf-8"))
+            username = data.get("username")
+            password = data.get("password")
+            employer = Personnel.objects.get(code=username, password=password, status=0)
+            return JsonResponse({"status": 0})
+
+
+        except Exception as e:
+            return JsonResponse({"status": -1})
+    return JsonResponse({"status": -1})
 
 
 @login_required
