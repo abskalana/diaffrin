@@ -45,17 +45,3 @@ class Entity(models.Model):
 
     def get_display_name(self):
         return self.activity + " - "+ self.contact_name
-
-
-class Paiement(models.Model):
-    uuid = models.CharField(unique=True, max_length=120)
-    value = models.IntegerField(default=0)
-    year = models.IntegerField(default=2024)
-    month = models.IntegerField(default=-1)
-    date_pai = models.DateTimeField(auto_now_add=True)
-    entity = models.ForeignKey(Entity, on_delete=models.CASCADE)
-    commune = models.ForeignKey(Commune, on_delete=models.CASCADE)
-    coord = models.CharField(max_length=100)
-
-    class Meta:
-        ordering = ["year", "month"]

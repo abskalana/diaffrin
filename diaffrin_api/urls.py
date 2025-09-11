@@ -12,7 +12,6 @@ urlpatterns = [
     path("insert/", views.insert_data, name="insert"),
     path('entity/<slug:slug>/', views.get_entity, name="entity_detail"),
     path('carte/', views.carte, name="entity_carte"),
-    path('paiement/', views.get_paiement, name="paiement_list"),
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
     re_path(r'^favicon\.ico$', favicon_view),
