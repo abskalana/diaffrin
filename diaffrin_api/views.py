@@ -7,6 +7,8 @@ from django.shortcuts import render, get_object_or_404
 
 from diaffrin import settings
 from diaffrin_api.models import Commune, Entity,Personnel
+from django.views.decorators.csrf import csrf_exempt
+
 
 
 @login_required
