@@ -30,12 +30,12 @@ def login_view(request):
             username = data.get("username")
             password = data.get("password")
             employer = Personnel.objects.get(code=username, password=password, status=0)
-            return JsonResponse({"status": 0})
+            return HttpResponse("true", content_type="text/plain")
 
 
         except Exception as e:
-            return JsonResponse({"status": -1})
-    return JsonResponse({"status": -1})
+            return HttpResponse("false", content_type="text/plain")
+    return return HttpResponse("false", content_type="text/plain")
 
 
 @login_required
