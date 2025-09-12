@@ -10,6 +10,8 @@ from diaffrin_api.models import Commune, Entity,Personnel
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.http import HttpResponse
+import json
+
 
 
 
