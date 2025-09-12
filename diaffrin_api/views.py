@@ -31,16 +31,16 @@ def login_view(request):
     data =""
     if request.method == "POST":
         try:
-            data = json.loads(request.body.decode("utf-8"))
-            username = data.get("username")
-            password = data.get("password")
+
+            username = request.POST.get("username")
+            password = request.POST.get("password")
             employer = Personnel.objects.get(code=username, password=password, status=0)
             return HttpResponse("true", content_type="text/plain")
 
 
         except Exception as e:
-            return HttpResponse(str(data), content_type="text/plain")
-    return  HttpResponse(data, content_type="text/plain")
+            return HttpResponse(str(e), content_type="text/plain")
+    return  HttpResponse("false", content_type="text/plain")
 
 
 @login_required
