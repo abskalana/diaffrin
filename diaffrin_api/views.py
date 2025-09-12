@@ -28,6 +28,7 @@ def home(request):
 
 @csrf_exempt
 def login_view(request):
+    data =""
     if request.method == "POST":
         try:
             data = json.loads(request.body.decode("utf-8"))
