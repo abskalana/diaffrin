@@ -11,6 +11,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.http import HttpResponse
 import json
+from django.shortcuts import get_object_or_404
+
 
 
 
@@ -28,18 +30,17 @@ def home(request):
 
 @csrf_exempt
 def login_view(request):
-    data =""
     if request.method == "POST":
         try:
 
             username = request.POST.get("username")
             password = request.POST.get("password")
-            employer = Personnel.objects.get(code=username, password=password, status=0)
+            employer = get_object_or_404(Personnel, id=username)
             return HttpResponse("true", content_type="text/plain")
 
 
         except Exception as e:
-            return HttpResponse(str(username)+password, content_type="text/plain")
+            return HttpResponse(str(e), content_type="text/plain")
     return  HttpResponse("false", content_type="text/plain")
 
 

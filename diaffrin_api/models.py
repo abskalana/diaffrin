@@ -21,7 +21,7 @@ class Commune(models.Model):
         return str(self.code).upper() + " - " + self.name
 
 class Personnel(models.Model):
-    code = models.CharField(primary_key=True, max_length=12)
+    id = models.CharField(primary_key=True, max_length=12)
     name = models.CharField(max_length=50)
     prenom = models.CharField(max_length=30)
     phone = models.CharField(max_length=30)
