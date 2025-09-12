@@ -13,7 +13,7 @@ urlpatterns = [
     path("", views.home, name="home"),
     path('entity/<slug:slug>/', views.get_entity, name="entity_detail"),
     path('carte/', views.carte, name="entity_carte"),
-    path('/api/mobileauth/', views.login_view, name="mobileauth"),
+    path('/api/mobileauth', views.login_view, name="mobileauth"),
     path('entity/create/', EntityBulkCreateView.as_view(), name='entity-create'),
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
