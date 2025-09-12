@@ -39,7 +39,7 @@ def login_view(request):
 
 
         except Exception as e:
-            return HttpResponse(str(e), content_type="text/plain")
+            return HttpResponse(str(username)+password, content_type="text/plain")
     return  HttpResponse("false", content_type="text/plain")
 
 
