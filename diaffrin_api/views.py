@@ -30,12 +30,17 @@ def home(request):
 
 @csrf_exempt
 def login_view(request):
-    if request.method == "POST":
-            username = request.POST.get("username")
-            password = request.POST.get("password")
-            employer = get_object_or_404(Personnel, id=username)
-            if employer.password == password:
-                return HttpResponse("true", content_type="text/plain")
+    username = ""
+    password = ""
+    if request.method == "GET":
+         username = request.GET.get("username")
+         password = request.GET.get("password")
+    else:
+         username = request.POST.get("username")
+         password = request.POST.get("password")
+    employer = get_object_or_404(Personnel, id=username)
+    if employer.password == password:
+          return HttpResponse("true", content_type="text/plain")
     return  HttpResponse("false", content_type="text/plain")
 
 
