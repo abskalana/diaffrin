@@ -31,16 +31,10 @@ def home(request):
 @csrf_exempt
 def login_view(request):
     if request.method == "POST":
-        try:
-
             username = request.POST.get("username")
             password = request.POST.get("password")
             employer = get_object_or_404(Personnel, id=username)
             return HttpResponse("true", content_type="text/plain")
-
-
-        except Exception as e:
-            return HttpResponse(str(e), content_type="text/plain")
     return  HttpResponse("false", content_type="text/plain")
 
 
