@@ -33,8 +33,8 @@ def login_view(request):
     if request.method == "POST":
             username = request.POST.get("username")
             password = request.POST.get("password")
-            employer = get_object_or_404(Personnel, id=username)
-            return HttpResponse("true", content_type="text/plain")
+            #employer = get_object_or_404(Personnel, id=username)
+            return HttpResponse(username+password, content_type="text/plain")
     return  HttpResponse("false", content_type="text/plain")
 
 
