@@ -38,8 +38,8 @@ def login_view(request):
 
 
         except Exception as e:
-            return HttpResponse(str(e), content_type="text/plain")
-    return  HttpResponse("false", content_type="text/plain")
+            return HttpResponse(str(data), content_type="text/plain")
+    return  HttpResponse(data, content_type="text/plain")
 
 
 @login_required
