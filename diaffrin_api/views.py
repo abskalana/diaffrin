@@ -59,7 +59,7 @@ def mouvement_list(request):
         mouvements = mouvements.filter(source=source)
 
     # transmettre aussi les valeurs actuelles pour préremplir le formulaire
-    somme_total = mouvements.aggregate(Sum("total"))["total__sum"] or 0
+    somme_total = sum(m.total for m in mouvements)
 
     context = {
         "mouvements": mouvements,
