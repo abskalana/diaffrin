@@ -59,6 +59,8 @@ def mouvement_list(request):
         mouvements = mouvements.filter(source=source)
 
     # transmettre aussi les valeurs actuelles pour préremplir le formulaire
+    somme_total = mouvements.aggregate(Sum("total"))["total__sum"] or 0
+
     context = {
         "mouvements": mouvements,
         "mois_selected": mois,
@@ -69,6 +71,7 @@ def mouvement_list(request):
         "SENS_CHOICES": SENS_CHOICES,
         "NATURE_CHOICES": NATURE_CHOICES,
         "SOURCE_CHOICES": SOURCE_CHOICES,
+        'total':somme_total,
     }
     return render(request, "mouvement_list.html", context)
 @login_required
