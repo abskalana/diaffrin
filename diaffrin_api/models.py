@@ -51,16 +51,7 @@ class Entity(models.Model):
     meta_created = models.DateTimeField(default=timezone.now)
     commune = models.ForeignKey(Commune, on_delete=models.CASCADE)
 
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            base_slug = slugify(str(self.contact_phone) + str(self.entity_phone))
-            slug_candidate = base_slug
-            num = 1
-            while Entity.objects.filter(slug=slug_candidate).exists():
-                slug_candidate = f"{base_slug}-{num}"
-                num += 1
-            self.slug = slug_candidate
-        super().save(*args, **kwargs)
+
 
     def get_absolute_url(self):
         return reverse("entity_detail", kwargs={"slug": self.slug})
