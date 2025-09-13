@@ -157,3 +157,11 @@ class Mouvement(models.Model):
     date_created = models.DateTimeField(default=timezone.now)
     commune = models.ForeignKey(Commune, on_delete=models.CASCADE,default="150202")
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def save(self, *args, **kwargs):
+        if self.sens.lower() == "sortie":
+            self.montant = -abs(self.montant)
+        elif self.sens.lower() == "entree":
+            self.montant = abs(self.montant)
+        self.total = self.montant*self.quantite
+        super().save(*args, **kwargs)

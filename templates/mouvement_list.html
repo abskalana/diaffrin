@@ -71,7 +71,6 @@
                     <th>Quantité</th>
                     <th>Montant</th>
                     <th>Total</th>
-                    <th>Description</th>
                     <th>Commentaire</th>
                     <th>Utilisateur</th>
                 </tr>
@@ -79,7 +78,7 @@
             <tbody>
                 {% for m in mouvements %}
                 <tr>
-                    <td>{{ m.date|date:"d/m/Y H:i" }}</td>
+                    <td>{{ m.date|date:"d/m/Y" }}</td>
                     <td>{{ m.mois }}</td>
                     <td>{{ m.annee }}</td>
                     <td>{{ m.commune }}</td>
@@ -92,7 +91,6 @@
                     <td>{{ m.quantite }}</td>
                     <td>{{ m.montant }}</td>
                     <td>{{ m.total }}</td>
-                    <td>{{ m.description }}</td>
                     <td>{{ m.commentaire }}</td>
                     <td>{{ m.user.username }}</td>
                 </tr>
