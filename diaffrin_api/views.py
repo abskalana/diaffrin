@@ -14,15 +14,9 @@ import json
 from django.shortcuts import get_object_or_404
 
 
-
-
-
-
-
-
 @login_required
 def home(request):
-    commune = get_object_or_404(Commune, code=request.user.username.lower())
+    commune = get_object_or_404(Commune, code="150202")
     contexte = {
         "commune": str(commune),
         "entities": commune.entity_set.all()
