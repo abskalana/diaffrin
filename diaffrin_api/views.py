@@ -39,15 +39,6 @@ def login_view(request):
     return  HttpResponse("false", content_type="text/plain")
 
 
-@login_required
-def carte(request):
-    commune = get_object_or_404(Commune, code=request.user.username.lower())
-    contexte = {
-        "commune": str(commune),
-        "entities": commune.entity_set.all()
-    }
-    return render(request, 'carte.html', context=contexte)
-
 
 @login_required
 def mouvement_list(request):
