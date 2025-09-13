@@ -10,48 +10,55 @@
     <a  class="btn btn-primary mb-3"> TOTAL : {{total}} FCFA</a>
 
     <!-- Formulaire de filtre -->
-    <form method="get" class="row g-3 mb-4">
-        <div class="col-md-2">
-            <label class="form-label">Mois</label>
-            <select name="mois" class="form-select">
-                <option value="">Tous</option>
-                {% for m in MONTH_CHOICES %}
-                    <option value="{{ m.0 }}" {% if mois_selected == m.0 %}selected{% endif %}>{{ m.1 }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <div class="col-md-2">
-            <label class="form-label">Sens</label>
-            <select name="sens" class="form-select">
-                <option value="">Tous</option>
-                {% for s in SENS_CHOICES %}
-                    <option value="{{ s.0 }}" {% if sens_selected == s.0 %}selected{% endif %}>{{ s.1 }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <div class="col-md-2">
-            <label class="form-label">Nature</label>
-            <select name="nature" class="form-select">
-                <option value="">Tous</option>
-                {% for n in NATURE_CHOICES %}
-                    <option value="{{ n.0 }}" {% if nature_selected == n.0 %}selected{% endif %}>{{ n.1 }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <div class="col-md-2">
-            <label class="form-label">Source</label>
-            <select name="source" class="form-select">
-                <option value="">Tous</option>
-                {% for src in SOURCE_CHOICES %}
-                    <option value="{{ src.0 }}" {% if source_selected == src.0 %}selected{% endif %}>{{ src.1 }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <div class="col-md-2 align-self-end">
-            <button type="submit" class="btn btn-success">Filtrer</button>
-            <a href="{% url 'mouvement_list' %}" class="btn btn-secondary">Réinitialiser</a>
-        </div>
-    </form>
+<form method="get" class="row g-3 mb-4">
+    <div class="col-md-2">
+        <label class="form-label">Année</label>
+        <input type="number" name="annee" class="form-control" value="{{ annee_selected|default:current_year }}">
+    </div>
+    <div class="col-md-2">
+        <label class="form-label">Mois</label>
+        <select name="mois" class="form-select">
+            <option value="">Tous</option>
+            {% for m in MONTH_CHOICES %}
+                <option value="{{ m.0 }}" {% if mois_selected == m.0 %}selected{% endif %}>{{ m.1 }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="col-md-2">
+        <label class="form-label">Sens</label>
+        <select name="sens" class="form-select">
+            <option value="">Tous</option>
+            {% for s in SENS_CHOICES %}
+                <option value="{{ s.0 }}" {% if sens_selected == s.0 %}selected{% endif %}>{{ s.1 }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="col-md-2">
+        <label class="form-label">Nature</label>
+        <select name="nature" class="form-select">
+            <option value="">Tous</option>
+            {% for n in NATURE_CHOICES %}
+                <option value="{{ n.0 }}" {% if nature_selected == n.0 %}selected{% endif %}>{{ n.1 }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="col-md-2">
+        <label class="form-label">Source</label>
+        <select name="source" class="form-select">
+            <option value="">Tous</option>
+            {% for src in SOURCE_CHOICES %}
+                <option value="{{ src.0 }}" {% if source_selected == src.0 %}selected{% endif %}>{{ src.1 }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="col-md-2 align-self-end">
+        <button type="submit" class="btn btn-success">Filtrer</button>
+        <a href="{% url 'mouvement_list' %}" class="btn btn-secondary">Réinitialiser</a>
+         <a href="{% url 'create_mouvement' %}" class="btn btn-primary mb-3">Ajouter une opération</a>
+
+    </div>
+</form>
+
 
     <!-- Tableau des mouvements -->
     <div class="table-responsive">
