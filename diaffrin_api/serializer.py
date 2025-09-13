@@ -25,5 +25,5 @@ class EntityBulkCreateView(APIView):
         serializer = EntitySerializer(data=request.data, many=True)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response("true", status=status.HTTP_201_CREATED)
+        return Response("false", status=status.HTTP_400_BAD_REQUEST)
