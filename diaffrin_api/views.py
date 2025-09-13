@@ -56,25 +56,46 @@ def carte(request):
 
 @login_required
 def mouvement_list(request):
-    commune = get_object_or_404(Commune, code=request.user.username.lower())
-    contexte = {
-        "commune": str(commune),
-        "entities": commune.entity_set.all()
+    mouvements = Mouvement.objects.all().order_by("-date")
+    mois = request.GET.get("mois")
+    sens = request.GET.get("sens")
+    nature = request.GET.get("nature")
+    source = request.GET.get("source")
+
+    if mois:
+        mouvements = mouvements.filter(mois=mois)
+    if sens:
+        mouvements = mouvements.filter(sens=sens)
+    if nature:
+        mouvements = mouvements.filter(nature=nature)
+    if source:
+        mouvements = mouvements.filter(source=source)
+
+    # transmettre aussi les valeurs actuelles pour préremplir le formulaire
+    context = {
+        "mouvements": mouvements,
+        "mois_selected": mois,
+        "sens_selected": sens,
+        "nature_selected": nature,
+        "source_selected": source,
     }
-    return render(request, 'mouvement_list.html', context=contexte)
-
-
-
+    return render(request, "mouvement_list.html", context)
 @login_required
-def mouvement_add(request):
-    commune = get_object_or_404(Commune, code=request.user.username.lower())
-    contexte = {
-        "commune": str(commune),
-        "entities": commune.entity_set.all()
-    }
-    return render(request, 'mouvement_add.html', context=contexte)
+def create_mouvement(request):
+    success_message = None
 
+    if request.method == "POST":
+        form = MouvementForm(request.POST)
+        if form.is_valid():
+            mouvement = form.save(commit=False)
+            mouvement.user = request.user
+            mouvement.save()
+            success_message = "Operations enregistré avec succès !"
+            form = MouvementForm()  # reset le formulaire
+    else:
+        form = MouvementForm()
 
+    return render(request, "mouvement_form.html", {"form": form, "success_message": success_message})
 @login_required
 def get_entity(request, slug):
     commune = get_object_or_404(Commune, code=request.user.username.lower())
