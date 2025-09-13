@@ -14,7 +14,7 @@ class MouvementForm(forms.ModelForm):
             "description", "commentaire"
         ]
         widgets = {
-            "date": forms.DateTimeInput(attrs={"type": "datetime-local", "class": "form-control"}),
+            'date': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
             "mois": forms.Select(attrs={"class": "form-control"}),
             "annee": forms.NumberInput(attrs={"class": "form-control"}),
             "city": forms.Select(attrs={"class": "form-control"}),
