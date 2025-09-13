@@ -11,7 +11,7 @@ class MouvementForm(forms.ModelForm):
         fields = [
             "date", "mois", "annee", "city", "sens", "name", "nature",
             "source", "beneficiaire", "quantite", "montant", "total",
-            "description", "commentaire", "commune", "user"
+            "description", "commentaire"
         ]
         widgets = {
             "date": forms.DateTimeInput(attrs={"type": "datetime-local", "class": "form-control"}),
