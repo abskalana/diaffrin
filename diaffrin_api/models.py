@@ -126,7 +126,7 @@ class Entity(models.Model):
 
 
     def get_absolute_url(self):
-        return reverse("entity_detail", kwargs={"slug": self.slug})
+        return reverse("entity_detail", kwargs={"slug": self.id})
 
     def get_display_name(self):
         return self.activity + " - "+ self.contact_name
