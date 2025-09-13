@@ -82,7 +82,7 @@ def create_mouvement(request):
     else:
         form = MouvementForm()
 
-    return render(request, "mouvement_form.html", {"form": form, "success_message": success_message})
+    return render(request, "mouvement_add.html", {"form": form, "success_message": success_message})
 @login_required
 def get_entity(request, slug):
     commune = get_object_or_404(Commune, code=request.user.username.lower())
