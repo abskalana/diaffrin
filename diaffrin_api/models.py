@@ -3,6 +3,8 @@ from django.urls import reverse
 import uuid
 from django.utils import timezone
 from django.contrib.auth.models import User
+from django.core.validators import MinValueValidator, MaxValueValidator
+import datetime
 
 PLACE_CHOICES = [
         ("KALANA", "Kalana"),

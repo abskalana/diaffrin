@@ -6,12 +6,13 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 
 from diaffrin import settings
-from diaffrin_api.models import Commune, Entity,Personnel
+from diaffrin_api.models import Commune, Entity,Personnel,Mouvement
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.http import HttpResponse
 import json
 from django.shortcuts import get_object_or_404
+
 
 
 
