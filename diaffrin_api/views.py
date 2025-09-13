@@ -13,6 +13,7 @@ from django.http import JsonResponse
 from django.http import HttpResponse
 import json
 from django.shortcuts import get_object_or_404
+import datetime
 
 
 @login_required
@@ -44,10 +45,15 @@ def login_view(request):
 @login_required
 def mouvement_list(request):
     mouvements = Mouvement.objects.all().order_by("-date")
+    current_year = datetime.date.today().year
     mois = request.GET.get("mois")
     sens = request.GET.get("sens")
     nature = request.GET.get("nature")
     source = request.GET.get("source")
+    annee_selected = request.GET.get("annee", "")
+
+    if annee_selected:
+        mouvements = mouvements.filter(mois=mois)
 
     if mois:
         mouvements = mouvements.filter(mois=mois)
@@ -72,6 +78,7 @@ def mouvement_list(request):
         "NATURE_CHOICES": NATURE_CHOICES,
         "SOURCE_CHOICES": SOURCE_CHOICES,
         'total':somme_total,
+        "current_year": current_year,
     }
     return render(request, "mouvement_list.html", context)
 @login_required
