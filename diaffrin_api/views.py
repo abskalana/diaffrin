@@ -65,6 +65,10 @@ def mouvement_list(request):
         "sens_selected": sens,
         "nature_selected": nature,
         "source_selected": source,
+        "MONTH_CHOICES": Mouvement.MONTH_CHOICES,
+        "SENS_CHOICES": Mouvement.SENS_CHOICES,
+        "NATURE_CHOICES": Mouvement.NATURE_CHOICES,
+        "SOURCE_CHOICES": Mouvement.SOURCE_CHOICES,
     }
     return render(request, "mouvement_list.html", context)
 @login_required
