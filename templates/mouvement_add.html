@@ -4,8 +4,8 @@
 
 <div class="container">
 <div class="row">
-<div class="col-md-2"></div>
- <div class="col-md-6">
+<div class="col-md-4"></div>
+ <div class="col-md-5">
 
 <h2>Déclarer des opérations</h2>
 <br>
@@ -16,10 +16,9 @@
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}   <!-- simple, déjà stylé par les widgets -->
-        <button type="submit" class="btn btn-primary mt-3">Enregistrer</button>
+        <button type="submit" class="btn btn-primary mt-3 w-100">Enregistrer</button>
     </form>
 
-    <a href="{% url 'mouvement_list' %}" class="btn btn-secondary mt-3">Voir la liste des operations</a>
 </div>
  <div class="col-md-2"></div></div></div>
 {% endblock %}
