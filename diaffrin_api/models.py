@@ -135,7 +135,7 @@ class Entity(models.Model):
 
 class Mouvement(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    date = models.DateTimeField(default=timezone.now)
+    date = models.DateField(default=timezone.now)
     mois = models.CharField(max_length=50, choices=MONTH_CHOICES)
     annee = models.IntegerField(
         validators=[
