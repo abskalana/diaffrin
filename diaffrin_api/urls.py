@@ -10,7 +10,7 @@ from .serializer import EntityBulkCreateView
 favicon_view = RedirectView.as_view(url='../static/images/favicon.ico', permanent=True)
 
 urlpatterns = [
-    path("", views.home, name="home"),
+    path("", views.mouvement_list, name="home"),
     path('entity/<slug:slug>/', views.get_entity, name="entity_detail"),
     path('operations/add/', views.create_mouvement, name="mouvement_add"),
     path('operations/list/', views.mouvement_list, name="mouvement_list"),
