@@ -1,0 +1,51 @@
+{% extends 'parent.html' %}
+
+{% block content %}
+<br>
+<h4>Listes des commerces et services de la commune</h4>
+<br>
+
+<table class="table table-striped">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">Ville</th>
+        <th scope="col">Place</th>
+        <th scope="col">Activité</th>
+        <th scope="col">Propriété</th>
+        <th scope="col">Type</th>
+        <th scope="col">Nom</th>
+        <th scope="col">Prénom</th>
+        <th scope="col">Phone</th>
+        <th scope="col">Nom entité</th>
+        <th scope="col">Phone entité</th>
+        <th scope="col">#Porte</th>
+        <th scope="col">#Montant</th>
+        <th scope="col">Paiement</th>
+        <th scope="col">Etat</th>
+        <th scope="col">Detail</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+    <tr>
+        <td>{{entity.city}}</td>
+        <td>{{entity.locality}}</td>
+        <td>{{entity.activity}}</td>
+        <td>{{entity.property}}</td>
+        <td>{{entity.type_property}}</td>
+        <td>{{entity.contact_name}}</td>
+        <td>{{entity.contact_prenom}}</td>
+        <td>{{entity.contact_phone}}</td>
+        <td>{{entity.entity_name}}</td>
+        <td>{{entity.entity_phone}}</td>
+        <td>{{entity.porte}}</td>
+        <td>{{entity.montant}}</td>
+         <td>{{entity.paiement_status}}</td>
+        <td>{{entity.status}}</td>
+        <td ><a href="{{entity.get_absolute_url }}"> Detail </a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}

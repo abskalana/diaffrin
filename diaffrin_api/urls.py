@@ -12,6 +12,8 @@ favicon_view = RedirectView.as_view(url='../static/images/favicon.ico', permanen
 urlpatterns = [
     path("", views.home, name="home"),
     path('entity/<slug:slug>/', views.get_entity, name="entity_detail"),
+    path('operations/add/', views.carte, name="add_mouvement"),
+    path('operations/list/', views.carte, name="mouvement_list"),
     path('carte/', views.carte, name="entity_carte"),
     path('api/mobileauth/', views.login_view, name="mobileauth"),
     path('api/entity/create/', EntityBulkCreateView.as_view(), name='entity-create'),

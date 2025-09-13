@@ -4,6 +4,76 @@ import uuid
 from django.utils import timezone
 from django.contrib.auth.models import User
 
+PLACE_CHOICES = [
+        ("KALANA", "Kalana"),
+        ("NIESSOUMALA", "Niessoumala"),
+        ("TRAORELA", "Traorela"),
+        ("DIABALA", "Diabala"),
+        ("BALANTOUMOU", "Balantoumou"),
+        ("FABOULA", "Faboula"),
+        ("KALAKO", "Kalako"),
+        ("LADJIKOUROULA", "Ladjikouroula"),
+        ("SOLOMANINA", "Solomanina"),
+        ("SADIOUROULA", "Sadiouroula"),
+        ("DAOLILA", "Daolila"),
+        ("DADJOUGOUBALA", "Dadjougoubala"),
+        ("BADA", "Bada"),
+        ("BANDIALA", "Bandiala"),
+        ("BEREBOGOLA", "Bèrèbogola"),
+        ("DABARAN", "Dabaran"),
+        ("DALAGUE", "Dalaguè"),
+        ("DANGOUe", "Dangouè"),
+        ("DIANSIRALA", "Diansirala"),
+        ("HADJILA", "Hadjila"),
+        ("HADJILAMININA", "Hadjilaminina"),
+        ("KONFRA", "Konfra"),
+        ("KOSSIALA", "Kossiala"),
+        ("KOUMBALA", "Koumbala"),
+        ("LEBA", "Lèba"),
+        ("MANDEBALA", "Mandebala"),
+        ("NENEDIANA", "Nènèdiana"),
+        ("NOUNFRA", "Nounfra"),
+        ("SALALA", "Salala"),
+        ("SAMERILA", "Samerila"),
+        ("SOKOROKO", "SôkôrôKô"),
+    ]
+
+MONTH_CHOICES = [
+        ("1", "Janvier"),
+        ("2", "Fevrier"),
+        ("3", "Mars"),
+        ("4", "Avril"),
+        ("5", "Mai"),
+        ("6", "Juin"),
+        ("7", "Juillet"),
+        ("8", "Aout"),
+        ("9", "Septembre"),
+        ("10", "Octobre"),
+        ("11", "Novembre"),
+        ("12", "Decembre"),
+    ]
+
+
+SENS_CHOICES = [
+        ("1", "entree"),
+        ("-1", "sortie"),
+    ]
+
+
+SOURCE_CHOICES = [
+        ("marche", "Marché"),
+        ("commerce", "Commerce"),
+        ("espace", "espace public"),
+        ("tous", "Tous"),
+    ]
+
+
+NATURE_CHOICES = [
+        ("salaire", "salaire"),
+        ("recette", "recette"),
+        ("depense", "depense"),
+        ("achat", "achat materiel"),
+    ]
 
 class Commune(models.Model):
     id = models.CharField(primary_key=True, max_length=12)
@@ -58,3 +128,30 @@ class Entity(models.Model):
 
     def get_display_name(self):
         return self.activity + " - "+ self.contact_name
+
+
+
+class Mouvement(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    date = models.DateTimeField(default=timezone.now)
+    mois = models.CharField(max_length=50, choices=MONTH_CHOICES)
+    annee = models.IntegerField(
+        validators=[
+            MinValueValidator(2024),
+            MaxValueValidator(datetime.date.today().year + 20)
+        ],
+        default=datetime.date.today().year)
+    city = models.CharField(max_length=50, choices=PLACE_CHOICES)
+    sens = models.CharField(max_length=50, choices=SENS_CHOICES)
+    name = models.CharField(max_length=100)
+    nature =  models.CharField(max_length=50, choices=NATURE_CHOICES)
+    source = models.CharField(max_length=50, choices=SOURCE_CHOICES)
+    beneficiaire = models.CharField(max_length=50, choices=SOURCE_CHOICES)
+    quantite = models.IntegerField(default=1)
+    montant = models.IntegerField(default=1)
+    total = models.IntegerField(default=1)
+    description =  models.CharField(max_length=200, blank=True, null=True)
+    commentaire =  models.CharField(max_length=200, blank=True, null=True)
+    date_created = models.DateTimeField(default=timezone.now)
+    commune = models.ForeignKey(Commune, on_delete=models.CASCADE,default="150202")
+    user = models.ForeignKey(User, on_delete=models.CASCADE)

@@ -55,6 +55,27 @@ def carte(request):
 
 
 @login_required
+def mouvement_list(request):
+    commune = get_object_or_404(Commune, code=request.user.username.lower())
+    contexte = {
+        "commune": str(commune),
+        "entities": commune.entity_set.all()
+    }
+    return render(request, 'mouvement_list.html', context=contexte)
+
+
+
+@login_required
+def mouvement_add(request):
+    commune = get_object_or_404(Commune, code=request.user.username.lower())
+    contexte = {
+        "commune": str(commune),
+        "entities": commune.entity_set.all()
+    }
+    return render(request, 'mouvement_add.html', context=contexte)
+
+
+@login_required
 def get_entity(request, slug):
     commune = get_object_or_404(Commune, code=request.user.username.lower())
     entity = get_object_or_404(Entity, slug=slug)

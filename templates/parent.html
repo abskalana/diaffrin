@@ -35,10 +35,13 @@
 
   <div class="collapse navbar-collapse justify-content-end " id="navbarText">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="{% url 'entity_carte'%}">Carte <span class="sr-only"> </span></a>
-      </li>
 
+        <li class="nav-item">
+        <a class="nav-link"  href="{% url 'add_mouvement'%}">Ajouter</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"  href="{% url 'mouvement_list'%}">Operations</a>
+      </li>
         <li>
                 <form method="post" action="{% url 'logout' %}">
                     {% csrf_token %}
