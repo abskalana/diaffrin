@@ -32,7 +32,6 @@ class Personnel(models.Model):
 
 class Entity(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    slug = models.CharField(unique=True, max_length=30)
     city = models.CharField(max_length=30)
     locality = models.CharField(max_length=50, blank=True, null=True)
     activity = models.CharField(max_length=100, blank=True, null=True)
