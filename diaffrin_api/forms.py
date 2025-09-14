@@ -14,7 +14,6 @@ class MouvementForm(forms.ModelForm):
         ]
         widgets = {
             'date': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
-
             "city": forms.Select(attrs={"class": "form-control"}),
             "sens": forms.Select(attrs={"class": "form-control"}),
             "name": forms.TextInput(attrs={"class": "form-control"}),
