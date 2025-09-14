@@ -98,7 +98,9 @@
                     <td>{{ m.beneficiaire }}</td>
                     <td>{{ m.quantite }}</td>
                     <td>{{ m.montant }}</td>
-                    <td>{{ m.total }}</td>
+                    <td {% if m.total<0 %} style="color: red;"{% endif %}>
+                           {{ m.total }}
+                      </td>
                     <td>{{ m.commentaire }}</td>
                     <td>{{ m.user.username }}</td>
                 </tr>
