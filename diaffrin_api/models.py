@@ -169,7 +169,7 @@ class Mouvement(models.Model):
     montant = models.IntegerField(validators=[MinValueValidator(99)])
     total = models.IntegerField(default=1)
     description =  models.CharField(max_length=200, blank=True, null=True)
-    commentaire =  models.CharField(max_length=200, blank=True, null=True)
+    commentaire =  models.CharField(max_length=200, blank=True, null=True,default="")
     date_created = models.DateTimeField(default=timezone.now)
     commune = models.ForeignKey(Commune, on_delete=models.CASCADE,default="150202")
     user = models.ForeignKey(User, on_delete=models.CASCADE)
