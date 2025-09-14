@@ -27,48 +27,22 @@
 <body>
 
 {% if user.is_authenticated %}
-  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #1A237E; padding-left: 20px; padding-right: 20px;">
+  <nav class="navbar navbar-dark" style="background-color: #1A237E; padding: 0 20px;">
   <a class="navbar-brand" href="{% url 'home'%}">{{ commune }}</a>
 
-  <!-- Bouton hamburger pour mobile -->
-  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
-    aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse justify-content-end" id="navbarText">
-    <ul class="navbar-nav">
-
-      <!-- Menu normal (visible écran large) -->
-      <li class="nav-item d-none d-lg-block">
-        <a class="nav-link" href="{% url 'mouvement_add'%}">Entités</a>
-      </li>
-      <li class="nav-item d-none d-lg-block">
-        <a class="nav-link" href="{% url 'mouvement_list'%}">Opérations</a>
-      </li>
-      <li class="nav-item d-none d-lg-block">
+  <!-- Bouton hamburger = dropdown -->
+  <div class="dropdown ms-auto">
+    <button class="navbar-toggler" type="button" id="menuDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="menuDropdown">
+      <li><a class="dropdown-item" href="{% url 'mouvement_add'%}">Entités</a></li>
+      <li><a class="dropdown-item" href="{% url 'mouvement_list'%}">Opérations</a></li>
+      <li>
         <form method="post" action="{% url 'logout' %}">
           {% csrf_token %}
-          <button type="submit" class="btn btn-link nav-link">Se déconnecter</button>
+          <button type="submit" class="dropdown-item">Se déconnecter</button>
         </form>
-      </li>
-
-      <!-- Dropdown (visible seulement sur mobile) -->
-      <li class="nav-item dropdown d-lg-none">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-           data-bs-toggle="dropdown" aria-expanded="false">
-          Menu
-        </a>
-        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <li><a class="dropdown-item" href="{% url 'mouvement_add'%}">Entités</a></li>
-          <li><a class="dropdown-item" href="{% url 'mouvement_list'%}">Opérations</a></li>
-          <li>
-            <form method="post" action="{% url 'logout' %}">
-              {% csrf_token %}
-              <button type="submit" class="dropdown-item">Se déconnecter</button>
-            </form>
-          </li>
-        </ul>
       </li>
     </ul>
   </div>
