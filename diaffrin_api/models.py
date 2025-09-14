@@ -159,7 +159,7 @@ class Mouvement(models.Model):
             MaxValueValidator(datetime.date.today().year + 20)
         ],
         default=datetime.date.today().year)
-    city = models.CharField(max_length=50, choices=PLACE_CHOICES)
+    city = models.CharField(max_length=50, choices=PLACE_CHOICES,initial="KALANA")
     sens = models.CharField(max_length=50, choices=SENS_CHOICES)
     name = models.CharField(max_length=100)
     nature =  models.CharField(max_length=50, choices=NATURE_CHOICES)
