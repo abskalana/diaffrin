@@ -9,13 +9,12 @@ class MouvementForm(forms.ModelForm):
     class Meta:
         model = Mouvement
         fields = [
-            "date", "mois", "annee", "city", "sens", "name", "nature",
+            "date","city", "sens", "name", "nature",
             "source", "beneficiaire", "quantite", "montant","commentaire"
         ]
         widgets = {
             'date': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
-            "mois": forms.Select(attrs={"class": "form-control"}),
-            "annee": forms.NumberInput(attrs={"class": "form-control"}),
+
             "city": forms.Select(attrs={"class": "form-control"}),
             "sens": forms.Select(attrs={"class": "form-control"}),
             "name": forms.TextInput(attrs={"class": "form-control"}),

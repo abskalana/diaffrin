@@ -6,6 +6,20 @@ from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
 import datetime
 
+MOIS_MAP = {
+    1: "Janvier",
+    2: "Février",
+    3: "Mars",
+    4: "Avril",
+    5: "Mai",
+    6: "Juin",
+    7: "Juillet",
+    8: "Août",
+    9: "Septembre",
+    10: "Octobre",
+    11: "Novembre",
+    12: "Décembre",
+}
 PLACE_CHOICES = [
         ("KALANA", "Kalana"),
         ("NIESSOUMALA", "Niessoumala"),
@@ -65,7 +79,7 @@ SENS_CHOICES = [
 SOURCE_CHOICES = [
         ("Marché", "Marché"),
         ("Commerce", "Commerce"),
-        ("Espace", "espace public"),
+        ("Espace", "Espace public"),
         ("Tous", "Tous"),
     ]
 
@@ -75,6 +89,7 @@ NATURE_CHOICES = [
         ("recette", "recette"),
         ("depense", "depense"),
         ("achat", "achat materiel"),
+        ("propriété", "propriété"),
     ]
 
 class Commune(models.Model):
@@ -135,7 +150,7 @@ class Entity(models.Model):
 
 class Mouvement(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    date = models.DateField(default=timezone.now)
+    date = models.DateField(default=timezone.now,validators=[validate_date_range])
     mois = models.CharField(max_length=50, choices=MONTH_CHOICES)
     annee = models.IntegerField(
         validators=[
@@ -164,4 +179,6 @@ class Mouvement(models.Model):
         elif self.sens.lower() == "entree":
             self.montant = abs(self.montant)
         self.total = self.montant*self.quantite
+        self.annee = self.date.year
+        self.mois = MOIS_MAP[self.date.month]
         super().save(*args, **kwargs)
