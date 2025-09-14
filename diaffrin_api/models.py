@@ -41,18 +41,18 @@ PLACE_CHOICES = [
     ]
 
 MONTH_CHOICES = [
-        ("1", "Janvier"),
-        ("2", "Fevrier"),
-        ("3", "Mars"),
-        ("4", "Avril"),
-        ("5", "Mai"),
-        ("6", "Juin"),
-        ("7", "Juillet"),
-        ("8", "Aout"),
-        ("9", "Septembre"),
-        ("10", "Octobre"),
-        ("11", "Novembre"),
-        ("12", "Decembre"),
+        ("Janvier", "Janvier"),
+        ("Fevrier", "Fevrier"),
+        ("Mars", "Mars"),
+        ("Avril", "Avril"),
+        ("Mai", "Mai"),
+        ("Juin", "Juin"),
+        ("Juillet", "Juillet"),
+        ("Aout", "Aout"),
+        ("Septembre", "Septembre"),
+        ("Octobre", "Octobre"),
+        ("Novembre", "Novembre"),
+        ("Decembre", "Decembre"),
     ]
 
 
@@ -63,10 +63,10 @@ SENS_CHOICES = [
 
 
 SOURCE_CHOICES = [
-        ("marche", "Marché"),
-        ("commerce", "Commerce"),
-        ("espace", "espace public"),
-        ("tous", "Tous"),
+        ("Marché", "Marché"),
+        ("Commerce", "Commerce"),
+        ("Espace", "espace public"),
+        ("Tous", "Tous"),
     ]
 
 
