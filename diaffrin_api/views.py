@@ -18,12 +18,12 @@ import datetime
 
 @login_required
 def home(request):
-    commune = get_object_or_404(Commune, code="150202")
-    contexte = {
+    commune = Commune.objects.get(code="150202")
+    context = {
         "commune": str(commune),
         "entities": commune.entity_set.all()
     }
-    return render(request, 'home.html', context=contexte)
+    return render(request, 'home.html', context=context)
 
 @csrf_exempt
 def login_view(request):
