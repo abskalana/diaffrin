@@ -99,33 +99,38 @@
                 </tr>
             </thead>
             <tbody>
-                {% for m in mouvements %}
-                <tr>
-                    <td>{{ m.date|date:"d/m/Y" }}</td>
-                    <td>{{ m.mois }}</td>
-                    <td>{{ m.annee }}</td>
-                    <td>{{ m.commune }}</td>
-                    <td>{{ m.city }}</td>
-                    <td>{{ m.sens }}</td>
-                    <td>{{ m.name }}</td>
-                    <td>{{ m.nature }}</td>
-                    <td>{{ m.source }}</td>
-                    <td>{{ m.beneficiaire }}</td>
-                    <td>{{ m.quantite }}</td>
-                    <td>{{ m.montant }}</td>
-                    <td {% if m.total < 0 and m.sens != "retrait" %} style="color: #ff3838;"{% endif %}>
-                        {{ m.total }}
-                  </td>
-                    <td>{{ m.commentaire }}</td>
-                    <td>{{ m.user.username }}</td>
-                    <td>{{ m.date_created }}</td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="16" class="text-center">Aucune operations trouvé</td>
-                </tr>
-                {% endfor %}
-            </tbody>
+    {% for m in mouvements %}
+    <tr
+        {% if m.sens == "entree" %} style="background-color:#3ae374;"
+        {% elif m.sens == "depot" %} style="background-color:#18dcff;"
+        {% elif m.sens == "retrait" %} style="background-color:#ffaf40;"
+        {% endif %}
+    >
+        <td>{{ m.date|date:"d/m/Y" }}</td>
+        <td>{{ m.mois }}</td>
+        <td>{{ m.annee }}</td>
+        <td>{{ m.commune }}</td>
+        <td>{{ m.city }}</td>
+        <td>{{ m.sens }}</td>
+        <td>{{ m.name }}</td>
+        <td>{{ m.nature }}</td>
+        <td>{{ m.source }}</td>
+        <td>{{ m.beneficiaire }}</td>
+        <td>{{ m.quantite }}</td>
+        <td>{{ m.montant }}</td>
+        <td {% if m.total < 0 %} style="color: red;"{% endif %}>
+               {{ m.total }}
+        </td>
+        <td>{{ m.commentaire }}</td>
+        <td>{{ m.user.username }}</td>
+        <td>{{ m.date_created }}</td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="16" class="text-center">Aucune opérations trouvée</td>
+    </tr>
+    {% endfor %}
+</tbody>
         </table>
     </div>
 </div>

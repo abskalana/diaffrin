@@ -74,7 +74,7 @@ MONTH_CHOICES = [
 SENS_CHOICES = [
         ("entree", "entrée"),
         ("sortie", "sortie"),
-        ("versement", "versement"),
+        ("depot", "depot"),
         ("retrait", "retrait"),
     ]
 
@@ -83,20 +83,21 @@ SOURCE_CHOICES = [
         ("Marché", "Marché"),
         ("Commerce", "Commerce"),
         ("Espace", "Espace public"),
-        ("VERSEMENT", "VERSEMENT"),
-        ("RETRAIT", "RETRAIT"),
+        ("depot", "depot"),
+        ("retrait", "retrait"),
         ("Tous", "Tous"),
     ]
 
 
 NATURE_CHOICES = [
         ("salaire", "salaire"),
-        ("versement", "versement"),
-        ("retrait", "retrait"),
+
         ("recette", "recette"),
         ("depense", "depense"),
         ("achat", "achat materiel"),
         ("propriété", "propriété"),
+        ("depot", "depot"),
+        ("retrait", "retrait"),
     ]
 
 class Commune(models.Model):
@@ -183,7 +184,7 @@ class Mouvement(models.Model):
     def save(self, *args, **kwargs):
         if self.sens.lower() == "sortie" or self.sens.lower() == "retrait":
              self.montant = -abs(self.montant)
-        elif self.sens.lower() == "entree"  or self.sens.lower() == "versement":
+        elif self.sens.lower() == "entree"  or self.sens.lower() == "depot":
              self.montant = abs(self.montant)
         self.total = self.montant*self.quantite
         self.annee = self.date.year
