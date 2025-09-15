@@ -7,8 +7,22 @@
 <div class="container">
     <h2>Liste des opérations</h2>
 
-    <a  class="btn btn-primary mb-3"> TOTAL : {{total}} FCFA</a>
-    <a href="{% url 'mouvement_add' %}" class="btn btn-primary mb-3">Ajouter une opération</a>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+
+  <!-- Totaux alignés à gauche -->
+  <div>
+    <span class="badge bg-primary me-2">TOTAL ENTRÉE SORTIE : {{ total }} FCFA</span>
+    <span class="badge bg-success">TOTAL RETRAIT VERSEMENT : {{ total_cafo }} FCFA</span>
+  </div>
+
+  <!-- Lien aligné à droite -->
+  <div>
+    <a href="{% url 'mouvement_add' %}" class="text-decoration-none fw-bold">
+      ➕ Ajouter une opération
+    </a>
+  </div>
+
+</div>
 
     <!-- Formulaire de filtre -->
 <form method="get" class="row g-3 mb-4">

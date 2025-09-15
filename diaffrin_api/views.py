@@ -65,7 +65,8 @@ def mouvement_list(request):
         mouvements = mouvements.filter(source=source)
 
     # transmettre aussi les valeurs actuelles pour préremplir le formulaire
-    somme_total = sum(m.total for m in mouvements)
+    somme_total = sum(m.total for m in mouvements if m.sens in ["sortie", "entree"])
+    somme_total_cafo = sum(m.total for m in mouvements if m.sens in ["retrait", "versement"])
 
     context = {
         "mouvements": mouvements,
@@ -78,6 +79,7 @@ def mouvement_list(request):
         "NATURE_CHOICES": NATURE_CHOICES,
         "SOURCE_CHOICES": SOURCE_CHOICES,
         'total':somme_total,
+        'total_cafo': somme_total_cafo,
         "current_year": current_year,
     }
     return render(request, "mouvement_list.html", context)
