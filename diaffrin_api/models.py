@@ -72,7 +72,7 @@ MONTH_CHOICES = [
 
 
 SENS_CHOICES = [
-        ("entrée", "entrée"),
+        ("entree", "entree"),
         ("sortie", "sortie"),
         ("depot", "depot"),
         ("retrait", "retrait"),
