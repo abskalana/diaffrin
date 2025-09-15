@@ -91,7 +91,6 @@ SOURCE_CHOICES = [
 
 NATURE_CHOICES = [
         ("salaire", "salaire"),
-
         ("recette", "recette"),
         ("depense", "depense"),
         ("achat", "achat materiel"),
