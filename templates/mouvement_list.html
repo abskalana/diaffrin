@@ -99,9 +99,9 @@
                     <td>{{ m.beneficiaire }}</td>
                     <td>{{ m.quantite }}</td>
                     <td>{{ m.montant }}</td>
-                    <td {% if m.total < 0 %} style="color: red;"{% endif %}>
-                           {{ m.total }}
-                      </td>
+                    <td {% if m.total < 0 and m.sens != "retrait" %} style="color: #ff3838;"{% endif %}>
+                        {{ m.total }}
+                  </td>
                     <td>{{ m.commentaire }}</td>
                     <td>{{ m.user.username }}</td>
                     <td>{{ m.date_created }}</td>

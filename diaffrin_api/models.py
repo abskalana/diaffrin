@@ -74,6 +74,8 @@ MONTH_CHOICES = [
 SENS_CHOICES = [
         ("entree", "entrée"),
         ("sortie", "sortie"),
+        ("versement", "versement"),
+        ("retrait", "retrait"),
     ]
 
 
@@ -81,12 +83,16 @@ SOURCE_CHOICES = [
         ("Marché", "Marché"),
         ("Commerce", "Commerce"),
         ("Espace", "Espace public"),
+        ("VERSEMENT", "VERSEMENT"),
+        ("RETRAIT", "RETRAIT"),
         ("Tous", "Tous"),
     ]
 
 
 NATURE_CHOICES = [
-        ("salaire", "salaire"),
+        ("salaire", "salaire")
+        ("versement", "versement"),
+        ("retrait", "retrait"),
         ("recette", "recette"),
         ("depense", "depense"),
         ("achat", "achat materiel"),
@@ -175,10 +181,10 @@ class Mouvement(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def save(self, *args, **kwargs):
-        if self.sens.lower() == "sortie":
-            self.montant = -abs(self.montant)
-        elif self.sens.lower() == "entree":
-            self.montant = abs(self.montant)
+        if self.sens.lower() == "sortie" or self.sens.lower() == "retrait":
+             self.montant = -abs(self.montant)
+        elif self.sens.lower() == "entree"  or self.sens.lower() == "versement":
+             self.montant = abs(self.montant)
         self.total = self.montant*self.quantite
         self.annee = self.date.year
         self.mois = MOIS_MAP[self.date.month]
