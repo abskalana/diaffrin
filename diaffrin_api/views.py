@@ -56,10 +56,10 @@ def mouvement_list(request):
     annee_selected = request.GET.get("annee", current_year)
 
     if annee_selected:
-        mouvements = mouvements.filter(annee=current_year)
+        mouvements = mouvements.filter(annee=annee_selected)
 
-    if current_month:
-        mouvements = mouvements.filter(mois=MOIS_MAP.get(current_month))
+    if mois:
+        mouvements = mouvements.filter(mois=MOIS_MAP.get(mois))
     if sens:
         mouvements = mouvements.filter(sens=sens)
     if nature:
@@ -89,7 +89,7 @@ def mouvement_list(request):
         "SOURCE_CHOICES": SOURCE_CHOICES,
         "TYPE_CHOICES": TYPE_CHOICES,
         'total':annee_selected,
-        'total_cafo': current_month,
+        'total_cafo': mois,
         "current_year": current_year,
     }
     return render(request, "mouvement_list.html", context)
