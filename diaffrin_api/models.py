@@ -181,9 +181,9 @@ class Mouvement(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def save(self, *args, **kwargs):
-        if self.sens.lower() == "sortie" or self.sens.lower() == "retrait":
+        if self.sens.lower() == "sortie" :
              self.montant = -abs(self.montant)
-        elif self.sens.lower() == "entree"  or self.sens.lower() == "depot":
+        elif self.sens.lower() == "entree" :
              self.montant = abs(self.montant)
         self.total = self.montant*self.quantite
         self.annee = self.date.year

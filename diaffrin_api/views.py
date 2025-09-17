@@ -7,7 +7,8 @@ from django.shortcuts import render, get_object_or_404
 
 from diaffrin import settings
 from diaffrin_api.forms import MouvementForm
-from diaffrin_api.models import Commune, Entity,Personnel,TYPE_CHOICES,Mouvement,MONTH_CHOICES,SENS_CHOICES,NATURE_CHOICES,SOURCE_CHOICES
+from diaffrin_api.models import Commune, Entity, Personnel, TYPE_CHOICES, Mouvement, MONTH_CHOICES, SENS_CHOICES, \
+    NATURE_CHOICES, SOURCE_CHOICES, MOIS_MAP
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.http import HttpResponse
@@ -58,7 +59,7 @@ def mouvement_list(request):
         mouvements = mouvements.filter(mois=current_year)
 
     if mois:
-        mouvements = mouvements.filter(mois=mois)
+        mouvements = mouvements.filter(mois=MOIS_MAP.get(mois))
     if sens:
         mouvements = mouvements.filter(sens=sens)
     if nature:
