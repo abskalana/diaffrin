@@ -86,8 +86,6 @@ SOURCE_CHOICES = [
         ("Marché", "Marché"),
         ("Commerce", "Commerce"),
         ("Espace", "Espace public"),
-        ("depot", "depot"),
-        ("retrait", "retrait"),
         ("Tous", "Tous"),
     ]
 
@@ -98,8 +96,6 @@ NATURE_CHOICES = [
         ("depense", "depense"),
         ("achat", "achat materiel"),
         ("propriété", "propriété"),
-        ("depot", "depot"),
-        ("retrait", "retrait"),
     ]
 
 class Commune(models.Model):
