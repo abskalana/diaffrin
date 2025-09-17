@@ -56,7 +56,7 @@ def mouvement_list(request):
     annee_selected = request.GET.get("annee", current_year)
 
     if annee_selected:
-        mouvements = mouvements.filter(mois=current_year)
+        mouvements = mouvements.filter(annee=current_year)
 
     if mois:
         mouvements = mouvements.filter(mois=MOIS_MAP.get(mois))
