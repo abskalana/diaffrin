@@ -83,14 +83,12 @@
                     <th>Date</th>
                     <th>Mois</th>
                     <th>Année</th>
-                    <th>Commune</th>
                     <th>City</th>
                     <th>Sens</th>
                     <th>Nom</th>
                     <th>Nature</th>
                     <th>Source</th>
                     <th>Type</th>
-                    <th>Bénéficiaire</th>
                     <th>Quantité</th>
                     <th>Montant (FCFA)</th>
                     <th>Total (FCFA)</th>
@@ -110,14 +108,12 @@
         <td>{{ m.date|date:"d/m/Y" }}</td>
         <td>{{ m.mois }}</td>
         <td>{{ m.annee }}</td>
-        <td>{{ m.commune }}</td>
         <td>{{ m.city }}</td>
         <td>{{ m.sens }}</td>
         <td>{{ m.name }}</td>
         <td>{{ m.nature }}</td>
         <td>{{ m.source }}</td>
         <td>{{ m.category }}</td>
-        <td>{{ m.beneficiaire }}</td>
         <td>{{ m.quantite }}</td>
         <td>{{ m.montant }}</td>
         <td {% if m.total < 0 %} style="color: red;"{% endif %}>
