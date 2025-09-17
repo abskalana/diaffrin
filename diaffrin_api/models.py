@@ -57,17 +57,17 @@ PLACE_CHOICES = [
 
 MONTH_CHOICES = [
         ("Janvier", "Janvier"),
-        ("Fevrier", "Fevrier"),
+        ("Février", "Février"),
         ("Mars", "Mars"),
         ("Avril", "Avril"),
         ("Mai", "Mai"),
         ("Juin", "Juin"),
         ("Juillet", "Juillet"),
-        ("Aout", "Aout"),
+        ("Août", "Août"),
         ("Septembre", "Septembre"),
         ("Octobre", "Octobre"),
         ("Novembre", "Novembre"),
-        ("Decembre", "Decembre"),
+        ("Décembre", "Décembre"),
     ]
 
 

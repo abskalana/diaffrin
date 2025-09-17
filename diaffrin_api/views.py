@@ -46,20 +46,19 @@ def login_view(request):
 @login_required
 def mouvement_list(request):
     mouvements = Mouvement.objects.all().order_by("-date_created", "-date")
-    current_year = datetime.date.today().year
-    current_month = datetime.date.today().month
+    today = datetime.date.today()
+    current_month = MOIS_MAP.get(today.month)
     mois = request.GET.get("mois",current_month)
     sens = request.GET.get("sens")
     nature = request.GET.get("nature")
     source = request.GET.get("source")
     category = request.GET.get("category")
-    annee_selected = request.GET.get("annee", current_year)
+    annee = request.GET.get("annee", today.year)
 
-    if annee_selected:
-        mouvements = mouvements.filter(annee=annee_selected)
-
+    if annee:
+        mouvements = mouvements.filter(annee=annee)
     if mois:
-        mouvements = mouvements.filter(mois=MOIS_MAP.get(mois))
+        mouvements = mouvements.filter(mois=mois)
     if sens:
         mouvements = mouvements.filter(sens=sens)
     if nature:
@@ -88,9 +87,10 @@ def mouvement_list(request):
         "NATURE_CHOICES": NATURE_CHOICES,
         "SOURCE_CHOICES": SOURCE_CHOICES,
         "TYPE_CHOICES": TYPE_CHOICES,
-        'total':annee_selected,
-        'total_cafo': mois,
-        "current_year": current_year,
+        'total':today.year,
+        'total_cafo': current_month,
+        "current_year": today.year,
+        "current_month": current_month,
     }
     return render(request, "mouvement_list.html", context)
 @login_required
