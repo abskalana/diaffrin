@@ -10,7 +10,7 @@ class MouvementForm(forms.ModelForm):
         model = Mouvement
         fields = [
             "date","city", "sens", "name", "nature",
-            "source", "beneficiaire", "quantite", "montant","commentaire","category"
+            "source","category", "beneficiaire", "quantite", "montant","commentaire"
         ]
         widgets = {
             'date': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
