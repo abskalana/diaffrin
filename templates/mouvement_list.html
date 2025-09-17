@@ -121,7 +121,7 @@
         </td>
         <td>{{ m.commentaire }}</td>
         <td>{{ m.user.username }}</td>
-        <td>{{ m.date_created }}</td>
+        <td>{{ m.date_created|date:"d/m/Y H\hi" }}</td>
     </tr>
     {% empty %}
     <tr>
