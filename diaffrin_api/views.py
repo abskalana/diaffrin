@@ -7,7 +7,7 @@ from django.shortcuts import render, get_object_or_404
 
 from diaffrin import settings
 from diaffrin_api.forms import MouvementForm
-from diaffrin_api.models import Commune, Entity,Personnel,Mouvement,MONTH_CHOICES,SENS_CHOICES,NATURE_CHOICES,SOURCE_CHOICES
+from diaffrin_api.models import Commune, Entity,Personnel,TYPE_CHOICES,Mouvement,MONTH_CHOICES,SENS_CHOICES,NATURE_CHOICES,SOURCE_CHOICES
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.http import HttpResponse
@@ -78,6 +78,7 @@ def mouvement_list(request):
         "SENS_CHOICES": SENS_CHOICES,
         "NATURE_CHOICES": NATURE_CHOICES,
         "SOURCE_CHOICES": SOURCE_CHOICES,
+        "TYPE_CHOICES": TYPE_CHOICES,
         'total':somme_total,
         'total_cafo': somme_total_cafo,
         "current_year": current_year,

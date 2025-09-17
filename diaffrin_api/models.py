@@ -74,8 +74,12 @@ MONTH_CHOICES = [
 SENS_CHOICES = [
         ("entree", "entree"),
         ("sortie", "sortie"),
-        ("depot", "depot"),
-        ("retrait", "retrait"),
+    ]
+
+TYPE_CHOICES = [
+        ("Activité", "Activité"),
+        ("Kafo", "Kafo"),
+        ("Caisse", "Caisse"),
     ]
 
 
@@ -170,6 +174,7 @@ class Mouvement(models.Model):
     name = models.CharField(max_length=100)
     nature =  models.CharField(max_length=50, choices=NATURE_CHOICES)
     source = models.CharField(max_length=50, choices=SOURCE_CHOICES)
+    category = models.CharField(max_length=20, choices=TYPE_CHOICES,default="Activité")
     beneficiaire = models.CharField(max_length=50, choices=SOURCE_CHOICES)
     quantite = models.IntegerField(default=1,validators=[MinValueValidator(1)])
     montant = models.IntegerField(validators=[MinValueValidator(99)])
