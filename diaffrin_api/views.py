@@ -72,8 +72,9 @@ def mouvement_list(request):
 
 
     # transmettre aussi les valeurs actuelles pour préremplir le formulaire
-    somme_total = sum(m.total for m in mouvements if m.sens in ["sortie", "entree"])
-    somme_total_cafo = sum(m.total for m in mouvements if m.sens in ["retrait", "depot"])
+    somme_total = sum(m.total for m in mouvements if m.category  == "Activité")
+    somme_total_cafo = sum(m.total for m in mouvements if m.category  == "Activité")
+    somme_total_cafo = sum(m.total for m in mouvements if m.category  == "Activité")
 
     context = {
         "mouvements": mouvements,

@@ -78,10 +78,9 @@ SENS_CHOICES = [
 
 TYPE_CHOICES = [
         ("Activité", "Activité"),
-        ("Kafo", "Kafo"),
+        ("Reserve", "Reserve"),
         ("Caisse", "Caisse"),
     ]
-
 
 SOURCE_CHOICES = [
         ("Marché", "Marché"),
