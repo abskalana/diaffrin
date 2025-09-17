@@ -46,14 +46,16 @@ def login_view(request):
 def mouvement_list(request):
     mouvements = Mouvement.objects.all().order_by("-date_created", "-date")
     current_year = datetime.date.today().year
-    mois = request.GET.get("mois")
+    current_month = datetime.date.today().month
+    mois = request.GET.get("mois",current_month)
     sens = request.GET.get("sens")
     nature = request.GET.get("nature")
     source = request.GET.get("source")
-    annee_selected = request.GET.get("annee", "")
+    category = request.GET.get("category")
+    annee_selected = request.GET.get("annee", current_year)
 
     if annee_selected:
-        mouvements = mouvements.filter(mois=mois)
+        mouvements = mouvements.filter(mois=current_year)
 
     if mois:
         mouvements = mouvements.filter(mois=mois)
@@ -63,6 +65,11 @@ def mouvement_list(request):
         mouvements = mouvements.filter(nature=nature)
     if source:
         mouvements = mouvements.filter(source=source)
+
+    if category:
+        mouvements = mouvements.filter(category=category)
+
+
 
     # transmettre aussi les valeurs actuelles pour préremplir le formulaire
     somme_total = sum(m.total for m in mouvements if m.sens in ["sortie", "entree"])
