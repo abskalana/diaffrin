@@ -73,8 +73,8 @@ def mouvement_list(request):
 
     # transmettre aussi les valeurs actuelles pour préremplir le formulaire
     somme_total = sum(m.total for m in mouvements if m.category  == "Activité")
-    somme_total_cafo = sum(m.total for m in mouvements if m.category  == "Activité")
-    somme_total_cafo = sum(m.total for m in mouvements if m.category  == "Activité")
+    somme_reserve = sum(m.total for m in mouvements if m.category  == "Reserve")
+    somme_caisse = sum(m.total for m in mouvements if m.category  == "Caisse")
 
     context = {
         "mouvements": mouvements,
@@ -89,8 +89,9 @@ def mouvement_list(request):
         "NATURE_CHOICES": NATURE_CHOICES,
         "SOURCE_CHOICES": SOURCE_CHOICES,
         "TYPE_CHOICES": TYPE_CHOICES,
-        'total':today.year,
-        'total_cafo': current_month,
+        'somme_total':somme_total,
+        'somme_reserve': somme_reserve,
+        'somme_caisse': somme_caisse,
     }
     return render(request, "mouvement_list.html", context)
 @login_required

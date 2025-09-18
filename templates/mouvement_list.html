@@ -15,6 +15,25 @@
     <span class="badge bg-success p-2 px-3 fs-6 me-2">Solde kafo : {{ total_cafo }} FCFA</span>
   </div>
 
+        <div class="table-responsive mt-3">
+  <table class="table table-bordered text-center align-middle">
+    <thead class="table-dark">
+      <tr>
+        <th>Réserve</th>
+        <th>Caisse</th>
+        <th>Activité</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ somme_reserve }} FCFA </td>
+        <td>{{ somme_caisse }} FCFA </td>
+        <td>{{ somme_total }} FCFA </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
   <!-- Lien aligné à droite -->
   <div>
     <a href="{% url 'mouvement_add' %}" class="text-decoration-none fw-bold">
