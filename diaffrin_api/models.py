@@ -95,6 +95,7 @@ NATURE_CHOICES = [
         ("recette", "recette"),
         ("depense", "depense"),
         ("achat", "achat materiel"),
+         ("budget", "budget"),
         ("propriété", "propriété"),
     ]
 
