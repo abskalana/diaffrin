@@ -78,10 +78,11 @@ def mouvement_list(request):
 
     context = {
         "mouvements": mouvements,
-        "mois_selected": mois,
+        "mois_selected": current_month,
         "sens_selected": sens,
         "nature_selected": nature,
         "source_selected": source,
+        "year_selected": annee,
         "MONTH_CHOICES":MONTH_CHOICES,
         "SENS_CHOICES": SENS_CHOICES,
         "NATURE_CHOICES": NATURE_CHOICES,
@@ -89,8 +90,6 @@ def mouvement_list(request):
         "TYPE_CHOICES": TYPE_CHOICES,
         'total':today.year,
         'total_cafo': current_month,
-        "current_year": today.year,
-        "current_month": current_month,
     }
     return render(request, "mouvement_list.html", context)
 @login_required
