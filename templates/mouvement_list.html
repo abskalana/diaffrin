@@ -37,7 +37,7 @@
 <br><br>
     <!-- Formulaire de filtre -->
 <form method="get" class="row g-3 mb-4">
-    <div class="col-md-2">
+    <div class="col-md-1">
         <label class="form-label">Année</label>
         <input type="number" name="annee" class="form-control" value="{{ year_selected|default:current_year }}">
     </div>
@@ -50,7 +50,7 @@
             {% endfor %}
         </select>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-1">
         <label class="form-label">Sens</label>
         <select name="sens" class="form-select">
             <option value="">Tous</option>
@@ -59,6 +59,17 @@
             {% endfor %}
         </select>
     </div>
+
+    <div class="col-md-2">
+        <label class="form-label">Type</label>
+        <select name="type" class="form-select">
+            <option value="">Tous</option>
+            {% for n in TYPE_CHOICES %}
+                <option value="{{ n.0 }}" {% if type_selected == n.0 %}selected{% endif %}>{{ n.1 }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
     <div class="col-md-2">
         <label class="form-label">Nature</label>
         <select name="nature" class="form-select">
