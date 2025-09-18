@@ -78,7 +78,7 @@ def mouvement_list(request):
 
     context = {
         "mouvements": mouvements,
-        "mois_selected": current_month,
+        "mois_selected": mois,
         "sens_selected": sens,
         "nature_selected": nature,
         "source_selected": source,
