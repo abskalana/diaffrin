@@ -83,7 +83,7 @@ def mouvement_list(request):
         "nature_selected": nature,
         "source_selected": source,
         "year_selected": annee,
-        "year_current": today.year,
+        "current_year": today.year,
         "MONTH_CHOICES":MONTH_CHOICES,
         "SENS_CHOICES": SENS_CHOICES,
         "NATURE_CHOICES": NATURE_CHOICES,
