@@ -36,11 +36,12 @@ def login_view(request):
     else:
          username = request.POST.get("username")
          password = request.POST.get("password")
-    employer = get_object_or_404(Personnel, id=username)
-    if employer.password == password:
-          return HttpResponse("true", content_type="text/plain")
-    return  HttpResponse("false", content_type="text/plain")
 
+    user = authenticate(request, username=username, password=password)
+    if user is not None:
+        return HttpResponse("true", content_type="text/plain")
+    else:
+        return HttpResponse("false", content_type="text/plain")
 
 
 @login_required
