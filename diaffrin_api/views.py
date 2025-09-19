@@ -15,6 +15,8 @@ from django.http import HttpResponse
 import json
 from django.shortcuts import get_object_or_404
 import datetime
+from django.contrib.auth import authenticate, login
+from django.http import HttpResponse
 
 
 @login_required
