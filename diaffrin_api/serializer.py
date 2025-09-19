@@ -4,7 +4,6 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Entity
-from django.http import HttpResponse
 
 class EntitySerializer(serializers.ModelSerializer):
     class Meta:
@@ -26,5 +25,5 @@ class EntityBulkCreateView(APIView):
         serializer = EntitySerializer(data=request.data, many=True)
         if serializer.is_valid():
             serializer.save()
-            return HttpResponse("true", content_type="text/plain", status=201)
+            return Response("true", status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
