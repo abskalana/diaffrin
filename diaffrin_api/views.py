@@ -7,7 +7,7 @@ from django.shortcuts import render, get_object_or_404
 
 from diaffrin import settings
 from diaffrin_api.forms import MouvementForm
-from diaffrin_api.models import Commune, EntityModel,  Paiement,STATUS_CHOICES,TYPE_CHOICES, Mouvement, MONTH_CHOICES, SENS_CHOICES, \
+from diaffrin_api.models import Commune, EntityModel,  Paiement,STATUS_CHOICES, TYPE_TICKET,TYPE_CHOICES, Mouvement, MONTH_CHOICES, SENS_CHOICES, \
     NATURE_CHOICES, SOURCE_CHOICES, MOIS_MAP
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
@@ -145,5 +145,6 @@ def entity_paiements(request):
         "status": status or "",
         "MONTH_CHOICES": MONTH_CHOICES,
         "STATUS_CHOICES": STATUS_CHOICES,
+        "TYPE_TICKET ": TYPE_TICKET ,
     }
     return render(request, "paiement.html", context)
