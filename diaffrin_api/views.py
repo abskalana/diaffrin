@@ -7,7 +7,7 @@ from django.shortcuts import render, get_object_or_404
 
 from diaffrin import settings
 from diaffrin_api.forms import MouvementForm
-from diaffrin_api.models import Commune, Entity,  TYPE_CHOICES, Mouvement, MONTH_CHOICES, SENS_CHOICES, \
+from diaffrin_api.models import Commune, EntityModel,  TYPE_CHOICES, Mouvement, MONTH_CHOICES, SENS_CHOICES, \
     NATURE_CHOICES, SOURCE_CHOICES, MOIS_MAP
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
@@ -24,7 +24,7 @@ def home(request):
     commune = Commune.objects.get(code="150202")
     context = {
         "commune": str(commune),
-        "entities": commune.entity_set.all()
+        "entities": commune.entitymodel_set.all()
     }
     return render(request, 'home.html', context=context)
 
@@ -116,7 +116,7 @@ def create_mouvement(request):
 @login_required
 def get_entity(request, slug):
     commune = get_object_or_404(Commune, code=request.user.username.lower())
-    entity = get_object_or_404(Entity, slug=slug)
+    entity = get_object_or_404(EntityModel, slug=slug)
     coord = entity.coord
     if coord is None or len(coord) < 5: entity.coord = "10.7879168;-8.204519"
     return render(request, 'detail.html', context={'entity': entity, "commune": str(commune)})
@@ -124,28 +124,4 @@ def get_entity(request, slug):
 
 @login_required
 def get_paiement(request):
-    commune = get_object_or_404(Commune, code=request.user.username.lower())
-    today = datetime.date.today()
-    clients = []
-    year = today.year
-    month = today.month
-    title = "Liste des paiements :  " + str(settings.MONTH[month - 1]) + " - " + str(year)
-    status = 0
-    if request.method == "POST":
-        year = int(request.POST.get('year', today.year))
-        month = int(request.POST.get('month', today.month))
-        status = int(request.POST.get('status', 0))
-        if status > 0:
-            clients = Entity.objects.filter(paiement__year=year, paiement__month=month)
-            title = "Liste des paiements :  " + str(settings.MONTH[month - 1]) + " - " + str(year)
-        else:
-            clients = Entity.objects.exclude(paiement__year=year, paiement__month=month)
-            title = "Liste des defauts de paiements : " + str(settings.MONTH[month - 1]) + " - " + str(year)
-    context = { 'months' : settings.MONTH,
-                'entity': clients,
-               'title': title,
-               'commune': commune,
-               'year': year,
-               'month': month,
-               'status': status}
     return render(request, 'paiement.html', context=context)

@@ -117,7 +117,7 @@ class Commune(models.Model):
         return str(self.code).upper() + " - " + self.name
 
 
-class Entity(models.Model):
+class EntityModel(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     city = models.CharField(max_length=30)
     locality = models.CharField(max_length=50, blank=True, null=True)
@@ -131,7 +131,7 @@ class Entity(models.Model):
     coord = models.CharField(max_length=100)
     status = models.CharField(max_length=20,default="OUVERT")
     slug = models.SlugField(unique=True, blank=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE,default=1)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     date_created = models.DateTimeField(default=timezone.now)
     commune = models.ForeignKey(Commune, on_delete=models.CASCADE,default="150202")
 

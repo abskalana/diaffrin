@@ -1,13 +1,13 @@
 from rest_framework import serializers
-from .models import Entity
+from .models import EntityModel
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .models import Entity
+
 
 class EntitySerializer(serializers.ModelSerializer):
     class Meta:
-        model = Entity
+        model = EntityModel
         fields = '__all__'
 
 
