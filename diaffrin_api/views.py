@@ -7,7 +7,7 @@ from django.shortcuts import render, get_object_or_404
 
 from diaffrin import settings
 from diaffrin_api.forms import MouvementForm
-from diaffrin_api.models import Commune, EntityModel,  TYPE_CHOICES, Mouvement, MONTH_CHOICES, SENS_CHOICES, \
+from diaffrin_api.models import Commune, EntityModel,  Paiement,TYPE_CHOICES, Mouvement, MONTH_CHOICES, SENS_CHOICES, \
     NATURE_CHOICES, SOURCE_CHOICES, MOIS_MAP
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse

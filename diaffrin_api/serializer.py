@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import EntityModel
+from .models import EntityModel,Paiement
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
