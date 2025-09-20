@@ -14,6 +14,14 @@ class EntitySerializer(serializers.ModelSerializer):
 
 class EntityBulkCreateView(APIView):
 
+    def get(self, request):
+        """
+        Retourne toutes les entités
+        """
+        entities = Entity.objects.all()
+        serializer = EntitySerializer(entities, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
     def post(self, request):
         """
         Expecting a JSON array of entities:
