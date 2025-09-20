@@ -146,4 +146,4 @@ def entity_paiements(request):
         "MONTH_CHOICES": MONTH_CHOICES,
         "STATUS_CHOICES": STATUS_CHOICES,
     }
-    return render(request, "paiements/entity_paiements.html", context)
+    return render(request, "paiement.html", context)
