@@ -1,89 +1,80 @@
 {% extends 'parent.html' %}
 
 {% block content %}
-<div class="row">
-    <div class="col-md-4"></div>
-    <div class="col-md-4">
-        <form method="post" action="{% url 'paiement_list'%}">
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="year">Année</label>
-                <input type="number" class="form-control" id="year" name="year" value="{{year}}">
-            </div>
-            <div class="form-group">
-                <label for="month">Mois</label>
-                <select class="form-control" id="month" name="month">
 
-                    {% for mm in months %}
-                    {% if forloop.counter == month %}
-                        <option value="{{forloop.counter}}" selected>{{mm}}</option>
-                    {% else  %}
-                        <option value="{{forloop.counter}}">{{mm}}</option>
-                    {% endif %}
-                    {% endfor %}
-                </select>
-            </div>
-            <br><br>
-            {% if status == 0 %}
-            <div class="form-check form-check-inline w-100">
-                <input class="form-check-input" type="radio" name="status" value="0" checked>
-                <label class="form-check-label"  >Non payé</label></div>
-                <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="status" value="1">
-                    <label class="form-check-label" >Payé</label></div>
-            {% else  %}
-            <div class="form-check form-check-inline w-100">
-                <input class="form-check-input" type="radio" name="status"  value="0">
-                <label class="form-check-label"  >Non payé</label></div>
-                <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="status" value="1" checked>
-                    <label class="form-check-label">Payé</label></div>
-            {% endif %}
-            <br><br>
-             <input type="submit" name="submit" class="btn btn-primary btn-lg w-100" value="Evaluer">
-        </form>
-    </div>
-    <div class="col-md-4"></div>
-</div>
-<br><br><br>
-<div class="row">
-    <div class="col-md-2"></div>
-    <div class="col-md-8">
-        <br>
-        <h4>{{title}}</h4>
-        <br>
-        <table class="table">
-            <thead class="thead-dark">
+<h2>Liste des Paiements par Entité</h2>
+
+   <form method="get" class="filter-form">
+    <label for="annee">Année:</label>
+    <input type="number" name="annee" id="annee" value="{{ annee }}" placeholder="2025">
+
+    <label for="mois">Mois:</label>
+    <select name="mois" id="mois">
+        <option value="">-- Tous --</option>
+        {% for key, label in MONTH_CHOICES %}
+            <option value="{{ key }}" {% if mois == key %}selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="status">Statut:</label>
+    <select name="status" id="status">
+        <option value="">-- Tous --</option>
+        {% for key, label in STATUS_CHOICES %}
+            <option value="{{ key }}" {% if status == key %}selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">Filtrer</button>
+    <a href="{% url 'entity_paiements' %}" style="margin-left:10px;">
+        <button type="button">Réinitialiser</button>
+    </a>
+</form>
+    <!-- Tableau -->
+    <table>
+        <thead>
             <tr>
-                <th scope="col">Ville</th>
-                <th scope="col">Place</th>
-                <th scope="col">Propriété</th>
-                <th scope="col">Nom</th>
-                <th scope="col">Phone</th>
-                <th scope="col">Porte</th>
-                <th scope="col">Montant</th>
-                <th scope="col">Status</th>
-                <th scope="col">Detail</th>
+                <th>Ville</th>
+                <th>Localité</th>
+                <th>Activité</th>
+                <th>Type</th>
+                <th>Propriété</th>
+                <th>Nom Contact</th>
+                <th>Prénom Contact</th>
+                <th>Téléphone</th>
+                <th>Porte</th>
+                <th>Status Entité</th>
+                <th>Mois</th>
+                <th>Année</th>
+                <th>Valeur Paiement</th>
+                <th>Status Paiement</th>
+                <th>Date Paiement</th>
             </tr>
-            </thead>
-            <tbody>
-            {% for entity in entity %}
-            <tr>
-                <td>{{entity.city}}</td>
-                <td>{{entity.locality}}</td>
-                <td>{{entity.property}}</td>
-                <td>{{entity.contact_name}}</td>
-                <td>{{entity.contact_phone}}</td>
-                <td>{{entity.porte}}</td>
-                <td>20</td>
-                <td>{{entity.status}}</td>
-                <td><a href="{{entity.get_absolute_url }}"> Detail </a></td>
-            </tr>
+        </thead>
+        <tbody>
+            {% for paiement in paiements %}
+                <tr>
+                    <td>{{ paiement.entity_model.city }}</td>
+                    <td>{{ paiement.entity_model.locality }}</td>
+                    <td>{{ paiement.entity_model.activity }}</td>
+                    <td>{{ paiement.entity_model.type_entity }}</td>
+                    <td>{{ paiement.entity_model.property }}</td>
+                    <td>{{ paiement.entity_model.contact_nom }}</td>
+                    <td>{{ paiement.entity_model.contact_prenom }}</td>
+                    <td>{{ paiement.entity_model.contact_phone }}</td>
+                    <td>{{ paiement.entity_model.porte }}</td>
+                    <td>{{ paiement.entity_model.status }}</td>
+                    <td>{{ paiement.mois }}</td>
+                    <td>{{ paiement.annee }}</td>
+                    <td>{{ paiement.value }}</td>
+                    <td>{{ paiement.status }}</td>
+                    <td>{{ paiement.date }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="15">Aucun paiement trouvé</td>
+                </tr>
             {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    <div class="col-md-2"></div>
+        </tbody>
+    </table>
 
-</div>
 {% endblock %}

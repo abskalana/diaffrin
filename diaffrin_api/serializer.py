@@ -27,3 +27,27 @@ class EntityBulkCreateView(APIView):
             serializer.save()
             return Response("true", status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+from rest_framework import serializers, status
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from .models import Paiement
+
+
+class PaiementSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Paiement
+        fields = '__all__'
+
+
+class PaiementBulkCreateView(APIView):
+    def post(self, request):
+
+        serializer = PaiementSerializer(data=request.data, many=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response("true", status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+

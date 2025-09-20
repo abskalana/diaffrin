@@ -73,6 +73,15 @@ MONTH_CHOICES = [
     ]
 
 
+STATUS_CHOICES = [
+        ("PAYE", "PAYÉ"),
+        ("REFUS", "REFUS"),
+        ("FERME", "FERMÉ"),
+        ("ABSENT", "ABSENT"),
+        ("PAYE_MAIRIE", "PAYE_MAIRIE"),
+        ("AUTRE", "AUTRE"),
+    ]
+
 SENS_CHOICES = [
         ("entree", "entree"),
         ("sortie", "sortie"),
@@ -82,6 +91,13 @@ TYPE_CHOICES = [
         ("Activité", "Activité"),
         ("Reserve", "Reserve"),
         ("Caisse", "Caisse"),
+    ]
+
+
+TYPE_TICKET = [
+        ("TK100", "TK100"),
+        ("TK1000", "TK1000"),
+        ("TK5000", "TK5000"),
     ]
 
 SOURCE_CHOICES = [
@@ -185,3 +201,27 @@ class Mouvement(models.Model):
         self.annee = self.date.year
         self.mois = MOIS_MAP[self.date.month]
         super().save(*args, **kwargs)
+
+
+
+
+class Paiement(models.Model):
+    uuid = models.CharField(unique=True, max_length=120)
+    value = models.IntegerField(default=0)
+    ticket_num = models.IntegerField(default=0)
+    ticket_type = models.CharField(max_length=20, choices=TYPE_TICKET)
+    annee = models.IntegerField(default=0)
+    mois = models.IntegerField(default=0)
+    date = models.DateField(default=timezone.now)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES)
+    entity_model = models.ForeignKey(EntityModel, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    coord = models.CharField(max_length=100)
+    date_created = models.DateTimeField(default=timezone.now)
+
+
+    def save(self, *args, **kwargs):
+        self.annee = self.date.year
+        self.mois = MOIS_MAP[self.date.month]
+        super().save(*args, **kwargs)
+

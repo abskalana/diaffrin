@@ -14,6 +14,8 @@ urlpatterns = [
     path('entity/<slug:slug>/', views.get_entity, name="entity_detail"),
     path('operations/add/', views.create_mouvement, name="mouvement_add"),
     path('operations/list/', views.mouvement_list, name="mouvement_list"),
+    path("api/paiement/create/", PaiementBulkCreateView.as_view(), name="paiement-create"),
+    path("api/paiement/list/", views.entity_paiements, name="paiement-list"),
     path('api/mobileauth/', views.login_view, name="mobileauth"),
     path('api/entity/create/', EntityBulkCreateView.as_view(), name='entity-create'),
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),

@@ -123,5 +123,27 @@ def get_entity(request, slug):
 
 
 @login_required
-def get_paiement(request):
-    return render(request, 'paiement.html', context=context)
+def entity_paiements(request):
+    annee = request.GET.get('annee')
+    mois = request.GET.get('mois')
+    status = request.GET.get('status')
+    ticket = request.GET.get('ticket')
+
+    paiements = Paiement.objects.select_related("entity_model")
+
+    if annee and annee.isdigit():
+        paiements = paiements.filter(annee=int(annee))
+    if mois:
+        paiements = paiements.filter(mois=mois)
+    if status:
+        paiements = paiements.filter(status=status)
+
+    context = {
+        "paiements": paiements,
+        "annee": annee or "",
+        "mois": mois or "",
+        "status": status or "",
+        "MONTH_CHOICES": MONTH_CHOICES,
+        "STATUS_CHOICES": STATUS_CHOICES,
+    }
+    return render(request, "paiements/entity_paiements.html", context)
