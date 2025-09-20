@@ -4,14 +4,13 @@
 
 <h2>Liste des Paiements par Entité</h2>
 
-
-<form method="get" class="form-inline mb-3">
-    <div class="form-group mr-2">
+<form method="get" class="mb-3 d-flex flex-wrap align-items-center">
+    <div class="form-group mr-2 mb-2">
         <label for="annee" class="mr-1">Année:</label>
         <input type="number" class="form-control" name="annee" id="annee" value="{{ annee }}" placeholder="2025">
     </div>
 
-    <div class="form-group mr-2">
+    <div class="form-group mr-2 mb-2">
         <label for="mois" class="mr-1">Mois:</label>
         <select class="form-control" name="mois" id="mois">
             <option value="">-- Tous --</option>
@@ -21,7 +20,7 @@
         </select>
     </div>
 
-    <div class="form-group mr-2">
+    <div class="form-group mr-2 mb-2">
         <label for="status" class="mr-1">Statut:</label>
         <select class="form-control" name="status" id="status">
             <option value="">-- Tous --</option>
@@ -31,7 +30,7 @@
         </select>
     </div>
 
-    <div class="form-group mr-2">
+    <div class="form-group mr-2 mb-2">
         <label for="ticket_type" class="mr-1">Type Ticket:</label>
         <select class="form-control" name="ticket_type" id="ticket_type">
             <option value="">-- Tous --</option>
@@ -41,10 +40,11 @@
         </select>
     </div>
 
-    <button type="submit" class="btn btn-primary mr-2">Filtrer</button>
-    <a href="{% url 'paiement-list' %}" class="btn btn-secondary">Réinitialiser</a>
+    <div class="form-group mb-2">
+        <button type="submit" class="btn btn-primary mr-2">Filtrer</button>
+        <a href="{% url 'paiement-list' %}" class="btn btn-secondary">Réinitialiser</a>
+    </div>
 </form>
-
 
 
 <br><br>
