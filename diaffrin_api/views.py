@@ -41,7 +41,7 @@ def login_view(request):
 
     user = authenticate(request, username=username, password=password)
     if user is not None:
-        return HttpResponse("true", content_type="text/plain")
+        return HttpResponse(user.id, content_type="text/plain")
     else:
         return HttpResponse("false", content_type="text/plain")
 
