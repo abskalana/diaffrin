@@ -18,7 +18,7 @@ class EntityBulkCreateView(APIView):
         """
         Retourne toutes les entités
         """
-        entities = Entity.objects.all()
+        entities = EntityModel.objects.all()
         serializer = EntitySerializer(entities, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
