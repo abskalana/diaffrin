@@ -5,12 +5,10 @@
 <h2>Liste des Paiements par Entité</h2>
 <form method="get" class="d-flex justify-content-center align-items-center mb-3 flex-wrap">
     <div class="me-2 mb-2">
-        <label for="annee" class="sr-only">Année</label>
         <input type="number" class="form-control" name="annee" id="annee" value="{{ annee }}" placeholder="Année">
     </div>
 
     <div class="me-2 mb-2">
-        <label for="mois" class="sr-only">Mois</label>
         <select class="form-control" name="mois" id="mois">
             <option value="">-- Tous --</option>
             {% for key, label in MONTH_CHOICES %}
@@ -20,7 +18,6 @@
     </div>
 
     <div class="me-2 mb-2">
-        <label for="status" class="sr-only">Statut</label>
         <select class="form-control" name="status" id="status">
             <option value="">-- Tous --</option>
             {% for key, label in STATUS_CHOICES %}
@@ -30,7 +27,6 @@
     </div>
 
     <div class="me-2 mb-2">
-        <label for="ticket_type" class="sr-only">Type Ticket</label>
         <select class="form-control" name="ticket_type" id="ticket_type">
             <option value="">-- Tous --</option>
             {% for key, label in TYPE_TICKET %}
@@ -39,13 +35,15 @@
         </select>
     </div>
 
-    <div class="mb-2">
+    <!-- Boutons alignés avec les inputs -->
+    <div class="d-flex mb-2">
         <button type="submit" class="btn btn-primary me-2">Filtrer</button>
         <button type="submit" name="download" value="excel" class="btn btn-success me-2">Télécharger Excel</button>
         <button type="submit" name="download" value="pdf" class="btn btn-info me-2">Télécharger PDF</button>
         <a href="{% url 'paiement-list' %}" class="btn btn-secondary">Réinitialiser</a>
     </div>
 </form>
+
 
 
 <br><br>
