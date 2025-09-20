@@ -145,6 +145,6 @@ def entity_paiements(request):
         "status": status or "",
         "MONTH_CHOICES": MONTH_CHOICES,
         "STATUS_CHOICES": STATUS_CHOICES,
-        "TYPE_TICKET ": TYPE_TICKET ,
+        "TYPE_TICKET": TYPE_TICKET ,
     }
     return render(request, "paiement.html", context)
