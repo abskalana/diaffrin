@@ -131,7 +131,7 @@ class Entity(models.Model):
     coord = models.CharField(max_length=100)
     status = models.CharField(max_length=20,default="OUVERT")
     slug = models.SlugField(unique=True, blank=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE,default="siguidataxe")
     date_created = models.DateTimeField(default=timezone.now)
     commune = models.ForeignKey(Commune, on_delete=models.CASCADE,default="150202")
 
