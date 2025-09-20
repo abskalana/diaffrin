@@ -6,6 +6,8 @@ from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
 import datetime
 from .utils import validate_date_range
+from django.utils.text import slugify
+
 
 MOIS_MAP = {
     1: "Janvier",
@@ -114,36 +116,29 @@ class Commune(models.Model):
     def __repr__(self):
         return str(self.code).upper() + " - " + self.name
 
-class Personnel(models.Model):
-    id = models.CharField(primary_key=True, max_length=12)
-    name = models.CharField(max_length=50)
-    prenom = models.CharField(max_length=30)
-    phone = models.CharField(max_length=30)
-    password = models.CharField(max_length=50)
-    status = models.IntegerField(default=0)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-
 
 class Entity(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     city = models.CharField(max_length=30)
     locality = models.CharField(max_length=50, blank=True, null=True)
-    activity = models.CharField(max_length=100, blank=True, null=True)
+    activity = models.CharField(max_length=50, blank=True, null=True)
     property = models.CharField(max_length=30, default="PRIVEE")
     type_property = models.CharField(max_length=30, default="MAISON")
-    contact_name = models.CharField(max_length=100, blank=True, null=True)
-    contact_prename = models.CharField(max_length=100, blank=True, null=True)
+    contact_name = models.CharField(max_length=50, blank=True, null=True)
+    contact_prename = models.CharField(max_length=50, blank=True, null=True)
     contact_phone = models.CharField(max_length=30, blank=True, null=True)
-    entity_name = models.CharField(max_length=50, blank=True, null=True)
-    entity_phone = models.CharField(max_length=50, blank=True, null=True)
     porte = models.IntegerField(default=1)
-    montant = models.IntegerField(default=1)
     coord = models.CharField(max_length=100)
-    paiement_status = models.CharField(max_length=20,default="PAYEE")
     status = models.CharField(max_length=20,default="OUVERT")
-    meta_user = models.CharField(max_length=20, default="user")
-    meta_created = models.DateTimeField(default=timezone.now)
-    commune = models.ForeignKey(Commune, on_delete=models.CASCADE)
+    slug = models.SlugField(unique=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    date_created = models.DateTimeField(default=timezone.now)
+    commune = models.ForeignKey(Commune, on_delete=models.CASCADE,default="150202")
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.contact_phone.split(",")[0])
+        super().save(*args, **kwargs)
 
 
 
