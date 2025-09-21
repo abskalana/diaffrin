@@ -16,8 +16,8 @@ def validate_date_range(value):
 
 def truncate_gps(coord):
     lat, lon = coord.split(";")
-    lat = f"{float(lat):.6f}"
-    lon = f"{float(lon):.6f}"
+    lat = f"{float(lat):.5f}"
+    lon = f"{float(lon):.5f}"
     return f"{lat};{lon}"
 def to_slug(phone,coord):
     res = phone.replace(',','')
