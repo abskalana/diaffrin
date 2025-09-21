@@ -74,9 +74,9 @@ MONTH_CHOICES = [
 
 
 STATUS_CHOICES = [
-        ("PAYE", "PAYÉ"),
+        ("PAYÉ", "PAYÉ"),
         ("REFUS", "REFUS"),
-        ("FERME", "FERMÉ"),
+        ("FERMÉ", "FERMÉ"),
         ("ABSENT", "ABSENT"),
         ("PAYE_MAIRIE", "PAYE_MAIRIE"),
         ("AUTRE", "AUTRE"),
