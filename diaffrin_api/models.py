@@ -217,6 +217,7 @@ class Paiement(models.Model):
     entity_model = models.ForeignKey(EntityModel, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     coord = models.CharField(max_length=100)
+    commentaire =  models.CharField(max_length=200, blank=True, null=True,default="")
     date_created = models.DateTimeField(default=timezone.now)
 
 
