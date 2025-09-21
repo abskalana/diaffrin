@@ -206,7 +206,7 @@ class Mouvement(models.Model):
 
 
 class Paiement(models.Model):
-    uuid = models.CharField(unique=True, max_length=120)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     value = models.IntegerField(default=0)
     ticket_num = models.IntegerField(default=0)
     ticket_type = models.CharField(max_length=20, choices=TYPE_TICKET)
