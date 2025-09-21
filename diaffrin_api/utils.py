@@ -20,6 +20,6 @@ def truncate_gps(coord):
     lon = f"{float(lon):.6f}"
     return f"{lat};{lon}"
 def to_slug(phone,coord):
-    res = phone.replace(',','_')
-    txt = coord.replace(';','_')
+    res = phone.replace(',','')
+    txt = coord.replace(';','')
     return slugify(res+"-"+txt)
