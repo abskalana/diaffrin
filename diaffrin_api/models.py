@@ -5,7 +5,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
 import datetime
-from .utils import validate_date_range
+from .utils import validate_date_range, to_slug, truncate_gps
 from django.utils.text import slugify
 
 
@@ -152,8 +152,8 @@ class EntityModel(models.Model):
     commune = models.ForeignKey(Commune, on_delete=models.CASCADE,default="150202")
 
     def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.contact_phone.split(",")[0])
+        self.coord = truncate_gps(self.coord)
+        self.slug = slugify(to_slug(self.contact_phone, self.coord))
         super().save(*args, **kwargs)
 
 
