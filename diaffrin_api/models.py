@@ -210,8 +210,13 @@ class Paiement(models.Model):
     value = models.IntegerField(default=0)
     ticket_num = models.IntegerField(default=0)
     ticket_type = models.CharField(max_length=20, choices=TYPE_TICKET)
-    annee = models.IntegerField(default=0)
-    mois = models.CharField(max_length=50, choices=MONTH_CHOICES)
+    annee = models.IntegerField(
+        validators=[
+            MinValueValidator(2025),
+            MaxValueValidator(datetime.date.today().year + 20)
+        ],
+        default=datetime.date.today().year)
+    mois = models.CharField(max_length=50, choices=MONTH_CHOICES,editable=False)
     date = models.DateField(default=timezone.now)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES)
     entity_model = models.ForeignKey(EntityModel, on_delete=models.CASCADE)
