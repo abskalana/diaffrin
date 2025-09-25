@@ -30,9 +30,6 @@ def home(request):
     property_ = request.GET.get("property", "")
     activity = request.GET.get("activity", "")
 
-    for item in entities:
-        item.active = is_active(item)
-        item.save()
 
     if locality:
         entities = entities.filter(locality=locality)
