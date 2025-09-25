@@ -152,6 +152,9 @@ class EntityModel(models.Model):
     commune = models.ForeignKey(Commune, on_delete=models.CASCADE,default="150202")
     active = models.BooleanField(default=True)
 
+    class Meta:
+        ordering = ['-date_created']
+
     def save(self, *args, **kwargs):
         self.coord = truncate_gps(self.coord)
         self.slug = slugify(to_slug(self.contact_phone, self.coord))
