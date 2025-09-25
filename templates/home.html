@@ -49,8 +49,8 @@
     <div class="me-2 mb-2">
         <select class="form-control" name="active" id="active">
             <option value="">-- Tous --</option>
-            <option value="1" {% if request.GET.active == "1" %}selected{% endif %}>Oui</option>
-            <option value="0" {% if request.GET.active == "0" %}selected{% endif %}>Non</option>
+            <option value="1" {% if request.GET.active == "1" %}selected{% endif %}>Present</option>
+            <option value="0" {% if request.GET.active == "0" %}selected{% endif %}>Absent</option>
         </select>
     </div>
 

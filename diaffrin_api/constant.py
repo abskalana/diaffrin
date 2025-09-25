@@ -5,7 +5,6 @@ PROPERTY_LIST = [
 ]
 
 ACTIVITY_LIST = [
-    "Selectionner une categorie",
     "Boutique divers",
     "Boutique spécialisée",
     "Autres commerces",
@@ -51,7 +50,6 @@ ACTIVITY_LIST = [
 
 # choices.py (recommended)
 LOCALITY_LIST = [
-    "Selectionner une place",
     "Kalana Centre",
     "Kalana Koko",
     "Kalana Kelibougou",
@@ -68,7 +66,6 @@ PROPERTY_LIST = [
 ]
 
 ACTIVITY_LIST = [
-    "Selectionner une categorie",
     "Boutique divers",
     "Boutique spécialisée",
     "Autres commerces",
