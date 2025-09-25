@@ -47,7 +47,7 @@
 <table class="table table-striped">
     <thead class="thead-dark">
     <tr>
-
+        <th>#</th>
         <th scope="col">Place</th>
         <th scope="col">Nom</th>
         <th scope="col">Prénom</th>
@@ -65,7 +65,7 @@
     <tbody>
     {% for entity in entities %}
     <tr>
-
+        <td>{{ forloop.counter }}</td>
         <td>{{entity.locality}}</td>
         <td>{{entity.contact_nom}}</td>
         <td>{{entity.contact_prenom}}</td>

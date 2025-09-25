@@ -18,7 +18,7 @@ import datetime
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
 from .constant import LOCALITY_LIST, PROPERTY_LIST, ACTIVITY_LIST, STATUS_LIST
-
+from .utils import is_active
 
 
 @login_required
@@ -29,6 +29,10 @@ def home(request):
     status = request.GET.get("status", "")
     property_ = request.GET.get("property", "")
     activity = request.GET.get("activity", "")
+
+    for item in entities:
+        item.active = is_active(item)
+        item.save()
 
     if locality:
         entities = entities.filter(locality=locality)
