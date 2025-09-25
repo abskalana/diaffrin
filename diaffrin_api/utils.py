@@ -27,3 +27,9 @@ def to_slug(phone,coord):
     res = phone.replace(',','')
     txt = coord.replace(';','')
     return slugify(res+"-"+txt)
+
+def is_active(entity):
+    if entity.contact_phone == "12345678" : return False
+    if entity.contact_prenom.lower() == "absent": return False
+    if entity.contact_nom.lower() == "absent": return False
+    return True

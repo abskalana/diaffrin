@@ -17,15 +17,36 @@ from django.shortcuts import get_object_or_404
 import datetime
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
+from .constant import LOCALITY_LIST, PROPERTY_LIST, ACTIVITY_LIST, STATUS_LIST
+
 
 
 @login_required
 def home(request):
     commune = Commune.objects.get(code="150202")
+    entities= commune.entitymodel_set.all()
+    locality = request.GET.get("locality", "")
+    status = request.GET.get("status", "")
+    property_ = request.GET.get("property", "")
+    activity = request.GET.get("activity", "")
+
+    if locality:
+        entities = entities.filter(locality=locality)
+    if status:
+        entities = entities.filter(status=status)
+    if property_:
+        entities = entities.filter(property=property_)
+    if activity:
+        entities = entities.filter(activity=activity)
+
     context = {
-        "commune": str(commune),
-        "entities": commune.entitymodel_set.all()
+         "entities": entities,
+         "localities": LOCALITY_LIST,  # ne contient PAS "Tous"
+         "properties": PROPERTY_LIST,  # ne contient PAS "Tous"
+         "activities": ACTIVITY_LIST,  # ne contient PAS "Tous"
+         "statuses": STATUS_LIST,  # ne contient PAS "Tous"
     }
+
     return render(request, 'home.html', context=context)
 
 @csrf_exempt

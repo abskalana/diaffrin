@@ -5,10 +5,49 @@
 <h4>Listes des commerces et services de la commune</h4>
 <br>
 
+<form method="get" class="mb-3">
+  <label>Locality</label>
+  <select name="locality" class="form-control">
+    <option value="" {% if not request.GET.locality %}selected{% endif %}>Tous</option>
+    {% for l in localities %}
+      <option value="{{ l }}" {% if request.GET.locality == l %}selected{% endif %}>{{ l }}</option>
+    {% endfor %}
+  </select>
+
+  <label>Property</label>
+  <select name="property" class="form-control">
+    <option value="" {% if not request.GET.property %}selected{% endif %}>Tous</option>
+    {% for p in properties %}
+      <option value="{{ p }}" {% if request.GET.property == p %}selected{% endif %}>{{ p }}</option>
+    {% endfor %}
+  </select>
+
+  <label>Activity</label>
+  <select name="activity" class="form-control">
+    <option value="" {% if not request.GET.activity %}selected{% endif %}>Tous</option>
+    {% for a in activities %}
+      <option value="{{ a }}" {% if request.GET.activity == a %}selected{% endif %}>{{ a }}</option>
+    {% endfor %}
+  </select>
+
+  <label>Status</label>
+  <select name="status" class="form-control">
+    <option value="" {% if not request.GET.status %}selected{% endif %}>Tous</option>
+    {% for s in statuses %}
+      <option value="{{ s }}" {% if request.GET.status == s %}selected{% endif %}>{{ s }}</option>
+    {% endfor %}
+  </select>
+
+  <div class="mt-2">
+    <button type="submit" class="btn btn-primary">Filtrer</button>
+    <a href="{% url 'entity_list' %}" class="btn btn-secondary">Réinitialiser</a>
+  </div>
+</form>
+
 <table class="table table-striped">
     <thead class="thead-dark">
     <tr>
-        <th scope="col">Ville</th>
+
         <th scope="col">Place</th>
         <th scope="col">Nom</th>
         <th scope="col">Prénom</th>
@@ -19,13 +58,14 @@
         <th scope="col">#Porte</th>
         <th scope="col">Status</th>
         <th scope="col">User</th>
+        <th scope="col">GPS</th>
         <th scope="col">date_created</th>
     </tr>
     </thead>
     <tbody>
     {% for entity in entities %}
     <tr>
-        <td>{{entity.city}}</td>
+
         <td>{{entity.locality}}</td>
         <td>{{entity.contact_nom}}</td>
         <td>{{entity.contact_prenom}}</td>
@@ -36,6 +76,7 @@
         <td>{{entity.porte}}</td>
          <td>{{entity.status}}</td>
         <td>{{entity.user}}</td>
+        <td>{{entity.coord}}</td>
         <td>{{entity.date_created}}</td>
     </tr>
     {% endfor %}
