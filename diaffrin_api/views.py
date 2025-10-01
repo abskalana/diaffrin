@@ -126,7 +126,7 @@ def mouvement_list(request):
 
     if download == "excel":
         df = pd.DataFrame.from_records(mouvements.values())
-        today_str = datetime.now().strftime("%Y-%m-%d")
+        today_str = datetime.date.today().strftime("%Y-%m-%d")
         filename = f"mouvements_{today_str}.xlsx"
         response = HttpResponse(content_type="application/vnd.ms-excel")
         response["Content-Disposition"] = f'attachment; filename="{filename}"'
@@ -178,6 +178,9 @@ def entity_paiements(request):
     if status:
         paiements = paiements.filter(status=status)
 
+    if ticket:
+       paiements = paiements.filter(ticket_type=ticket)
+
     context = {
         "paiements": paiements,
         "annee": annee or "",
@@ -190,7 +193,7 @@ def entity_paiements(request):
 
     if download == "excel":
         df = pd.DataFrame.from_records(paiements.values())
-        today_str = datetime.now().strftime("%Y-%m-%d")
+        today_str = datetime.date.today().strftime("%Y-%m-%d")
         filename = f"paiements_{today_str}.xlsx"
         response = HttpResponse(content_type="application/vnd.ms-excel")
         response["Content-Disposition"] = f'attachment; filename="{filename}"'
