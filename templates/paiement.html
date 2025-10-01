@@ -52,6 +52,7 @@
     <table class="table table-striped table-bordered table-hover">
         <thead class="table-dark">
             <tr>
+                 <th>#</th>
                 <th>Ville</th>
                 <th>Localité</th>
                 <th>Activité</th>
@@ -72,6 +73,7 @@
         <tbody>
             {% for paiement in paiements %}
                 <tr>
+                     <td>{{ forloop.counter }}</td>
                     <td>{{ paiement.entity_model.city }}</td>
                     <td>{{ paiement.entity_model.locality }}</td>
                     <td>{{ paiement.entity_model.activity }}</td>
