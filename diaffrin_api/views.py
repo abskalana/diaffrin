@@ -83,6 +83,7 @@ def mouvement_list(request):
     source = request.GET.get("source")
     category = request.GET.get("category")
     annee = request.GET.get("annee", today.year)
+    download = request.GET.get("download")
 
     if annee:
         mouvements = mouvements.filter(annee=annee)
@@ -122,6 +123,16 @@ def mouvement_list(request):
         'somme_reserve': somme_reserve,
         'somme_caisse': somme_caisse,
     }
+
+    if download == "excel":
+        df = pd.DataFrame.from_records(mouvements.values())
+        today_str = datetime.now().strftime("%Y-%m-%d")
+        filename = f"mouvements_{today_str}.xlsx"
+        response = HttpResponse(content_type="application/vnd.ms-excel")
+        response["Content-Disposition"] = f'attachment; filename="{filename}"'
+        df.to_excel(response, index=False)
+        return response
+
     return render(request, "mouvement_list.html", context)
 @login_required
 def create_mouvement(request):
@@ -154,8 +165,11 @@ def entity_paiements(request):
     mois = request.GET.get('mois')
     status = request.GET.get('status')
     ticket = request.GET.get('ticket')
+    download = request.GET.get("download")
 
-    paiements = Paiement.objects.select_related("entity_model")
+
+
+    paiements = Paiement.objects.all()
 
     if annee and annee.isdigit():
         paiements = paiements.filter(annee=int(annee))
@@ -173,4 +187,14 @@ def entity_paiements(request):
         "STATUS_CHOICES": STATUS_CHOICES,
         "TYPE_TICKET": TYPE_TICKET ,
     }
+
+    if download == "excel":
+        df = pd.DataFrame.from_records(paiements.values())
+        today_str = datetime.now().strftime("%Y-%m-%d")
+        filename = f"paiements_{today_str}.xlsx"
+        response = HttpResponse(content_type="application/vnd.ms-excel")
+        response["Content-Disposition"] = f'attachment; filename="{filename}"'
+        df.to_excel(response, index=False)
+        return response
+
     return render(request, "paiement.html", context)
