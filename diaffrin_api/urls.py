@@ -4,7 +4,6 @@ from django.views.static import serve
 
 from diaffrin import settings
 from . import views
-from . import  export
 
 from .serializer import EntityBulkCreateView,PaiementBulkCreateView
 
