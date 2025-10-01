@@ -126,6 +126,8 @@ def mouvement_list(request):
 
     if download == "excel":
         df = pd.DataFrame.from_records(mouvements.values())
+        for col in df.select_dtypes(include=["datetimetz"]).columns:
+            df[col] = df[col].dt.tz_localize(None)
         today_str = datetime.date.today().strftime("%Y-%m-%d")
         filename = f"mouvements_{today_str}.xlsx"
         response = HttpResponse(content_type="application/vnd.ms-excel")
@@ -193,6 +195,8 @@ def entity_paiements(request):
 
     if download == "excel":
         df = pd.DataFrame.from_records(paiements.values())
+        for col in df.select_dtypes(include=["datetimetz"]).columns:
+            df[col] = df[col].dt.tz_localize(None)
         today_str = datetime.date.today().strftime("%Y-%m-%d")
         filename = f"paiements_{today_str}.xlsx"
         response = HttpResponse(content_type="application/vnd.ms-excel")
