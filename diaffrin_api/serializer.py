@@ -3,6 +3,12 @@ from .models import EntityModel,Paiement
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework import serializers, status
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from .models import Paiement
+from .file_utils import append_to_csv
+
 
 
 class EntitySerializer(serializers.ModelSerializer):
@@ -30,18 +36,20 @@ class EntityBulkCreateView(APIView):
             {"city": "Segou", "locality": "Quartier B", "meta_user": "admin", "commune": 2, ...}
         ]
         """
+        append_to_csv("entity_data.csv", request.data)
         serializer = EntitySerializer(data=request.data, many=True)
         if serializer.is_valid():
             serializer.save()
             return Response("true", status=status.HTTP_201_CREATED)
+
+        if serializer.errors:
+            errors_to_save = [{"field": k, "errors": v} for k, v in serializer.errors.items()]
+            append_to_csv("entity_data_errors.csv", errors_to_save)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 
-from rest_framework import serializers, status
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from .models import Paiement
 
 
 class PaiementSerializer(serializers.ModelSerializer):
@@ -52,10 +60,15 @@ class PaiementSerializer(serializers.ModelSerializer):
 
 class PaiementBulkCreateView(APIView):
     def post(self, request):
-
+        append_to_csv("paiement_data.csv", request.data)
         serializer = PaiementSerializer(data=request.data, many=True)
         if serializer.is_valid():
             serializer.save()
             return Response("true", status=status.HTTP_201_CREATED)
+
+        if serializer.errors:
+            errors_to_save = [{"field": k, "errors": v} for k, v in serializer.errors.items()]
+            append_to_csv("paiement_data_errors.csv", errors_to_save)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

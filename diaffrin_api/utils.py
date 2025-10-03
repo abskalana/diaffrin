@@ -33,3 +33,5 @@ def is_active(entity):
     if entity.contact_prenom.lower() == "absent": return False
     if entity.contact_nom.lower() == "absent": return False
     return True
+
+

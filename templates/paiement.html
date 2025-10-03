@@ -88,7 +88,7 @@
                     <td>{{ paiement.annee }}</td>
                     <td>{{ paiement.value }}</td>
                     <td>{{ paiement.status }}</td>
-                    <td>{{ paiement.date }}</td>
+                    <td>{{ paiement.date|date:"d/m/Y H\hi"  }}</td>
                 </tr>
             {% empty %}
                 <tr>

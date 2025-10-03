@@ -170,8 +170,7 @@ def entity_paiements(request):
     download = request.GET.get("download")
 
 
-
-    paiements = Paiement.objects.all()
+    paiements = Paiement.objects.select_related("entity_model").order_by("-date_create")
 
     if annee and annee.isdigit():
         paiements = paiements.filter(annee=int(annee))
