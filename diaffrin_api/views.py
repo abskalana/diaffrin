@@ -45,6 +45,7 @@ def home(request):
         entities = entities.filter(activity=activity)
 
     context = {
+        'commune': commune,
          "entities": entities,
          "localities": LOCALITY_LIST,  # ne contient PAS "Tous"
          "properties": PROPERTY_LIST,  # ne contient PAS "Tous"
@@ -82,7 +83,7 @@ def get_entity_paiement(request):
 
 
     context = {
-         'commune': commune,
+        'commune': commune,
          "entities": entities,
          "city": PLACES,
          "localities": LOCALITY_LISTS + [p for p in PLACES if p != "Kalana"],  # ne contient PAS "Tous"
@@ -127,6 +128,7 @@ def mouvement_list(request):
     category = request.GET.get("category")
     annee = request.GET.get("annee", today.year)
     download = request.GET.get("download")
+    commune = Commune.objects.get(code="150202")
 
     if annee:
         mouvements = mouvements.filter(annee=annee)
@@ -150,6 +152,7 @@ def mouvement_list(request):
     somme_caisse = sum(m.total for m in mouvements if m.category  == "Caisse")
 
     context = {
+        'commune': commune,
         "mouvements": mouvements,
         "mois_selected": mois,
         "sens_selected": sens,
@@ -181,6 +184,7 @@ def mouvement_list(request):
     return render(request, "mouvement_list.html", context)
 @login_required
 def create_mouvement(request):
+    commune = Commune.objects.get(code="150202")
     success_message = None
 
     if request.method == "POST":
@@ -194,15 +198,7 @@ def create_mouvement(request):
     else:
         form = MouvementForm()
 
-    return render(request, "mouvement_add.html", {"form": form, "success_message": success_message})
-@login_required
-def get_entity(request, slug):
-    commune = get_object_or_404(Commune, code=request.user.username.lower())
-    entity = get_object_or_404(EntityModel, slug=slug)
-    coord = entity.coord
-    if coord is None or len(coord) < 5: entity.coord = "10.7879168;-8.204519"
-    return render(request, 'detail.html', context={'entity': entity, "commune": str(commune)})
-
+    return render(request, "mouvement_add.html", {"form": form, "success_message": success_message,'commune': commune})
 
 @login_required
 def entity_paiements(request):
@@ -211,6 +207,7 @@ def entity_paiements(request):
     status = request.GET.get('status')
     ticket = request.GET.get('ticket')
     download = request.GET.get("download")
+    commune = Commune.objects.get(code="150202")
 
 
     paiements = Paiement.objects.select_related("entity_model").order_by("-date_created")
@@ -226,6 +223,7 @@ def entity_paiements(request):
        paiements = paiements.filter(ticket_type=ticket)
 
     context = {
+        'commune': commune,
         "paiements": paiements,
         "annee": annee or "",
         "mois": mois or "",
@@ -258,7 +256,9 @@ def entity_detail_view(request, pk):
     payments = Paiement.objects.filter(entity_model=entity).order_by('-date_created')
 
     # Passe les données au template
+    commune = Commune.objects.get(code="150202")
     context = {
+        'commune': commune,
         'entity': entity,
         'payments': payments,
     }
