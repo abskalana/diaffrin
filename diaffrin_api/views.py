@@ -219,4 +219,4 @@ def entity_detail_view(request, pk):
         'payments': payments,
     }
 
-    return render(request, 'entity_detail.html', context)
+    return render(request, 'detail.html', context)
