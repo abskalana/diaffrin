@@ -54,6 +54,40 @@ def home(request):
 
     return render(request, 'home.html', context=context)
 
+
+@login_required
+def get_entity_paiement(request):
+    commune = Commune.objects.get(code="150202")
+    entities= commune.entitymodel_set.all()
+    locality = request.GET.get("locality", "")
+    status = request.GET.get("status", "")
+    property_ = request.GET.get("property", "")
+    activity = request.GET.get("activity", "")
+
+    active = request.GET.get("active", "")
+    if active != "":
+        entities = entities.filter(active=bool(int(active)))
+
+
+    if locality:
+        entities = entities.filter(locality=locality)
+    if status:
+        entities = entities.filter(status=status)
+    if property_:
+        entities = entities.filter(property=property_)
+    if activity:
+        entities = entities.filter(activity=activity)
+
+    context = {
+         "entities": entities,
+         "localities": LOCALITY_LIST,  # ne contient PAS "Tous"
+         "properties": PROPERTY_LIST,  # ne contient PAS "Tous"
+         "activities": ACTIVITY_LIST,  # ne contient PAS "Tous"
+         "statuses": STATUS_LIST,  # ne contient PAS "Tous"
+    }
+
+    return render(request, 'entity_paiement.html', context=context)
+
 @csrf_exempt
 def login_view(request):
     username = ""

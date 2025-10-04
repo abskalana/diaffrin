@@ -1,0 +1,126 @@
+{% extends 'parent.html' %}
+
+{% block content %}
+<br>
+<h2>Listes des paiements {{commune}}  -  {{mois}}</h2>
+<br>
+<form method="get" class="d-flex justify-content-center align-items-center mb-3 flex-wrap">
+    <!-- City -->
+    <div class="me-2 mb-2">
+        <select class="form-control" name="city" id="city">
+            <option value="">-- Tous --</option>
+            {% for l in localities %}
+                <option value="{{ l }}" {% if request.GET.city == l %}selected{% endif %}>{{ l }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <!-- Locality -->
+    <div class="me-2 mb-2">
+        <select class="form-control" name="locality" id="locality">
+            <option value="">-- Tous --</option>
+            {% for l in localities %}
+                <option value="{{ l }}" {% if request.GET.locality == l %}selected{% endif %}>{{ l }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <!-- Property -->
+    <div class="me-2 mb-2">
+        <select class="form-control" name="property" id="property">
+            <option value="">-- Tous --</option>
+            {% for p in properties %}
+                <option value="{{ p }}" {% if request.GET.property == p %}selected{% endif %}>{{ p }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+     <!-- Activity -->
+    <div class="me-2 mb-2">
+        <select class="form-control" name="activity" id="activity">
+            <option value="">-- Tous --</option>
+            {% for p in properties %}
+                <option value="{{ p }}" {% if request.GET.property == p %}selected{% endif %}>{{ p }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <!-- Année -->
+    <div class="me-2 mb-2">
+        <select class="form-control" name="annee" id="annee">
+            <option value="">-- Tous --</option>
+            {% for a in activities %}
+                <option value="{{ a }}" {% if request.GET.activity == a %}selected{% endif %}>{{ a }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <!-- Mois -->
+    <div class="me-2 mb-2">
+        <select class="form-control" name="status" id="status">
+            <option value="">-- Tous --</option>
+            {% for s in statuses %}
+                <option value="{{ s }}" {% if request.GET.status == s %}selected{% endif %}>{{ s }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <!-- Status -->
+    <div class="me-2 mb-2">
+        <select class="form-control" name="active" id="active">
+            <option value="">-- Tous --</option>
+            <option value="1" {% if request.GET.active == "1" %}selected{% endif %}>Present</option>
+            <option value="0" {% if request.GET.active == "0" %}selected{% endif %}>Absent</option>
+        </select>
+    </div>
+
+    <!-- Boutons -->
+    <div class="d-flex mb-2">
+        <button type="submit" class="btn btn-primary me-2">Filtrer</button>
+        <a href="{% url 'home' %}" class="btn btn-secondary">Réinitialiser</a>
+    </div>
+</form>
+
+<br><br>
+
+<table class="table table-striped">
+    <thead class="thead-dark">
+    <tr>
+    <th>#</th>
+     <th scope="col">Ville</th>
+    <th scope="col">Place</th>
+    <th scope="col">Nom</th>
+    <th scope="col">Prénom</th>
+    <th scope="col">Phone</th>
+    <th scope="col">Activité</th>
+    <th scope="col">Propriété</th>
+    <th scope="col">Type</th>
+    <th scope="col">#Porte</th>
+    <th scope="col">Status</th>
+    <th scope="col">Info</th>
+    <th scope="col">date_created</th>
+</tr>
+</thead>
+<tbody>
+{% for entity in entities %}
+<tr>
+    <td>{{ forloop.counter }}</td>
+    <td>{{ entity.locality }}</td>
+    <td>{{ entity.contact_nom }}</td>
+    <td>{{ entity.contact_prenom }}</td>
+    <td>{{ entity.contact_phone }}</td>
+    <td>{{ entity.activity }}</td>
+    <td>{{ entity.property }}</td>
+    <td>{{ entity.type_entity }}</td>
+    <td>{{ entity.porte }}</td>
+    <td>{{ entity.status }}</td>
+    <td>
+        <a href="{{ entity.get_absolute_url }}">Détails</a>
+    </td>
+    <td>{{ entity.date_created|date:"d/m/Y H:i" }}</td>
+</tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}

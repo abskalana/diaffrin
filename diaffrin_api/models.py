@@ -179,6 +179,21 @@ class EntityModel(models.Model):
         else:
             return "---"
 
+    def get_paiement_status(self, mois=None, annee=None):
+        now = timezone.now()
+        mois = mois or now.strftime('%B')  # ex: "Octobre"
+        annee = annee or now.year
+
+        paiement = Paiement.objects.filter(
+            entity_model=self,
+            mois=mois,
+            annee=annee
+        ).first()  # récupère le premier paiement trouvé (ou None)
+
+        if paiement:
+            return paiement.status
+        return None
+
 
 
 class Mouvement(models.Model):

@@ -11,7 +11,7 @@ favicon_view = RedirectView.as_view(url='../static/images/favicon.ico', permanen
 
 urlpatterns = [
     path("", views.home, name="home"),
-
+    path("entity/paiement", views.get_entity_paiement, name="entity-paiement"),
     path('operations/add/', views.create_mouvement, name="mouvement_add"),
     path('operations/list/', views.mouvement_list, name="mouvement_list"),
     path("api/paiement/create/", PaiementBulkCreateView.as_view(), name="paiement-create"),
