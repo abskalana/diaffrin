@@ -62,6 +62,7 @@ def get_entity_paiement(request):
     current_month = MOIS_MAP.get(today.month)
     mois = request.GET.get("mois", current_month)
     entities= commune.entitymodel_set.all()
+    city = request.GET.get("city", "")
     locality = request.GET.get("locality", "")
     status = request.GET.get("status", "")
     property_ = request.GET.get("property", "")
@@ -92,6 +93,10 @@ def get_entity_paiement(request):
          "year_selected": annee,
          "current_year": today.year,
          "MONTH_CHOICES": MONTH_CHOICES,
+         "mois_selected": mois,
+          "city_selected": sens,
+          "nature_selected": nature,
+          "source_selected": source,
     }
 
     return render(request, 'entity_paiement.html', context=context)
