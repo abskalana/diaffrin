@@ -46,11 +46,9 @@
     </div>
 
     <div class="col-md-2">
-        <label class="form-label">Année</label>
         <input type="number" name="annee" class="form-control" value="{{ year_selected|default:current_year }}">
     </div>
     <div class="col-md-2">
-        <label class="form-label">Mois</label>
         <select name="mois" class="form-select">
             <option value="">Tous</option>
             {% for m in MONTH_CHOICES %}
