@@ -94,8 +94,6 @@ def get_entity_paiement(request):
          "current_year": today.year,
          "MONTH_CHOICES": MONTH_CHOICES,
          "mois_selected": mois,
-          "nature_selected": nature,
-          "source_selected": source,
     }
 
     return render(request, 'entity_paiement.html', context=context)
