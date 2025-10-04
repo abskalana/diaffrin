@@ -37,10 +37,11 @@
     </button>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="menuDropdown">
       <li><a class="dropdown-item" href="{% url 'mouvement_add' %}">Ajouter opération</a></li>
-      <li><a class="dropdown-item" href="{% url 'home'%}">Entités</a></li>
-      <li><a class="dropdown-item" href="{% url 'entity-paiement'%}">Paiement mensuelle</a></li>
+
+      <li><a class="dropdown-item" href="{% url 'entity-paiement'%}">Status paiement</a></li>
       <li><a class="dropdown-item" href="{% url 'mouvement_list'%}">Opérations List</a></li>
       <li><a class="dropdown-item" href="{% url 'paiement-list'%}">Historique paiement</a></li>
+         <li><a class="dropdown-item" href="{% url 'home'%}">Listes entités </a></li>
       <li>
         <form method="post" action="{% url 'logout' %}">
           {% csrf_token %}
