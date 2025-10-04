@@ -17,7 +17,8 @@ from django.shortcuts import get_object_or_404
 import datetime
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
-from .constant import LOCALITY_LIST, PROPERTY_LIST, ACTIVITY_LIST, STATUS_LIST, PLACES,LOCALITY_LISTS,STATUS_CHOICES_LIST
+from .constant import LOCALITY_LIST, PROPERTY_LIST, ACTIVITY_LIST, STATUS_LIST, PLACES, LOCALITY_LISTS, \
+    STATUS_CHOICES_LIST, STATUS_CHOICES_LIST_ALL
 from .utils import is_active,get_status
 
 
@@ -100,7 +101,7 @@ def get_entity_paiement(request):
          "localities": LOCALITY_LISTS + [p for p in PLACES if p != "Kalana"],  # ne contient PAS "Tous"
          "properties": PROPERTY_LIST,  # ne contient PAS "Tous"
          "activities": ACTIVITY_LIST,  # ne contient PAS "Tous"
-         "statuses": STATUS_CHOICES_LIST,  # ne contient PAS "Tous"
+         "statuses": STATUS_CHOICES_LIST_ALL,  # ne contient PAS "Tous"
          "year_selected": annee,
          "current_year": today.year,
          "MONTH_CHOICES": MONTH_CHOICES,
