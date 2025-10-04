@@ -66,6 +66,7 @@ def get_entity_paiement(request):
     status = request.GET.get("status", "")
     property_ = request.GET.get("property", "")
     activity = request.GET.get("activity", "")
+    annee = request.GET.get("annee", today.year)
 
     active = request.GET.get("active", "")
     if active != "":
