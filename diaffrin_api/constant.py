@@ -115,6 +115,16 @@ STATUS_LIST = [
     "FERME",
 ]
 
+LOCALITY_LISTS = [
+    'Kalana',
+    "Kalana Centre",
+    "Kalana Koko",
+    "Kalana Kelibougou",
+    "Kalana Camp coroni",
+    "Kalana Camp",
+    "Kalana Dabaranbougou",
+]
+
 PLACES = [
     "Kalana",
     "Niessoumala",
