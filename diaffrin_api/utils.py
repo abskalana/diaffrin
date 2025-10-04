@@ -38,7 +38,7 @@ def is_active(entity):
 
 def get_status(status):
     if not status: return STATUS_CHOICES_LIST
-    if status in STATUS_CHOICES_LIST: return status
+    if status in STATUS_CHOICES_LIST: return [status]
     if status.upper() =="NON_PAYÉ": return STATUS_CHOICES_LIST_NON_PAYE
     if status.upper() == "DEJA_PAYÉ": return STATUS_CHOICES_LIST_PAYE
     return STATUS_CHOICES_LIST
