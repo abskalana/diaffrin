@@ -90,6 +90,7 @@
 
         <th scope="col">Paiement montant</th>
         <th scope="col">Paiement Status</th>
+        <th scope="col">Paiement Mois</th>
         <th scope="col">Paiement Date</th>
         <th scope="col">Info</th>
         <th scope="col">date_created</th>
@@ -128,6 +129,13 @@
 
         <td>
             {% if entity.paiement %}
+            {{ entity.paiement.mois }}-{{ entity.paiement.annee }}
+            {% else %}
+            <span class="text-muted">--</span>
+            {% endif %}
+        </td>
+        <td>
+            {% if entity.paiement %}
             {{ entity.paiement.date_created|date:"d/m/Y H\hi" }}
             {% else %}
             <span class="text-muted">--</span>
@@ -137,7 +145,6 @@
         <td>
             <a href="{{ entity.get_absolute_url }}">Détails</a>
         </td>
-        <td>{{ entity.date_created|date:"d/m/Y H:i" }}</td>
     </tr>
     {% endfor %}
     </tbody>
