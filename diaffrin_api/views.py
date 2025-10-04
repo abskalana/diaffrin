@@ -19,7 +19,7 @@ from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
 from .constant import LOCALITY_LIST, PROPERTY_LIST, ACTIVITY_LIST, STATUS_LIST, PLACES, LOCALITY_LISTS, \
     STATUS_CHOICES_LIST, STATUS_CHOICES_LIST_ALL
-from .utils import is_active,get_status
+from .utils import is_active,filter_entities_by_status
 
 
 @login_required
@@ -67,14 +67,13 @@ def get_entity_paiement(request):
     city = request.GET.get("city", "")
     locality = request.GET.get("locality", "")
     property_ = request.GET.get("property", "")
-    status = get_status(request.GET.get("status", ""))
+    status = request.GET.get("status", "")
 
     entities= commune.entitymodel_set.all()
     paiements = Paiement.objects.filter(
         entity_model__in=entities,
         annee=annee,
         mois=mois,
-        status__in=status
     )
     paiement_dict = {p.entity_model_id: p for p in paiements}
     for e in entities:
@@ -90,8 +89,7 @@ def get_entity_paiement(request):
     if property_:
         entities = entities.filter(property=property_)
 
-    entities = [e for e in entities if e.paiement]
-
+    entities = filter_entities_by_status(entities, status_input)
 
     context = {
         'commune': commune,
