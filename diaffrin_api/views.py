@@ -82,7 +82,7 @@ def get_entity_paiement(request):
 
 
     context = {
-         'commune': commune
+         'commune': commune,
          "entities": entities,
          "city": PLACES,
          "localities": LOCALITY_LISTS + [p for p in PLACES if p != "Kalana"],  # ne contient PAS "Tous"
