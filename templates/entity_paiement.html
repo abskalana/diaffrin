@@ -4,8 +4,8 @@
 <br>
 <h2 style="display: flex; justify-content: space-between; align-items: center;">
     Status des paiements - {{ mois_selected }} {{ year_selected }}
-    <span class="status" data-status="{{ status }}">
-        {{ status }}
+    <span class="status" data-status="{{ request.GET.status }}">
+        {{ request.GET.status }}
     </span>
 </h2>
 <br>
