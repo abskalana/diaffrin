@@ -17,7 +17,7 @@ from django.shortcuts import get_object_or_404
 import datetime
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
-from .constant import LOCALITY_LIST, PROPERTY_LIST, ACTIVITY_LIST, STATUS_LIST
+from .constant import LOCALITY_LIST, PROPERTY_LIST, ACTIVITY_LIST, STATUS_LIST, PLACES
 from .utils import is_active
 
 
@@ -81,7 +81,7 @@ def get_entity_paiement(request):
     context = {
          "entities": entities,
          "city": PLACES,
-         "localities": LOCALITY_LIST,  # ne contient PAS "Tous"
+         "localities": LOCALITY_LIST+PLACES,  # ne contient PAS "Tous"
          "properties": PROPERTY_LIST,  # ne contient PAS "Tous"
          "activities": ACTIVITY_LIST,  # ne contient PAS "Tous"
          "statuses": STATUS_LIST,  # ne contient PAS "Tous"
