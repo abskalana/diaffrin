@@ -214,12 +214,10 @@ def create_mouvement(request):
 def entity_paiements(request):
     annee = request.GET.get('annee')
     mois = request.GET.get('mois')
-    status = get_status(request.GET.get('status',""))
+    status = request.GET.get('status',"")
     ticket = request.GET.get('ticket')
     download = request.GET.get("download")
     commune = Commune.objects.get(code="150202")
-
-
     paiements = Paiement.objects.select_related("entity_model").order_by("-date_created")
 
     if annee and annee.isdigit():
@@ -227,7 +225,7 @@ def entity_paiements(request):
     if mois:
         paiements = paiements.filter(mois=mois)
     if status:
-        paiements = paiements.filter(status__in=status)
+        paiements = paiements.filter(status=status)
 
     if ticket:
        paiements = paiements.filter(ticket_type=ticket)
@@ -241,7 +239,6 @@ def entity_paiements(request):
         "MONTH_CHOICES": MONTH_CHOICES,
         "STATUS_CHOICES": STATUS_CHOICES,
         "TYPE_TICKET": TYPE_TICKET ,
-
     }
 
     if download == "excel":
@@ -262,15 +259,13 @@ def entity_detail_view(request, pk):
     # Récupère l'entité par son UUID
     entity = get_object_or_404(EntityModel, pk=pk)
 
-    # Récupère les paiements associés
+
     payments = Paiement.objects.filter(entity_model=entity).order_by('-date_created')
 
-    # Passe les données au template
     commune = Commune.objects.get(code="150202")
     context = {
         'commune': commune,
         'entity': entity,
         'payments': payments,
     }
-
     return render(request, 'detail.html', context)
