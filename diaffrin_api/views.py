@@ -17,7 +17,7 @@ from django.shortcuts import get_object_or_404
 import datetime
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
-from .constant import LOCALITY_LIST, PROPERTY_LIST, ACTIVITY_LIST, STATUS_LIST, PLACES,LOCALITY_LISTS
+from .constant import LOCALITY_LIST, PROPERTY_LIST, ACTIVITY_LIST, STATUS_LIST, PLACES,LOCALITY_LISTS,STATUS_CHOICES_LIST
 from .utils import is_active
 
 
@@ -60,19 +60,23 @@ def get_entity_paiement(request):
     commune = Commune.objects.get(code="150202")
     today = datetime.date.today()
     current_month = MOIS_MAP.get(today.month)
-    mois = request.GET.get("mois", current_month)
+
     entities= commune.entitymodel_set.all()
+
+    annee = request.GET.get("annee", today.year)
+    mois = request.GET.get("mois", current_month)
     city = request.GET.get("city", "")
     locality = request.GET.get("locality", "")
-    status = request.GET.get("status", "")
     property_ = request.GET.get("property", "")
-    activity = request.GET.get("activity", "")
-    annee = request.GET.get("annee", today.year)
+    status = request.GET.get("status", "")
 
-    active = request.GET.get("active", "")
-    if active != "":
-        entities = entities.filter(active=bool(int(active)))
+    if annee:
+        entities = entities.filter(annee=annee)
+    if mois:
+        entities = entities.filter(mois=mois)
 
+    if city:
+        entities = entities.filter(city=city)
 
     if locality:
         entities = entities.filter(locality=locality)
