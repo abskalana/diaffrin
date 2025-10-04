@@ -89,7 +89,7 @@ def get_entity_paiement(request):
     if property_:
         entities = entities.filter(property=property_)
 
-    entities = filter_entities_by_status(entities, status_input)
+    entities = filter_entities_by_status(entities, status)
 
     context = {
         'commune': commune,
