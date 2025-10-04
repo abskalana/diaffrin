@@ -6,16 +6,16 @@
     <!-- Informations de l'entité -->
     <div class="card mb-4">
         <div class="card-header bg-primary text-white">
-            <h2 class="mb-0">{{ entity.get_display_name }}</h2>
+            <h2 class="mb-0">{{ entity.get_display_name }}  -  {{ entity.activity|default:"-" }} </h2>
         </div>
         <div class="card-body">
             <div class="row mb-2">
-                <div class="col-md-4"><strong>Activité :</strong> {{ entity.activity|default:"-" }}</div>
-                <div class="col-md-4"><strong>Place :</strong> {{ entity.city|default:"-" }}</div>
                 <div class="col-md-4"><strong>Ville :</strong> {{ entity.locality|default:"-" }}</div>
+                <div class="col-md-4"><strong>Place :</strong> {{ entity.city|default:"-" }}</div>
+                <div class="col-md-4"><strong>Type :</strong> {{ entity.property|default:"-" }}</div>
             </div>
             <div class="row">
-                <div class="col-md-4"><strong>Téléphone :</strong> {{ entity.contact_phone|default:"-" }}</div>
+                <div class="col-md-4"><strong>#Porte :</strong> {{ entity.porte|default:"1" }}</div>
                 <div class="col-md-4"><strong>Type :</strong> {{ entity.type_entity }}</div>
                 <div class="col-md-4"><strong>Statut :</strong> {{ entity.status }}</div>
             </div>
