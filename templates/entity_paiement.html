@@ -7,7 +7,23 @@
 
 <form method="get" class="container mb-3">
   <div class="row g-2 justify-content-center align-items-center">
-    <!-- City -->
+
+         <!-- Année -->
+    <div class="col-md-2 col-6">
+      <input type="number" name="annee" class="form-control" value="{{ year_selected|default:current_year }}">
+    </div>
+
+    <!-- Mois -->
+    <div class="col-md-2 col-6">
+      <select name="mois" class="form-select">
+        <option value="">Tous</option>
+        {% for m in MONTH_CHOICES %}
+          <option value="{{ m.0 }}" {% if mois_selected == m.0 %}selected{% endif %}>{{ m.1 }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+      <!-- City -->
     <div class="col-md-2 col-6">
       <select class="form-select" name="city" id="city">
         <option value="">-- Tous --</option>
@@ -47,20 +63,7 @@
       </select>
     </div>
 
-    <!-- Année -->
-    <div class="col-md-2 col-6">
-      <input type="number" name="annee" class="form-control" value="{{ year_selected|default:current_year }}">
-    </div>
 
-    <!-- Mois -->
-    <div class="col-md-2 col-6">
-      <select name="mois" class="form-select">
-        <option value="">Tous</option>
-        {% for m in MONTH_CHOICES %}
-          <option value="{{ m.0 }}" {% if mois_selected == m.0 %}selected{% endif %}>{{ m.1 }}</option>
-        {% endfor %}
-      </select>
-    </div>
 
     <!-- Boutons -->
     <div class="col-auto d-flex">
