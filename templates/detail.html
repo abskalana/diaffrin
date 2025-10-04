@@ -1,48 +1,115 @@
 {% extends 'parent.html' %}
 
 {% block content %}
-<div style="margin:5%">
-<div class="row" >
-    <h1 class="font-weight-bold">{{entity.get_display_name}}</h1>
-    <div class="fs-3"><b>Activité : </b>{{entity.activity}}</div>
-    <div class="fs-3"><b>Place : </b>{{entity.city}}</div>
-    <div class="fs-3"><b>Ville : </b>{{entity.locality}}</div>
-    <div class="fs-3"><b>Téléphone :</b>{{entity.contact_phone}}</div>
-</div>
-<br><br>
-<div class="row">
-    <div class="col-md-3"><h4>Historique des paiements</h4></div>
-    <div class="col-md-1"></div>
-    <div class="col-md-8"><h4>Localisation géographique</h4><div id="map" class="map"></div>
+<div class="container my-5">
+
+    <!-- Informations de l'entité -->
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h2 class="mb-0">{{ entity.get_display_name }}</h2>
+        </div>
+        <div class="card-body">
+            <div class="row mb-2">
+                <div class="col-md-4"><strong>Activité :</strong> {{ entity.activity|default:"-" }}</div>
+                <div class="col-md-4"><strong>Place :</strong> {{ entity.city|default:"-" }}</div>
+                <div class="col-md-4"><strong>Ville :</strong> {{ entity.locality|default:"-" }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-4"><strong>Téléphone :</strong> {{ entity.contact_phone|default:"-" }}</div>
+                <div class="col-md-4"><strong>Type :</strong> {{ entity.type_entity }}</div>
+                <div class="col-md-4"><strong>Statut :</strong> {{ entity.status }}</div>
+            </div>
+        </div>
     </div>
-</div>
- <br><br><br>
- <br><br><br>
- <br><br><br>
+
+    <!-- Historique des paiements -->
+    <div class="card mb-4">
+        <div class="card-header bg-success text-white">
+            <h4 class="mb-0">Historique des paiements</h4>
+        </div>
+        <div class="card-body">
+            {% if payments %}
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Date</th>
+                            <th>Valeur</th>
+                            <th>Type de ticket</th>
+                            <th>Mois</th>
+                            <th>Année</th>
+                            <th>Statut</th>
+                            <th>Commentaire</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for paiement in payments %}
+                        <tr>
+                            <td>{{ paiement.date_created|date:"d/m/Y H:i" }}</td>
+                            <td>{{ paiement.value }}</td>
+                            <td>{{ paiement.ticket_type }}</td>
+                            <td>{{ paiement.mois }}</td>
+                            <td>{{ paiement.annee }}</td>
+                            <td>{{ paiement.status }}</td>
+                            <td>{{ paiement.commentaire|default:"-" }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+                <p class="text-muted">Aucun paiement trouvé pour cette entité.</p>
+            {% endif %}
+        </div>
     </div>
+
+    <!-- Localisation géographique -->
+    <div class="card mb-4">
+        <div class="card-header bg-info text-white">
+            <h4 class="mb-0">Localisation géographique</h4>
+        </div>
+        <div class="card-body">
+            <div id="map" style="width: 100%; height: 400px;"></div>
+        </div>
+    </div>
+
+</div>
 {% endblock %}
 
 {% block script %}
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', function() {
+    // Valeur par défaut : Kalana Mairie
+    var coord = "{{ entity.coord|default:'10.7867836,-8.1955414' }}";
+    var lat = 10.7867836;
+    var lon = -8.1955414;
 
-<script async type="text/javascript">
-		var coord = "{{entity.coord}}";
-		var lat = coord.split(";")[0];
-		var lon = coord.split(";")[1];
-		var map = null;
-		function initMap() {
-				map = new google.maps.Map(document.getElementById("map"), {
-					center: new google.maps.LatLng(lat, lon),
-					zoom: 17
-				});
-				 new google.maps.Marker({
-                    position: new google.maps.LatLng(lat, lon),
-                map,
-                title: "{{entity.get_display_name}}",
-  });
-		}
-		window.onload = function(){
-				initMap();
-		};
-		</script>
+    if (coord.includes(";")) {
+        var parts = coord.split(";");
+        lat = parseFloat(parts[0]) || lat;
+        lon = parseFloat(parts[1]) || lon;
+    } else if (coord.includes(",")) {
+        var parts = coord.split(",");
+        lat = parseFloat(parts[0]) || lat;
+        lon = parseFloat(parts[1]) || lon;
+    }
 
+    var map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: lat, lng: lon },
+        zoom: 17
+    });
+
+    new google.maps.Marker({
+        position: { lat: lat, lng: lon },
+        map: map,
+        title: "{{ entity.get_display_name }}"
+    });
+});
+</script>
+
+<!-- Google Maps API -->
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAO-a_k55yU95IW8EJq1ytenXtCA_kC1ic">
+
+</script>
 {% endblock %}

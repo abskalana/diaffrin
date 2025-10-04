@@ -204,3 +204,19 @@ def entity_paiements(request):
         return response
 
     return render(request, "paiement.html", context)
+
+
+def entity_detail_view(request, pk):
+    # Récupère l'entité par son UUID
+    entity = get_object_or_404(EntityModel, pk=pk)
+
+    # Récupère les paiements associés
+    payments = Paiement.objects.filter(entity_model=entity).order_by('-date_created')
+
+    # Passe les données au template
+    context = {
+        'entity': entity,
+        'payments': payments,
+    }
+
+    return render(request, 'entity_detail.html', context)

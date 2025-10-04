@@ -66,38 +66,38 @@
 <table class="table table-striped">
     <thead class="thead-dark">
     <tr>
-        <th>#</th>
-        <th scope="col">Place</th>
-        <th scope="col">Nom</th>
-        <th scope="col">Prénom</th>
-        <th scope="col">Phone</th>
-        <th scope="col">Activité</th>
-        <th scope="col">Propriété</th>
-        <th scope="col">Type</th>
-        <th scope="col">#Porte</th>
-        <th scope="col">Status</th>
-        <th scope="col">User</th>
-        <th scope="col">GPS</th>
-        <th scope="col">date_created</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for entity in entities %}
-    <tr>
-        <td>{{ forloop.counter }}</td>
-        <td>{{entity.locality}}</td>
-        <td>{{entity.contact_nom}}</td>
-        <td>{{entity.contact_prenom}}</td>
-        <td>{{entity.contact_phone}}</td>
-         <td>{{entity.activity}}</td>
-        <td>{{entity.property}}</td>
-        <td>{{entity.type_entity}}</td>
-        <td>{{entity.porte}}</td>
-         <td>{{entity.status}}</td>
-        <td>{{entity.user}}</td>
-        <td>{{entity.coord}}</td>
-        <td>{{entity.date_created}}</td>
-    </tr>
+    <th>#</th>
+    <th scope="col">Place</th>
+    <th scope="col">Nom</th>
+    <th scope="col">Prénom</th>
+    <th scope="col">Phone</th>
+    <th scope="col">Activité</th>
+    <th scope="col">Propriété</th>
+    <th scope="col">Type</th>
+    <th scope="col">#Porte</th>
+    <th scope="col">Status</th>
+    <th scope="col">Info</th>
+    <th scope="col">date_created</th>
+</tr>
+</thead>
+<tbody>
+{% for entity in entities %}
+<tr>
+    <td>{{ forloop.counter }}</td>
+    <td>{{ entity.locality }}</td>
+    <td>{{ entity.contact_nom }}</td>
+    <td>{{ entity.contact_prenom }}</td>
+    <td>{{ entity.contact_phone }}</td>
+    <td>{{ entity.activity }}</td>
+    <td>{{ entity.property }}</td>
+    <td>{{ entity.type_entity }}</td>
+    <td>{{ entity.porte }}</td>
+    <td>{{ entity.status }}</td>
+    <td>
+        <a href="{{ entity.get_absolute_url }}">Détails</a>
+    </td>
+    <td>{{ entity.date_created|date:"d/m/Y H:i" }}</td>
+</tr>
     {% endfor %}
     </tbody>
 </table>

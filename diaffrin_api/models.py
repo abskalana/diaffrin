@@ -160,10 +160,24 @@ class EntityModel(models.Model):
 
 
     def get_absolute_url(self):
-        return reverse("entity_detail", kwargs={"slug": self.id})
+        return reverse("entity-detail", kwargs={"pk": str(self.id)})
 
     def get_display_name(self):
-        return self.activity + " - "+ self.contact_name
+        prenom = self.contact_prenom or ""
+        nom = (self.contact_nom or "").upper()  # nom en majuscule
+        phone = self.contact_phone or ""
+
+        contact_parts = [part for part in [prenom, nom] if part]
+        contact_str = " ".join(contact_parts)
+
+        if contact_str and phone:
+            return f"{contact_str} - {phone}"
+        elif contact_str:
+            return contact_str
+        elif phone:
+            return phone
+        else:
+            return "---"
 
 
 

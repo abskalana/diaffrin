@@ -11,7 +11,7 @@ favicon_view = RedirectView.as_view(url='../static/images/favicon.ico', permanen
 
 urlpatterns = [
     path("", views.home, name="home"),
-    path('entity/<slug:slug>/', views.get_entity, name="entity_detail"),
+
     path('operations/add/', views.create_mouvement, name="mouvement_add"),
     path('operations/list/', views.mouvement_list, name="mouvement_list"),
     path("api/paiement/create/", PaiementBulkCreateView.as_view(), name="paiement-create"),
@@ -19,6 +19,7 @@ urlpatterns = [
     path('api/mobileauth/', views.login_view, name="mobileauth"),
     path('api/entity/create/', EntityBulkCreateView.as_view(), name='entity-create'),
     path('api/entity/list/', EntityBulkCreateView.as_view(), name='entity-list'),
+    path('entity/<str:pk>/', views.entity_detail_view, name="entity-detail"),
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
     re_path(r'^favicon\.ico$', favicon_view),
