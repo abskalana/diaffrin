@@ -2,7 +2,13 @@
 
 {% block content %}
 <br>
-<h2>Status des paiements - {{mois_selected}} {{year_selected}}</h2>
+<h2 style="display: flex; justify-content: space-between; align-items: center;">
+    Status des paiements - {{ mois_selected }} {{ year_selected }}
+    <span class="status" data-status="{{ status }}">
+        {{ status }}
+    </span>
+</h2>
+<br>
 <br>
 
 <form method="get" class="container mb-3">
