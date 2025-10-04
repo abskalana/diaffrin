@@ -58,6 +58,9 @@ def home(request):
 @login_required
 def get_entity_paiement(request):
     commune = Commune.objects.get(code="150202")
+    today = datetime.date.today()
+    current_month = MOIS_MAP.get(today.month)
+    mois = request.GET.get("mois", current_month)
     entities= commune.entitymodel_set.all()
     locality = request.GET.get("locality", "")
     status = request.GET.get("status", "")
@@ -85,6 +88,9 @@ def get_entity_paiement(request):
          "properties": PROPERTY_LIST,  # ne contient PAS "Tous"
          "activities": ACTIVITY_LIST,  # ne contient PAS "Tous"
          "statuses": STATUS_LIST,  # ne contient PAS "Tous"
+         "year_selected": annee,
+         "current_year": today.year,
+         "MONTH_CHOICES": MONTH_CHOICES,
     }
 
     return render(request, 'entity_paiement.html', context=context)
@@ -225,6 +231,7 @@ def entity_paiements(request):
         "MONTH_CHOICES": MONTH_CHOICES,
         "STATUS_CHOICES": STATUS_CHOICES,
         "TYPE_TICKET": TYPE_TICKET ,
+
     }
 
     if download == "excel":
