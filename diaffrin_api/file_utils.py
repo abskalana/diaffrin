@@ -1,23 +1,11 @@
 import csv
 import os
-
-
-import csv
-import os
+import json
+from datetime import datetime
 from django.conf import settings
-import traceback
 
 def append_to_csv(filename, data, folder="data"):
-    """
-    Ajoute des données dans un fichier CSV dans le dossier `data` à la racine du projet
-    sans écraser le fichier. Crée le dossier s'il n'existe pas.
-    En cas d'erreur, capture l'exception et continue.
 
-    Args:
-        filename (str): Nom du fichier CSV.
-        data (dict ou list[dict]): Données à sauvegarder.
-        folder (str): Nom du dossier où sauvegarder le fichier (défaut: "data").
-    """
     try:
         if not data:
             return  # Rien à écrire si data est vide
@@ -48,3 +36,26 @@ def append_to_csv(filename, data, folder="data"):
     except :
        pass
 
+
+
+def append_to_txt(filename, errors, mdata=None, folder="data"):
+
+    try:
+        # Crée le chemin du dossier à la racine du projet
+        folder_path = os.path.join(settings.BASE_DIR, folder)
+        os.makedirs(folder_path, exist_ok=True)
+
+        # Chemin complet du fichier TXT
+        file_path = os.path.join(folder_path, filename)
+
+        with open(file_path, "a", encoding="utf-8") as f:
+            f.write(f"\n--- {datetime.now()} ---\n")
+            if mdata is not None:
+                f.write("Data:\n")
+                f.write(json.dumps(mdata, ensure_ascii=False, indent=2))
+                f.write("\n")
+            f.write("Errors:\n")
+            f.write(json.dumps(errors, ensure_ascii=False, indent=2))
+            f.write("\n-------------------------\n")
+    except:
+        pass
