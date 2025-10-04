@@ -89,7 +89,7 @@ def get_entity_paiement(request):
          "localities": LOCALITY_LISTS + [p for p in PLACES if p != "Kalana"],  # ne contient PAS "Tous"
          "properties": PROPERTY_LIST,  # ne contient PAS "Tous"
          "activities": ACTIVITY_LIST,  # ne contient PAS "Tous"
-         "statuses": STATUS_LIST,  # ne contient PAS "Tous"
+         "statuses": STATUS_CHOICES_LIST,  # ne contient PAS "Tous"
          "year_selected": annee,
          "current_year": today.year,
          "MONTH_CHOICES": MONTH_CHOICES,

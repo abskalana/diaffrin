@@ -114,6 +114,15 @@ STATUS_LIST = [
     "ABSENT",
     "FERME",
 ]
+STATUS_CHOICES_LIST = [
+    "PAYÉ",
+    "REFUS",
+    "FERMÉ",
+    "ABSENT",
+    "PAYE_MAIRIE",
+    "AUTRE"
+]
+
 
 LOCALITY_LISTS = [
     'Kalana',
