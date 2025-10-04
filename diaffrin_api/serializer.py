@@ -11,15 +11,31 @@ from .file_utils import append_to_csv,append_to_txt
 
 
 class EntitySerializer(serializers.ModelSerializer):
+    status_paiement = serializers.SerializerMethodField()
     class Meta:
         model = EntityModel
         fields = '__all__'
+
+    def get_status_paiement(self, obj):
+        return getattr(obj, "status_paiement", None)
 
 
 class EntityBulkCreateView(APIView):
 
     def get(self, request):
+        annee = request.GET.get("annee")
+        mois = request.GET.get("mois")
         entities = EntityModel.objects.all()
+
+        if annee and annee.isdigit() and mois:
+            paiements = Paiement.objects.filter(annee=int(annee), mois=mois)
+            paiement_dict = {p.entity_model_id: p.status for p in paiements}
+
+            for e in entities:
+                e.status_paiement = paiement_dict.get(e.id, None)
+        else:
+            for e in entities:
+                e.status_paiement = None
         serializer = EntitySerializer(entities, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
