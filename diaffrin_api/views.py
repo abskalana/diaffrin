@@ -80,6 +80,7 @@ def get_entity_paiement(request):
 
     context = {
          "entities": entities,
+         "city": PLACES,
          "localities": LOCALITY_LIST,  # ne contient PAS "Tous"
          "properties": PROPERTY_LIST,  # ne contient PAS "Tous"
          "activities": ACTIVITY_LIST,  # ne contient PAS "Tous"

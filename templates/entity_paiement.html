@@ -9,7 +9,7 @@
     <div class="me-2 mb-2">
         <select class="form-control" name="city" id="city">
             <option value="">-- Tous --</option>
-            {% for l in localities %}
+            {% for l in city %}
                 <option value="{{ l }}" {% if request.GET.city == l %}selected{% endif %}>{{ l }}</option>
             {% endfor %}
         </select>
@@ -40,7 +40,7 @@
         <select class="form-control" name="activity" id="activity">
             <option value="">-- Tous --</option>
             {% for p in properties %}
-                <option value="{{ p }}" {% if request.GET.property == p %}selected{% endif %}>{{ p }}</option>
+                <option value="{{ p }}" {% if request.GET.activity == p %}selected{% endif %}>{{ p }}</option>
             {% endfor %}
         </select>
     </div>
