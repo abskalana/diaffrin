@@ -18,7 +18,7 @@
             <select name="mois" class="form-select">
                 <option value="">Tous</option>
                 {% for m in MONTH_CHOICES %}
-                <option value="{{ m.0 }}" {% if mois_selected== m.0 %}selected{% endif %}>{{ m.1 }}</option>
+                <option value="{{ m.0 }}" {% if mois_selected == m.0 %}selected{% endif %}>{{ m.1 }}</option>
                 {% endfor %}
             </select>
         </div>
