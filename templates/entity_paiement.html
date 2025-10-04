@@ -116,13 +116,15 @@
             {% endif %}
         </td>
 
-        <td>
+       <td>
             {% if entity.paiement %}
-            {{ entity.paiement.status }}
+                <span class="status" data-status="{{ entity.paiement.status }}">
+                    {{ entity.paiement.status }}
+                </span>
             {% else %}
-            <span class="text-muted">--</span>
+                <span class="text-muted">--</span>
             {% endif %}
-        </td>
+            </td>
 
         <td>
             {% if entity.paiement %}

@@ -678,3 +678,13 @@ img {
     border: 1px solid #f2f4f9;
     border-radius: 0.25rem;
 }
+.status[data-status="PAYÉ"],
+.status[data-status="PAYE_MAIRIE"] {
+    color: green;
+    font-weight: bold;
+}
+
+.status[data-status="REFUS"] {
+    color: red;
+    font-weight: bold;
+}
