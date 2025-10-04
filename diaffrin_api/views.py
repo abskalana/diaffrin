@@ -94,7 +94,6 @@ def get_entity_paiement(request):
          "current_year": today.year,
          "MONTH_CHOICES": MONTH_CHOICES,
          "mois_selected": mois,
-          "city_selected": sens,
           "nature_selected": nature,
           "source_selected": source,
     }
