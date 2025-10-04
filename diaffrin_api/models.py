@@ -213,26 +213,13 @@ class Mouvement(models.Model):
 class Paiement(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     value = models.IntegerField(default=0)
-    ticket_num = models.IntegerField(default=0)
-    ticket_type = models.CharField(max_length=20, choices=TYPE_TICKET)
-    annee = models.IntegerField(
-        validators=[
-            MinValueValidator(2025),
-            MaxValueValidator(datetime.date.today().year + 20)
-        ],
-        default=datetime.date.today().year)
-    mois = models.CharField(max_length=50, choices=MONTH_CHOICES,editable=False)
-    date = models.DateField(default=timezone.now)
+    ticket_type = models.CharField(max_length=20, choices=TYPE_TICKET,default="")
+    annee = models.IntegerField(default=datetime.date.today().year)
+    mois = models.CharField(max_length=50, choices=MONTH_CHOICES,default="")
     status = models.CharField(max_length=20, choices=STATUS_CHOICES)
     entity_model = models.ForeignKey(EntityModel, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     coord = models.CharField(max_length=30)
     commentaire =  models.CharField(max_length=200, blank=True, null=True,default="")
     date_created = models.DateTimeField(default=timezone.now)
-
-
-    def save(self, *args, **kwargs):
-        self.annee = self.date.year
-        self.mois = MOIS_MAP[self.date.month]
-        super().save(*args, **kwargs)
 
