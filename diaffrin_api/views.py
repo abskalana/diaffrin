@@ -63,6 +63,10 @@ def get_entity_paiement(request):
     current_month = MOIS_MAP.get(today.month)
 
     entities= commune.entitymodel_set.all()
+    paiements = Paiement.objects.filter(entity_model__in=entities, annee=annee, mois=mois )
+    paiement_dict = {p.entity_model_id: p for p in paiements}
+    for e in entities:
+        e.paiement = paiement_dict.get(e.id)
 
     annee = request.GET.get("annee", today.year)
     mois = request.GET.get("mois", current_month)
@@ -86,6 +90,7 @@ def get_entity_paiement(request):
         'commune': commune,
          "entities": entities,
          "city": PLACES,
+        "paiement_dict": paiement_dict,
          "localities": LOCALITY_LISTS + [p for p in PLACES if p != "Kalana"],  # ne contient PAS "Tous"
          "properties": PROPERTY_LIST,  # ne contient PAS "Tous"
          "activities": ACTIVITY_LIST,  # ne contient PAS "Tous"
