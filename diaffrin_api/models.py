@@ -135,7 +135,7 @@ class Commune(models.Model):
 
 class EntityModel(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    city = models.CharField(max_length=30)
+    city = models.CharField(max_length=30,default="Kalana")
     locality = models.CharField(max_length=50, blank=True, null=True)
     activity = models.CharField(max_length=50, blank=True, null=True)
     property = models.CharField(max_length=30, default="PRIVEE")
@@ -144,9 +144,8 @@ class EntityModel(models.Model):
     contact_prenom = models.CharField(max_length=30, blank=True, null=True)
     contact_phone = models.CharField(max_length=30, blank=True, null=True)
     porte = models.IntegerField(default=1)
-    coord = models.CharField(max_length=100)
+    coord = models.CharField(max_length=100,default="OUVERT")
     status = models.CharField(max_length=20,default="OUVERT")
-    slug = models.SlugField(unique=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date_created = models.DateTimeField(default=timezone.now)
     commune = models.ForeignKey(Commune, on_delete=models.CASCADE,default="150202")
@@ -156,11 +155,8 @@ class EntityModel(models.Model):
         ordering = ['-date_created']
 
     def save(self, *args, **kwargs):
-        self.coord = truncate_gps(self.coord)
-        self.slug = slugify(to_slug(self.contact_phone, self.coord))
         self.active = is_active(self)
         super().save(*args, **kwargs)
-
 
 
     def get_absolute_url(self):
@@ -197,6 +193,9 @@ class Mouvement(models.Model):
     commune = models.ForeignKey(Commune, on_delete=models.CASCADE,default="150202")
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    class Meta:
+        ordering = ['-date_created']
+
     def save(self, *args, **kwargs):
         if self.sens.lower() == "sortie" :
              self.montant = -abs(self.montant)
@@ -222,4 +221,7 @@ class Paiement(models.Model):
     coord = models.CharField(max_length=30)
     commentaire =  models.CharField(max_length=200, blank=True, null=True,default="")
     date_created = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        ordering = ['-date_created']
 
