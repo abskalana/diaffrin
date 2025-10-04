@@ -61,6 +61,8 @@ def get_entity_paiement(request):
     commune = Commune.objects.get(code="150202")
     today = datetime.date.today()
     current_month = MOIS_MAP.get(today.month)
+    annee = request.GET.get("annee", today.year)
+    mois = request.GET.get("mois", current_month)
 
     entities= commune.entitymodel_set.all()
     paiements = Paiement.objects.filter(entity_model__in=entities, annee=annee, mois=mois )
@@ -68,8 +70,6 @@ def get_entity_paiement(request):
     for e in entities:
         e.paiement = paiement_dict.get(e.id)
 
-    annee = request.GET.get("annee", today.year)
-    mois = request.GET.get("mois", current_month)
     city = request.GET.get("city", "")
     locality = request.GET.get("locality", "")
     property_ = request.GET.get("property", "")
