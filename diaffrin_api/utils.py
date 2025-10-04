@@ -3,6 +3,7 @@ from django.db import models
 from django.utils import timezone
 from django.core.exceptions import ValidationError
 from django.utils.text import slugify
+from .constant import STATUS_CHOICES_LIST,STATUS_CHOICES_LIST_NON_PAYE,STATUS_CHOICES_LIST_PAYE
 
 def validate_date_range(value):
     today = timezone.now().date()
@@ -35,3 +36,9 @@ def is_active(entity):
     return True
 
 
+def get_status(status):
+    if not status: return STATUS_CHOICES_LIST
+    if status in STATUS_CHOICES_LIST: return status
+    if status.upper() =="NON_PAYÉ": return STATUS_CHOICES_LIST_NON_PAYE
+    if status.upper() == "DEJA_PAYÉ": return STATUS_CHOICES_LIST_PAYE
+    return STATUS_CHOICES_LIST

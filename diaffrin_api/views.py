@@ -18,7 +18,7 @@ import datetime
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
 from .constant import LOCALITY_LIST, PROPERTY_LIST, ACTIVITY_LIST, STATUS_LIST, PLACES,LOCALITY_LISTS,STATUS_CHOICES_LIST
-from .utils import is_active
+from .utils import is_active,get_status
 
 
 @login_required
@@ -63,25 +63,30 @@ def get_entity_paiement(request):
     current_month = MOIS_MAP.get(today.month)
     annee = request.GET.get("annee", today.year)
     mois = request.GET.get("mois", current_month)
+    city = request.GET.get("city", "")
+    locality = request.GET.get("locality", "")
+    property_ = request.GET.get("property", "")
+    status = get_status(request.GET.get("status", ""))
 
     entities= commune.entitymodel_set.all()
-    paiements = Paiement.objects.filter(entity_model__in=entities, annee=annee, mois=mois )
+    paiements = Paiement.objects.filter(
+        entity_model__in=entities,
+        annee=annee,
+        mois=mois,
+        status__in=status
+    )
     paiement_dict = {p.entity_model_id: p for p in paiements}
     for e in entities:
         e.paiement = paiement_dict.get(e.id)
 
-    city = request.GET.get("city", "")
-    locality = request.GET.get("locality", "")
-    property_ = request.GET.get("property", "")
-    status = request.GET.get("status", "")
+    entities = [e for e in entities if e.paiement]
 
     if city:
         entities = entities.filter(city=city)
 
     if locality:
         entities = entities.filter(locality=locality)
-    if status:
-        entities = entities.filter(status=status)
+
     if property_:
         entities = entities.filter(property=property_)
 
@@ -209,7 +214,7 @@ def create_mouvement(request):
 def entity_paiements(request):
     annee = request.GET.get('annee')
     mois = request.GET.get('mois')
-    status = request.GET.get('status')
+    status = get_status(request.GET.get('status',""))
     ticket = request.GET.get('ticket')
     download = request.GET.get("download")
     commune = Commune.objects.get(code="150202")
@@ -222,7 +227,7 @@ def entity_paiements(request):
     if mois:
         paiements = paiements.filter(mois=mois)
     if status:
-        paiements = paiements.filter(status=status)
+        paiements = paiements.filter(status__in=status)
 
     if ticket:
        paiements = paiements.filter(ticket_type=ticket)

@@ -123,6 +123,18 @@ STATUS_CHOICES_LIST = [
     "AUTRE"
 ]
 
+STATUS_CHOICES_LIST_NON_PAYE = [
+    "REFUS",
+    "FERMÉ",
+    "ABSENT",
+    "AUTRE"
+]
+
+STATUS_CHOICES_LIST_PAYE = [
+    "PAYÉ",
+    "PAYE_MAIRIE",
+ ]
+
 
 LOCALITY_LISTS = [
     'Kalana',
