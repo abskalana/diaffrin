@@ -5,7 +5,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
 import datetime
-from .utils import validate_date_range, to_slug, truncate_gps, is_active
+from .utils import validate_date_range, is_active
 from django.utils.text import slugify
 
 
