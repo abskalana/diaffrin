@@ -70,11 +70,6 @@ def get_entity_paiement(request):
     property_ = request.GET.get("property", "")
     status = request.GET.get("status", "")
 
-    if annee:
-        entities = entities.filter(annee=annee)
-    if mois:
-        entities = entities.filter(mois=mois)
-
     if city:
         entities = entities.filter(city=city)
 
@@ -84,8 +79,7 @@ def get_entity_paiement(request):
         entities = entities.filter(status=status)
     if property_:
         entities = entities.filter(property=property_)
-    if activity:
-        entities = entities.filter(activity=activity)
+
 
     context = {
          "entities": entities,
