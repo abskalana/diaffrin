@@ -57,7 +57,7 @@
     <div class="col-md-2 col-6">
       <select class="form-select" name="activity" id="activity">
         <option value="">-- Tous --</option>
-        {% for p in activities %}
+        {% for p in statuses %}
           <option value="{{ p }}" {% if request.GET.status == p %}selected{% endif %}>{{ p }}</option>
         {% endfor %}
       </select>
