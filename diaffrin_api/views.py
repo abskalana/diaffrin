@@ -79,7 +79,6 @@ def get_entity_paiement(request):
     for e in entities:
         e.paiement = paiement_dict.get(e.id)
 
-    entities = [e for e in entities if e.paiement]
 
     if city:
         entities = entities.filter(city=city)
@@ -89,6 +88,8 @@ def get_entity_paiement(request):
 
     if property_:
         entities = entities.filter(property=property_)
+
+    entities = [e for e in entities if e.paiement]
 
 
     context = {
