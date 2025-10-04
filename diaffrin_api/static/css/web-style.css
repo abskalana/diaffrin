@@ -679,6 +679,7 @@ img {
     border-radius: 0.25rem;
 }
 .status[data-status="PAYÉ"],
+.status[data-status="DEJA_PAYÉ"],
 .status[data-status="PAYE_MAIRIE"] {
     color: green;
     font-weight: bold;
@@ -687,4 +688,11 @@ img {
 .status[data-status="REFUS"] {
     color: red;
     font-weight: bold;
+}
+
+.status[data-status="NON_PAYÉ"],
+.status[data-status="FERMÉ"],
+.status[data-status="ABSENT"],
+.status[data-status="AUTRE"] {
+    color: orange;
 }
