@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import EntityModel,Paiement
+from .models import EntityModel, Paiement, MOIS_MAP
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -8,7 +8,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import Paiement
 from .file_utils import append_to_csv,append_to_txt
-
+from datetime import datetime
 
 class EntitySerializer(serializers.ModelSerializer):
     status_paiement = serializers.SerializerMethodField()
@@ -23,8 +23,12 @@ class EntitySerializer(serializers.ModelSerializer):
 class EntityBulkCreateView(APIView):
 
     def get(self, request):
-        annee = request.GET.get("annee")
-        mois = request.GET.get("mois")
+        now = datetime.now()
+        annee = request.GET.get("annee", now.year)
+        if not annee or not annee.isdigit(): annee = now.year
+        annee = int(annee)
+        mois = request.GET.get("mois",None)
+        if not mois : mois = MOIS_MAP[now.month]
         property_value = request.GET.get("prop", "PRIVEE")
         locality_value = request.GET.get("loc")
         if property_value == "ESPACE PUBLIC" : locality_value ="Kalana"
