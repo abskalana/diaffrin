@@ -152,7 +152,7 @@ class EntityModel(models.Model):
     commune = models.ForeignKey(Commune, on_delete=models.CASCADE,default="150202")
     active = models.BooleanField(default=True)
     numero = models.IntegerField(default=1)
-    slug = models.SlugField(max_length=50, unique=True, blank=True, null=True)
+    slug = models.SlugField(max_length=40, unique=True, blank=True, null=True)
 
     class Meta:
         ordering = ['-date_created']
