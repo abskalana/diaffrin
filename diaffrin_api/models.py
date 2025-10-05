@@ -160,7 +160,7 @@ class EntityModel(models.Model):
     def save(self, *args, **kwargs):
         self.active = is_active(self)
         self.coord = truncate_gps(self.coord)
-        self.slug =to_slug(self.contact_phone,self.coord)
+        self.slug = to_slug(self.contact_phone,self.coord)
         super().save(*args, **kwargs)
 
 

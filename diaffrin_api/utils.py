@@ -26,7 +26,7 @@ def to_slug(phone,coord):
     lon = f"{float(lon):.3f}"
     coord = f"{lat}{lon}"
     res = phone.replace(',','')
-    txt = coord.replace('.','')
+    txt = coord.replace('.','').replace('-','')
     return slugify(str(res)+str(txt))
 
 def is_active(entity):
