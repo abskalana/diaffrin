@@ -28,7 +28,7 @@ def to_slug(phone,coord):
     coord = f"{lat}{lon}"
     res = phone.replace(',','')
     txt = coord.replace('.','').replace('-','')
-    if res in ("12345678","00000000"):
+    if res in ("12345678","00000000") or res.startswith("123"):
         return uuid.uuid4()
     return slugify(str(res)+str(txt))
 
