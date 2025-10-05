@@ -23,7 +23,7 @@ class EntitySerializer(serializers.ModelSerializer):
 class EntityBulkCreateView(APIView):
 
     def get(self, request):
-        now = datetime.now()
+        now = datetime.date.today()
         annee = request.GET.get("annee", now.year)
         if not annee or not annee.isdigit(): annee = now.year
         annee = int(annee)
