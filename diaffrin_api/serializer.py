@@ -81,7 +81,14 @@ class PaiementBulkCreateView(APIView):
         serializer = PaiementSerializer(data=mdata, many=True)
         if serializer.is_valid():
             instances = serializer.save()
-            return Response(PaiementSerializer(instances, many=True).data, status=status.HTTP_201_CREATED)
+            entities_to_update = []
+            for instance in instances:
+                entity = instance.entity_model
+                entity.status_paiement = instance.status
+                entity.save()
+                entities_to_update.append(entity)
+            entity_serializer = EntityModelSerializer(entities, many=True)
+            return Response(entity_serializer.data, status=status.HTTP_201_CREATED)
 
         if serializer.errors:
             append_to_txt("paiement_data_errors.txt", serializer.errors, mdata)
