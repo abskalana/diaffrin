@@ -40,7 +40,7 @@ class EntityBulkCreateView(APIView):
         if locality_value:
             entities = entities.filter(locality=locality_value)
 
-        if annee and annee.isdigit() and mois:
+        if annee and mois:
             paiements = Paiement.objects.filter(annee=int(annee), mois=mois)
             paiement_dict = {p.entity_model_id: p.status for p in paiements}
 
