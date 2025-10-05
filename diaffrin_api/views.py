@@ -1,4 +1,4 @@
-import datetime
+from datetime import  datetime
 import uuid
 
 import pandas as pd
@@ -14,7 +14,7 @@ from django.http import JsonResponse
 from django.http import HttpResponse
 import json
 from django.shortcuts import get_object_or_404
-import datetime
+from datetime import datetime
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
 from .constant import LOCALITY_LIST, PROPERTY_LIST, ACTIVITY_LIST, STATUS_LIST, PLACES, LOCALITY_LISTS, \
@@ -60,7 +60,7 @@ def home(request):
 @login_required
 def get_entity_paiement(request):
     commune = Commune.objects.get(code="150202")
-    auj = datetime.date.today()
+    auj = datetime.today()
     current_month = MOIS_MAP.get(auj.month)
     annee = request.GET.get("annee", auj.year)
     mois = request.GET.get("mois", current_month)
@@ -129,7 +129,7 @@ def login_view(request):
 @login_required
 def mouvement_list(request):
     mouvements = Mouvement.objects.all().order_by("-date_created", "-date")
-    today = datetime.date.today()
+    today = datetime.today()
     current_month = MOIS_MAP.get(today.month)
     mois = request.GET.get("mois",current_month)
     sens = request.GET.get("sens")
@@ -184,7 +184,7 @@ def mouvement_list(request):
         df = pd.DataFrame.from_records(mouvements.values())
         for col in df.select_dtypes(include=["datetimetz"]).columns:
             df[col] = df[col].dt.tz_localize(None)
-        today_str = datetime.date.today().strftime("%Y-%m-%d")
+        today_str = datetime.today().strftime("%Y-%m-%d")
         filename = f"mouvements_{today_str}.xlsx"
         response = HttpResponse(content_type="application/vnd.ms-excel")
         response["Content-Disposition"] = f'attachment; filename="{filename}"'
@@ -245,7 +245,7 @@ def entity_paiements(request):
         df = pd.DataFrame.from_records(paiements.values())
         for col in df.select_dtypes(include=["datetimetz"]).columns:
             df[col] = df[col].dt.tz_localize(None)
-        today_str = datetime.date.today().strftime("%Y-%m-%d")
+        today_str = datetime.today().strftime("%Y-%m-%d")
         filename = f"paiements_{today_str}.xlsx"
         response = HttpResponse(content_type="application/vnd.ms-excel")
         response["Content-Disposition"] = f'attachment; filename="{filename}"'

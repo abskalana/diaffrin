@@ -9,7 +9,6 @@ from rest_framework.response import Response
 from .models import Paiement
 from .file_utils import append_to_csv,append_to_txt
 from datetime import datetime
-
 class EntitySerializer(serializers.ModelSerializer):
     status_paiement = serializers.SerializerMethodField()
     class Meta:
@@ -23,7 +22,7 @@ class EntitySerializer(serializers.ModelSerializer):
 class EntityBulkCreateView(APIView):
 
     def get(self, request):
-        now = datetime.date.today()
+        now = datetime.today()
         annee = request.GET.get("annee", now.year)
         if not annee or not annee.isdigit(): annee = now.year
         annee = int(annee)

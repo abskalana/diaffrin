@@ -4,7 +4,7 @@ import uuid
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
-import datetime
+from datetime import datetime
 from .utils import validate_date_range, is_active
 from django.utils.text import slugify
 
@@ -197,9 +197,9 @@ class Mouvement(models.Model):
     annee = models.IntegerField(
         validators=[
             MinValueValidator(2024),
-            MaxValueValidator(datetime.date.today().year + 20)
+            MaxValueValidator(datetime.today().year + 20)
         ],
-        default=datetime.date.today().year)
+        default=datetime.today().year)
     city = models.CharField(max_length=50, choices=PLACE_CHOICES,default="KALANA")
     sens = models.CharField(max_length=50, choices=SENS_CHOICES)
     name = models.CharField(max_length=100)
@@ -236,7 +236,7 @@ class Paiement(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     value = models.IntegerField(default=0)
     ticket_type = models.CharField(max_length=20, choices=TYPE_TICKET,default="")
-    annee = models.IntegerField(default=datetime.date.today().year)
+    annee = models.IntegerField(default=datetime.today().year)
     mois = models.CharField(max_length=50, choices=MONTH_CHOICES,default="")
     status = models.CharField(max_length=20, choices=STATUS_CHOICES)
     entity_model = models.ForeignKey(EntityModel, on_delete=models.CASCADE)
