@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.core.exceptions import ValidationError
 from django.utils.text import slugify
 from .constant import STATUS_CHOICES_LIST,STATUS_CHOICES_LIST_NON_PAYE,STATUS_CHOICES_LIST_PAYE
+import uuid
 
 def validate_date_range(value):
     today = timezone.now().date()
@@ -27,6 +28,8 @@ def to_slug(phone,coord):
     coord = f"{lat}{lon}"
     res = phone.replace(',','')
     txt = coord.replace('.','').replace('-','')
+    if res in ("12345678","00000000"):
+        return uuid.uuid4()
     return slugify(str(res)+str(txt))
 
 def is_active(entity):
