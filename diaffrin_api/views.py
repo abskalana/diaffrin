@@ -60,9 +60,9 @@ def home(request):
 @login_required
 def get_entity_paiement(request):
     commune = Commune.objects.get(code="150202")
-    today = datetime.date.today()
-    current_month = MOIS_MAP.get(today.month)
-    annee = request.GET.get("annee", today.year)
+    auj = datetime.date.today()
+    current_month = MOIS_MAP.get(auj.month)
+    annee = request.GET.get("annee", auj.year)
     mois = request.GET.get("mois", current_month)
     city = request.GET.get("city", "")
     locality = request.GET.get("locality", "")
@@ -101,7 +101,7 @@ def get_entity_paiement(request):
          "activities": ACTIVITY_LIST,  # ne contient PAS "Tous"
          "statuses": STATUS_CHOICES_LIST_ALL,  # ne contient PAS "Tous"
          "year_selected": annee,
-         "current_year": today.year,
+         "current_year": auj.year,
          "MONTH_CHOICES": MONTH_CHOICES,
          "mois_selected": mois,
     }
