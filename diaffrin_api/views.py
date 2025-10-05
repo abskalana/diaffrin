@@ -26,6 +26,8 @@ from .utils import is_active,filter_entities_by_status
 def home(request):
     commune = Commune.objects.get(code="150202")
     entities= commune.entitymodel_set.all()
+    for i in entities:
+        i.save()
     locality = request.GET.get("locality", "")
     status = request.GET.get("status", "")
     property_ = request.GET.get("property", "")
