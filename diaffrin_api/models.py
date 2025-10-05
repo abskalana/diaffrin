@@ -5,7 +5,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
 from datetime import datetime
-from .utils import validate_date_range, is_active
+from .utils import validate_date_range, is_active, truncate_gps
 from django.utils.text import slugify
 
 
@@ -155,10 +155,11 @@ class EntityModel(models.Model):
 
     class Meta:
         ordering = ['-date_created']
-        unique_together = ('contact_phone', 'numero', 'contact_nom', 'contact_prenom')
+        unique_together = ('contact_phone', 'numero', 'coord')
 
     def save(self, *args, **kwargs):
         self.active = is_active(self)
+        self.coord = truncate_gps(self.coord)
         super().save(*args, **kwargs)
 
 
