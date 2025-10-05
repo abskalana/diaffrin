@@ -25,7 +25,17 @@ class EntityBulkCreateView(APIView):
     def get(self, request):
         annee = request.GET.get("annee")
         mois = request.GET.get("mois")
+        property_value = request.GET.get("prop", "PRIVEE")
+        locality_value = request.GET.get("loc")
+        if property_value == "ESPACE PUBLIC" : locality_value ="Kalana"
+
         entities = EntityModel.objects.all()
+
+        if property_value:
+            entities = entities.filter(property=property_value)
+
+        if locality_value:
+            entities = entities.filter(locality=locality_value)
 
         if annee and annee.isdigit() and mois:
             paiements = Paiement.objects.filter(annee=int(annee), mois=mois)
