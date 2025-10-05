@@ -17,17 +17,17 @@ def validate_date_range(value):
 
 def truncate_gps(coord):
     lat, lon = coord.split(";")
-    lat = f"{float(lat):.5f}"
-    lon = f"{float(lon):.5f}"
+    lat = f"{float(lat):.6f}"
+    lon = f"{float(lon):.6f}"
     return f"{lat};{lon}"
 def to_slug(phone,coord):
     lat, lon = coord.split(";")
-    lat = f"{float(lat):.4f}"
-    lon = f"{float(lon):.4f}"
-    coord = f"{lat};{lon}"
+    lat = f"{float(lat):.3f}"
+    lon = f"{float(lon):.3f}"
+    coord = f"{lat}{lon}"
     res = phone.replace(',','')
-    txt = coord.replace(';','')
-    return slugify(res+"-"+txt)
+    txt = coord.replace('.','')
+    return slugify(str(res)+str(txt))
 
 def is_active(entity):
     if entity.contact_phone == "12345678" : return False

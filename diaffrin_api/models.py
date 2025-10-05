@@ -5,7 +5,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
 from datetime import datetime
-from .utils import validate_date_range, is_active, truncate_gps
+from .utils import validate_date_range, is_active, truncate_gps, to_slug
 from django.utils.text import slugify
 
 
@@ -151,15 +151,16 @@ class EntityModel(models.Model):
     date_created = models.DateTimeField(default=timezone.now)
     commune = models.ForeignKey(Commune, on_delete=models.CASCADE,default="150202")
     active = models.BooleanField(default=True)
-    #numero = models.IntegerField(default=1)
+    numero = models.IntegerField(default=1)
+    slug = models.SlugField(max_length=50, unique=True, blank=True, null=True)
 
     class Meta:
         ordering = ['-date_created']
-        unique_together = ('contact_phone', 'coord')
 
     def save(self, *args, **kwargs):
         self.active = is_active(self)
         self.coord = truncate_gps(self.coord)
+        self.slug =to_slug(self.contact_phone,self.coord)
         super().save(*args, **kwargs)
 
 
