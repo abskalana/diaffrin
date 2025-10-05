@@ -33,8 +33,8 @@ def to_slug(phone,coord):
     return slugify(str(res)+str(txt))
 
 def is_active(entity):
-    if entity.contact_phone == "12345678" : return False
-    t = ("absent","fermer","fermé")
+    if entity.contact_phone == "12345678"  or entity.contact_phone.startswith("123"): return False
+    t = ("absent","fermer","fermé","fermée")
     if entity.contact_prenom.lower() in t and entity.contact_nom.lower() in t: return False
     return True
 
