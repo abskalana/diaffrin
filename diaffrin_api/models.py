@@ -151,11 +151,11 @@ class EntityModel(models.Model):
     date_created = models.DateTimeField(default=timezone.now)
     commune = models.ForeignKey(Commune, on_delete=models.CASCADE,default="150202")
     active = models.BooleanField(default=True)
-    numero = models.IntegerField(default=1)
+    #numero = models.IntegerField(default=1)
 
     class Meta:
         ordering = ['-date_created']
-        unique_together = ('contact_phone', 'numero', 'coord')
+        unique_together = ('contact_phone', 'coord')
 
     def save(self, *args, **kwargs):
         self.active = is_active(self)
