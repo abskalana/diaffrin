@@ -45,10 +45,10 @@ class EntityBulkCreateView(APIView):
             paiement_dict = {p.entity_model_id: p.status for p in paiements}
 
             for e in entities:
-                e.status_paiement = paiement_dict.get(e.id, None)
+                e.status_paiement = paiement_dict.get(e.id, "NON_DEMANDÉ")
         else:
             for e in entities:
-                e.status_paiement = None
+                e.status_paiement = "NON_DEMANDÉ"
         serializer = EntitySerializer(entities, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
