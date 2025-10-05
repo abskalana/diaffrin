@@ -4,6 +4,12 @@ import mysql.connector
 import subprocess
 from datetime import datetime
 
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+BACKUP_DIR = os.path.join(BASE_DIR, "backup")
+os.makedirs(BACKUP_DIR, exist_ok=True)
+
+
 # --- Configuration ---
 DB_NAME = "db_kolenda"
 DB_USER = "root"
@@ -44,3 +50,4 @@ try:
     subprocess.run(f'git commit -m "Backup CSV automatique {date_str}"', shell=True, check=True)
     subprocess.run("git push origin main", shell=True, check=True)
 except subprocess.CalledProcessError:
+    pass
