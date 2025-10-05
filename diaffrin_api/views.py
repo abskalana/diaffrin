@@ -70,6 +70,15 @@ def get_entity_paiement(request):
     status = request.GET.get("status", "")
 
     entities= commune.entitymodel_set.all()
+    if city:
+        entities = entities.filter(city=city)
+
+    if locality:
+        entities = entities.filter(locality=locality)
+
+    if property_:
+        entities = entities.filter(property=property_)
+
     paiements = Paiement.objects.filter(
         entity_model__in=entities,
         annee=annee,
@@ -79,15 +88,6 @@ def get_entity_paiement(request):
     for e in entities:
         e.paiement = paiement_dict.get(e.id)
 
-
-    if city:
-        entities = entities.filter(city=city)
-
-    if locality:
-        entities = entities.filter(locality=locality)
-
-    if property_:
-        entities = entities.filter(property=property_)
 
     entities = filter_entities_by_status(entities, status)
 
