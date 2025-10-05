@@ -7,7 +7,6 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 import datetime
 from .utils import validate_date_range, is_active
 from django.utils.text import slugify
-from datetime import datetime
 
 
 
