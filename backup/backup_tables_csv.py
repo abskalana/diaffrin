@@ -2,8 +2,6 @@ import os
 import pandas as pd
 import mysql.connector
 import subprocess
-from datetime import datetime
-
 # --- Configuration MySQL ---
 DB_NAME = "db_kolenda"
 DB_USER = "root"
@@ -40,7 +38,6 @@ cursor.close()
 conn.close()
 
 # --- Git commit sur branche backup ---
-date_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 try:
     # Aller sur la branche backup
@@ -51,7 +48,7 @@ try:
     subprocess.run(f"git add {BACKUP_DIR}", shell=True, cwd=BASE_DIR, check=True)
 
     # Commit avec message horodaté
-    subprocess.run(f'git commit -m "Backup CSV automatique {date_str}"', shell=True, cwd=BASE_DIR, check=True)
+    subprocess.run('git commit -m "Backup CSV automatique', shell=True, cwd=BASE_DIR, check=True)
 
     # Push sur la branche backup
     subprocess.run("git push origin backup", shell=True, cwd=BASE_DIR, check=True)
