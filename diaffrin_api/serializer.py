@@ -24,7 +24,7 @@ class EntityBulkCreateView(APIView):
     def get(self, request):
         now = datetime.today()
         annee = request.GET.get("annee", now.year)
-        if not annee or not annee.isdigit(): annee = now.year
+        if not annee : annee = now.year
         annee = int(annee)
         mois = request.GET.get("mois",None)
         if not mois : mois = MOIS_MAP[now.month]
