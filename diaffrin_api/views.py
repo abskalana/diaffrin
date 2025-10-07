@@ -88,7 +88,7 @@ def get_entity_paiement(request):
 
     context = {
         'commune': commune,
-         "entities": serializer.data,
+         "entities": result,
          "city": PLACES,
          "localities": LOCALITY_LISTS + [p for p in PLACES if p != "Kalana"],  # ne contient PAS "Tous"
          "properties": PROPERTY_LIST,  # ne contient PAS "Tous"
