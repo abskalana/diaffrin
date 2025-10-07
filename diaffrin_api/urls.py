@@ -1,7 +1,6 @@
 from django.urls import path, re_path
 from django.views.generic.base import RedirectView
 from django.views.static import serve
-
 from diaffrin import settings
 from . import views
 

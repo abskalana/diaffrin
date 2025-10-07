@@ -3,7 +3,7 @@ from django.db import models
 from django.utils import timezone
 from django.core.exceptions import ValidationError
 from django.utils.text import slugify
-from .constant import STATUS_CHOICES_LIST,STATUS_CHOICES_LIST_NON_PAYE,STATUS_CHOICES_LIST_PAYE
+from .constant import *
 import uuid
 
 def validate_date_range(value):

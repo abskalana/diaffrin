@@ -1,24 +1,18 @@
 from datetime import  datetime
 import uuid
-
 import pandas as pd
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
-
 from diaffrin import settings
 from diaffrin_api.forms import MouvementForm
-from diaffrin_api.models import Commune, EntityModel,  Paiement,STATUS_CHOICES, TYPE_TICKET,TYPE_CHOICES, Mouvement, MONTH_CHOICES, SENS_CHOICES, \
-    NATURE_CHOICES, SOURCE_CHOICES, MOIS_MAP
+from .constant import *
+from diaffrin_api.models import Commune, EntityModel,  Paiement, Mouvement
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.http import HttpResponse
 import json
 from django.shortcuts import get_object_or_404
-from datetime import datetime
 from django.contrib.auth import authenticate, login
-from django.http import HttpResponse
-from .constant import LOCALITY_LIST, PROPERTY_LIST, ACTIVITY_LIST, STATUS_LIST, PLACES, LOCALITY_LISTS, \
-    STATUS_CHOICES_LIST, STATUS_CHOICES_LIST_ALL
 from .utils import is_active,filter_entities_by_status
 
 

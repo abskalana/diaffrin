@@ -1,12 +1,11 @@
 from rest_framework import serializers
-from .models import EntityModel, Paiement, MOIS_MAP
+from .models import EntityModel, Paiement
+from constant import *
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import serializers, status
 from rest_framework.views import APIView
-from rest_framework.response import Response
-from .models import Paiement
 from .file_utils import append_to_csv,append_to_txt
 from datetime import datetime
 class EntitySerializer(serializers.ModelSerializer):
