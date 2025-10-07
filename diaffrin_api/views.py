@@ -90,9 +90,9 @@ def get_entity_paiement(request):
     else:
         result = serializer.data
 
-    nombre_items = len(entities)
+    nombre_items = len(result)
     nombre_portes = sum(e.get("porte") for e in result)
-    montant_total = sum(e.get("paiement").get("value ") for e in result if e.get("paiement"))
+    montant_total = sum(e.get("paiement").get("value ",0) for e in result if e.get("paiement"))
 
 
     context = {
