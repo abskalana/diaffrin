@@ -94,9 +94,10 @@
     <td>{{ entity.porte }}</td>
     <td>{{ entity.status }}</td>
     <td>
-        <a href="{{ entity.get_absolute_url }}">Détails</a>
+
+        <a href="{% url 'entity-detail' entity.id %}">Détail</a>
     </td>
-    <td>{{ entity.date_created|date:"d/m/Y H:i" }}</td>
+    <td>{{ entity.date_created }}</td>
 </tr>
     {% endfor %}
     </tbody>
