@@ -48,17 +48,7 @@ def get_status(status):
 
 
 def filter_entities_by_status(entities, status_input):
-    """
-    Filtre une liste d'entités selon le status_input.
-    Chaque entité doit posséder l'attribut 'paiement' (None si pas de paiement).
 
-    status_input peut être :
-        - "DEJA_PAYÉ"      → paiements PAYÉ / PAYE_MAIRIE
-        - "NON_PAYÉ"       → paiements REFUS / FERMÉ / ABSENT / AUTRE
-        - "NON_DEMANDÉ"    → uniquement entités sans paiement
-        - un status précis  → entités avec paiement exactement ce status
-        - vide ou autre    → toutes les entités
-    """
     status_upper = status_input.upper() if status_input else ""
 
     if status_upper == "NON_DEMANDÉ":

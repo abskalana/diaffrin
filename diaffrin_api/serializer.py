@@ -10,13 +10,17 @@ from .models import Paiement
 from .file_utils import append_to_csv,append_to_txt
 from datetime import datetime
 class EntitySerializer(serializers.ModelSerializer):
-    status_paiement = serializers.SerializerMethodField()
+    paiement = serializers.SerializerMethodField()
     class Meta:
         model = EntityModel
         fields = '__all__'
 
-    def get_status_paiement(self, obj):
-        return getattr(obj, "status_paiement", None)
+    def get_paiement(self, obj):
+        mois = self.context.get("mois")
+        annee = self.context.get("annee")
+        paiement = obj.get_paiement(mois, annee)
+        if paiement: return PaiementSerializer(paiement).data
+        return None
 
 
 class EntityBulkCreateView(APIView):
@@ -28,28 +32,13 @@ class EntityBulkCreateView(APIView):
         annee = int(annee)
         mois = request.GET.get("mois",None)
         if not mois : mois = MOIS_MAP[now.month]
-        property_value = request.GET.get("prop", "PRIVEE")
-        locality_value = request.GET.get("loc")
-        if property_value == "ESPACE PUBLIC" : locality_value ="Kalana"
-
-        entities = EntityModel.objects.all()
-
-        if property_value:
-            entities = entities.filter(property=property_value)
-
-        if locality_value:
-            entities = entities.filter(locality=locality_value)
-
-        if annee and mois:
-            paiements = Paiement.objects.filter(annee=int(annee), mois=mois)
-            paiement_dict = {p.entity_model_id: p.status for p in paiements}
-
-            for e in entities:
-                e.status_paiement = paiement_dict.get(e.id, "NON_DEMANDÉ")
-        else:
-            for e in entities:
-                e.status_paiement = "NON_DEMANDÉ"
-        serializer = EntitySerializer(entities, many=True)
+        property_value = request.GET.get("prop", "ESPACE PUBLIC")
+        locality_value = request.GET.get("loc","Kalana")
+        entities = EntityModel.objects.filter(property=property_value,locality=locality_value)
+        serializer = EntitySerializer(
+            entities,
+            many=True,
+            context={"mois": mois, "annee": annee})
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):
@@ -79,15 +68,16 @@ class PaiementBulkCreateView(APIView):
         mdata = request.data
         append_to_csv("paiement_data.csv", mdata)
         serializer = PaiementSerializer(data=mdata, many=True)
+        mois = None
+        annee = None
+        entities_to_update = []
         if serializer.is_valid():
             instances = serializer.save()
-            entities_to_update = []
-            for instance in instances:
-                entity = instance.entity_model
-                entity.status_paiement = instance.status
-                entity.save()
-                entities_to_update.append(entity)
-            entity_serializer = EntityModelSerializer(entities, many=True)
+            for i in instances:
+                mois = i.mois
+                annee = i.annee
+                entities_to_update.append(i.entity_model)
+            entity_serializer = EntityModelSerializer(entities, many=True,context={"mois": mois, "annee": annee})
             return Response(entity_serializer.data, status=status.HTTP_201_CREATED)
 
         if serializer.errors:

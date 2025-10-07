@@ -8,8 +8,6 @@ from datetime import datetime
 from .utils import validate_date_range, is_active, truncate_gps, to_slug
 from django.utils.text import slugify
 
-
-
 MOIS_MAP = {
     1: "Janvier",
     2: "Février",
@@ -163,7 +161,6 @@ class EntityModel(models.Model):
         self.slug = to_slug(self.contact_phone,self.coord)
         super().save(*args, **kwargs)
 
-
     def get_absolute_url(self):
         return reverse("entity-detail", kwargs={"pk": str(self.id)})
 
@@ -186,8 +183,9 @@ class EntityModel(models.Model):
 
     def get_paiement(self, mois=None, annee=None):
         now = timezone.now()
-        mois = mois or now.strftime('%B')  # ex: "Octobre"
-        annee = annee or now.year
+        if annee is None: annee = now.year
+        if mois is None : mois = MOIS_MAP[now.month]
+
         try:
             return Paiement.objects.get(entity_model=self, annee=annee, mois=mois)
         except ObjectDoesNotExist:
