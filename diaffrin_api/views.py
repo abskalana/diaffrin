@@ -14,6 +14,7 @@ import json
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import authenticate, login
 from .utils import is_active,filter_entities_by_status
+from .serializer import EntitySerializer
 
 
 @login_required
@@ -73,21 +74,11 @@ def get_entity_paiement(request):
     if property_:
         entities = entities.filter(property=property_)
 
-    paiements = Paiement.objects.filter(
-        entity_model__in=entities,
-        annee=annee,
-        mois=mois,
-    )
-    paiement_dict = {p.entity_model_id: p for p in paiements}
-    for e in entities:
-        e.paiement = paiement_dict.get(e.id)
-
-
-    entities = filter_entities_by_status(entities, status)
+    serializer = EntitySerializer(entities, many=True, context={"mois": mois, "annee": annee})
 
     context = {
         'commune': commune,
-         "entities": entities,
+         "entities": serializer.data,
          "city": PLACES,
         "paiement_dict": paiement_dict,
          "localities": LOCALITY_LISTS + [p for p in PLACES if p != "Kalana"],  # ne contient PAS "Tous"
@@ -248,7 +239,7 @@ def entity_paiements(request):
 
     return render(request, "paiement.html", context)
 
-
+@login_required
 def entity_detail_view(request, pk):
     # Récupère l'entité par son UUID
     entity = get_object_or_404(EntityModel, pk=pk)
