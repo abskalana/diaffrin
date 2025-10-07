@@ -2,12 +2,29 @@
 
 {% block content %}
 <br>
-<h2 style="display: flex; justify-content: space-between; align-items: center;">
-    Status des paiements - {{ mois_selected }} {{ year_selected }}
-    <span class="status" data-status="{{ request.GET.status }}">
-        {{ request.GET.status }}
-    </span>
-</h2>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <!-- Titre -->
+    <h2 class="m-0">
+        Status des paiements - {{ mois_selected }} {{ year_selected }}
+        <span class="status" data-status="{{ request.GET.status }}">
+            {{ request.GET.status }}
+        </span>
+    </h2>
+
+    <!-- Mini récap -->
+    <div class="d-flex gap-2">
+        <div class="px-2 py-1 bg-primary text-white rounded">
+            <small><strong>Items:</strong> {{ nombre_items|default:"--" }}</small>
+        </div>
+        <div class="px-2 py-1 bg-success text-white rounded">
+            <small><strong>Portes:</strong> {{ nombre_portes|default:"--" }}</small>
+        </div>
+        <div class="px-2 py-1 bg-warning text-dark rounded">
+            <small><strong>Montant:</strong> {% if montant_total %}{{ montant_total }} FCFA{% else %}--{% endif %}</small>
+        </div>
+    </div>
+</div>
+
 <br>
 <br>
 
