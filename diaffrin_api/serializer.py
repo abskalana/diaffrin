@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import EntityModel, Paiement
-from constant import *
+from .constant import *
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
