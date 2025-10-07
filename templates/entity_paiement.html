@@ -160,14 +160,14 @@
         </td>
         <td>
             {% if entity.paiement %}
-            {{ entity.paiement.date_created|date:"d/m/Y H\hi" }}
+            {{ entity.paiement.date_created}}
             {% else %}
             <span class="text-muted">--</span>
             {% endif %}
         </td>
 
         <td>
-            <a href="{{ entity.get_absolute_url }}">Détails</a>
+           <a href="{% url 'entity-detail' entity.id %}">Détails</a>
         </td>
     </tr>
     {% endfor %}
