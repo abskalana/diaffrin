@@ -98,30 +98,6 @@
 
 <br><br>
 
-    <div class="row text-center" style="height: 60px; line-height: 30px;">
-        <div class="col-md-4 bg-primary text-white rounded-start d-flex align-items-center justify-content-center">
-            <div>
-                <strong>Nombre d'items :</strong><br>
-                {{ nombre_items|default:"--" }}
-            </div>
-        </div>
-        <div class="col-md-4 bg-success text-white d-flex align-items-center justify-content-center">
-            <div>
-                <strong>Nombre de portes :</strong><br>
-                {{ nombre_portes|default:"--" }}
-            </div>
-        </div>
-        <div class="col-md-4 bg-warning text-dark rounded-end d-flex align-items-center justify-content-center">
-            <div>
-                <strong>Montant total :</strong><br>
-                {% if montant_total %}{{ montant_total }} FCFA{% else %}--{% endif %}
-            </div>
-        </div>
-    </div>
-
-
-<br><br>
-
 <table class="table table-striped">
     <thead class="thead-dark">
     <tr>
