@@ -77,13 +77,12 @@ def get_entity_paiement(request):
     serializer = EntitySerializer(entities, many=True, context={"mois": mois, "annee": annee})
     result = []
     if status:
-        for i in serializer.data:
-            paiement =  i.paiement
-            if paiement and paiement.status ==status:
+        for i in serializer.data:  # i est un dict
+            paiement = i.get("paiement")
+            if paiement and paiement.get("status") == status:
                 result.append(i)
-
     else:
-        result =serializer.data
+        result = serializer.data
 
 
 
