@@ -75,6 +75,17 @@ def get_entity_paiement(request):
         entities = entities.filter(property=property_)
 
     serializer = EntitySerializer(entities, many=True, context={"mois": mois, "annee": annee})
+    result = []
+    if status:
+        for i in serializer.data:
+            paiement =  i.get_paiement(mois,annee)
+            if paiement and paiement.status ==status:
+                result.append(i)
+
+    else:
+        result =serializer.data
+
+
 
     context = {
         'commune': commune,
