@@ -13,7 +13,7 @@ from django.http import HttpResponse
 import json
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import authenticate, login
-from .utils import is_active,filter_entities_by_status
+from .utils import is_active, filter_entities_by_status, get_matching_status
 from .serializer import EntitySerializer
 
 
