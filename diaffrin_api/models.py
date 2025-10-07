@@ -81,7 +81,7 @@ class EntityModel(models.Model):
 
         try:
             return Paiement.objects.get(entity_model=self, annee=annee, mois=mois)
-        except ObjectDoesNotExist:
+        except :
             return None
 
 
