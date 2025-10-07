@@ -76,7 +76,7 @@ class PaiementBulkCreateView(APIView):
                 mois = i.mois
                 annee = i.annee
                 entities_to_update.append(i.entity_model)
-            entity_serializer = EntityModelSerializer(entities, many=True,context={"mois": mois, "annee": annee})
+            entity_serializer = EntitySerializer(entities, many=True,context={"mois": mois, "annee": annee})
             return Response(entity_serializer.data, status=status.HTTP_201_CREATED)
 
         if serializer.errors:
