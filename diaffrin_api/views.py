@@ -92,7 +92,7 @@ def get_entity_paiement(request):
 
     nombre_items = len(entities)
     nombre_portes = sum(e.get("porte") for e in result)
-    montant_total = sum(e.get("paiement",0).value for e in result if e.get("paiement",0))
+    montant_total = sum(e.get("paiement").get("value ",0) for e in result if e.get("paiement",0))
 
 
     context = {
