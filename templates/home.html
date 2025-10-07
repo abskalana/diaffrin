@@ -97,7 +97,7 @@
 
         <a href="{% url 'entity-detail' entity.id %}">Détail</a>
     </td>
-    <td>{{ entity.date_created }}</td>
+    <td>{{ entity.date_created|date:"d/m/Y H:i" }}</td>
 </tr>
     {% endfor %}
     </tbody>

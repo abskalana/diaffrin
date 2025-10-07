@@ -289,4 +289,5 @@ NATURE_CHOICES = [
         ("achat", "achat materiel"),
          ("budget", "budget"),
         ("propriété", "propriété"),
+        ("Mairie", "Mairie"),
 ]
