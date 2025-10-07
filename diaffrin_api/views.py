@@ -78,7 +78,7 @@ def get_entity_paiement(request):
     result = []
     if status:
         for i in serializer.data:
-            paiement =  i.get_paiement(mois,annee)
+            paiement =  i.paiement
             if paiement and paiement.status ==status:
                 result.append(i)
 
