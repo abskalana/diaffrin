@@ -86,7 +86,7 @@
     <div class="row">
         <div class="col-md-4"><strong>Nombre d'items :</strong> {{ nombre_items }}</div>
         <div class="col-md-4"><strong>Nombre de portes :</strong> {{ nombre_portes }}</div>
-        <div class="col-md-4"><strong>Montant total :</strong> {{ montant_total }} €</div>
+        <strong>Montant total :</strong> {% if montant_total %}{{ montant_total }} FCFA{% else %}--{% endif %}
     </div>
 </div>
 
