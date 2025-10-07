@@ -81,14 +81,30 @@
 
 <br><br>
 
-<div class="container mb-3 p-3 border rounded bg-light">
-    <h5>Récapitulatif :</h5>
-    <div class="row">
-        <div class="col-md-4"><strong>Nombre d'items :</strong> {{ nombre_items }}</div>
-        <div class="col-md-4"><strong>Nombre de portes :</strong> {{ nombre_portes }}</div>
-        <strong>Montant total :</strong> {% if montant_total %}{{ montant_total }} FCFA{% else %}--{% endif %}
+<div class="container mb-3 p-2 border rounded bg-light">
+    <h5 class="mb-2">Récapitulatif :</h5>
+    <div class="row text-center" style="height: 60px; line-height: 30px;">
+        <div class="col-md-4 bg-primary text-white rounded-start d-flex align-items-center justify-content-center">
+            <div>
+                <strong>Nombre d'items :</strong><br>
+                {{ nombre_items|default:"--" }}
+            </div>
+        </div>
+        <div class="col-md-4 bg-success text-white d-flex align-items-center justify-content-center">
+            <div>
+                <strong>Nombre de portes :</strong><br>
+                {{ nombre_portes|default:"--" }}
+            </div>
+        </div>
+        <div class="col-md-4 bg-warning text-dark rounded-end d-flex align-items-center justify-content-center">
+            <div>
+                <strong>Montant total :</strong><br>
+                {% if montant_total %}{{ montant_total }} FCFA{% else %}--{% endif %}
+            </div>
+        </div>
     </div>
 </div>
+
 
 <br><br>
 
