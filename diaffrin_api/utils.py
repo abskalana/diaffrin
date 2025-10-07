@@ -47,27 +47,18 @@ def get_status(status):
     return STATUS_CHOICES_LIST
 
 
-def filter_entities_by_status(entities, status_input):
+def get_matching_status(status_input):
 
     status_upper = status_input.upper() if status_input else ""
 
     if status_upper == "NON_DEMANDÉ":
-        # uniquement entités sans paiement
-        return [e for e in entities if e.paiement is None]
+        return None
 
     elif status_upper == "NON_PAYÉ":
-        # entités avec paiement NON_PAYÉ uniquement
-        status_list = STATUS_CHOICES_LIST_NON_PAYE
-        return [e for e in entities if e.paiement and e.paiement.status in status_list]
+        return STATUS_CHOICES_LIST_NON_PAYE
 
     elif status_upper == "DEJA_PAYÉ":
-        # entités avec paiement PAYÉ ou PAYE_MAIRIE
-        status_list = STATUS_CHOICES_LIST_PAYE
-        return [e for e in entities if e.paiement and e.paiement.status in status_list]
+        return STATUS_CHOICES_LIST_PAYE
 
     elif status_upper in STATUS_CHOICES_LIST:
-        # entités avec paiement exactement ce status
-        return [e for e in entities if e.paiement and e.paiement.status == status_upper]
-
-    # sinon status vide ou "Tous", on garde toutes les entités
-    return entities
+        return [status_upper]
