@@ -80,7 +80,6 @@ def get_entity_paiement(request):
         'commune': commune,
          "entities": serializer.data,
          "city": PLACES,
-        "paiement_dict": paiement_dict,
          "localities": LOCALITY_LISTS + [p for p in PLACES if p != "Kalana"],  # ne contient PAS "Tous"
          "properties": PROPERTY_LIST,  # ne contient PAS "Tous"
          "activities": ACTIVITY_LIST,  # ne contient PAS "Tous"
