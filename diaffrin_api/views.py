@@ -90,11 +90,17 @@ def get_entity_paiement(request):
     else:
         result = serializer.data
 
+    nombre_items = result.count()
+    nombre_portes = sum(e.get("porte") for e in result)
+    montant_total = sum(e.get("paiement",0).value for e in result if e.get("paiement",0))
 
 
     context = {
         'commune': commune,
          "entities": result,
+        'nombre_items': nombre_items,
+        'nombre_portes': nombre_portes,
+        'montant_total': montant_total,
          "city": PLACES,
          "localities": LOCALITY_LISTS + [p for p in PLACES if p != "Kalana"],  # ne contient PAS "Tous"
          "properties": PROPERTY_LIST,  # ne contient PAS "Tous"
