@@ -6,6 +6,9 @@ from django.utils.text import slugify
 from .constant import *
 import uuid
 
+import random, time
+
+
 def validate_date_range(value):
     today = timezone.now().date()
     min_date = today - datetime.timedelta(days=10)
@@ -16,6 +19,11 @@ def validate_date_range(value):
     if value > max_date:
         raise ValidationError(f"La date ne peut pas être postérieure à {max_date.strftime('%d/%m/%Y')}.")
 
+def generate_phone():
+    first_digit = random.choice([1, 2, 3])
+    rest = str(int(time.time() * 1000))
+    unique_number = int(str(first_digit) + rest)
+    return unique_number
 def truncate_gps(coord):
     lat, lon = coord.split(";")
     lat = f"{float(lat):.6f}"
@@ -23,14 +31,12 @@ def truncate_gps(coord):
     return f"{lat};{lon}"
 def to_slug(phone,coord):
     lat, lon = coord.split(";")
-    lat = f"{float(lat):.4f}"
-    lon = f"{float(lon):.4f}"
+    lat = f"{float(lat):.3f}"
+    lon = f"{float(lon):.3f}"
     coord = f"{lat}{lon}"
-    res = phone.replace(',','')
+    res = phone
     txt = coord.replace('.','').replace('-','')
-    if  res.startswith("0")or res.startswith("1") or res.startswith("2") or res.startswith("3") or res.startswith("4") :
-        return uuid.uuid4()
-    return slugify(str(res)+str(txt))
+    return slugify(str(phone)+str(txt))
 
 def is_active(entity):
     if entity.contact_phone == "12345678"  or entity.contact_phone.startswith("1"): return False

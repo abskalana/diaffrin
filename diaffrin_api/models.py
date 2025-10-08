@@ -5,9 +5,10 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
 from datetime import datetime
-from .utils import validate_date_range, is_active, truncate_gps, to_slug
+from .utils import validate_date_range, is_active, truncate_gps, to_slug, generate_phone
 from django.utils.text import slugify
 from .constant import *
+import time
 
 class Commune(models.Model):
     id = models.CharField(primary_key=True, max_length=12)
@@ -47,9 +48,11 @@ class EntityModel(models.Model):
 
     class Meta:
         ordering = ['-date_created']
+        unique_together = ('numero', 'contact_phone')
 
     def save(self, *args, **kwargs):
         self.active = is_active(self)
+        if not self.active: self.contact_phone = generate_phone()
         self.coord = truncate_gps(self.coord)
         self.slug = to_slug(self.contact_phone,self.coord)
         super().save(*args, **kwargs)
