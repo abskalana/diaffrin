@@ -37,13 +37,13 @@ conn.close()
 # --- Git commit sur branche backup ---
 try:
     subprocess.run("git fetch origin", shell=True, cwd=BASE_DIR, check=True)
-    subprocess.run("git checkout backup", shell=True, cwd=BASE_DIR, check=True)
+    subprocess.run("git checkout backup_table", shell=True, cwd=BASE_DIR, check=True)
     subprocess.run(f"git add {BACKUP_DIR}", shell=True, cwd=BASE_DIR, check=True)
 
     msg = f'Backup CSV automatique {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}'
     subprocess.run(f'git commit -m "{msg}" || true', shell=True, cwd=BASE_DIR, check=False)
 
-    subprocess.run("git push origin backup", shell=True, cwd=BASE_DIR, check=True)
+    subprocess.run("git push origin backup_table", shell=True, cwd=BASE_DIR, check=True)
     subprocess.run("git checkout master", shell=True, cwd=BASE_DIR, check=True)
 
 except Exception:
