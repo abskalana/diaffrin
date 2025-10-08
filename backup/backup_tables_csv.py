@@ -4,7 +4,6 @@ import mysql.connector
 import subprocess
 from datetime import datetime
 
-# --- Configuration MySQL ---
 DB_NAME = "db_kolenda"
 DB_USER = "root"
 DB_PASS = "KalanaKa@1212s"
