@@ -44,6 +44,20 @@ try:
     subprocess.run(f'git commit -m "{msg}" || true', shell=True, cwd=BASE_DIR, check=False)
 
     subprocess.run("git push origin backup_table", shell=True, cwd=BASE_DIR, check=True)
+
+    files_to_remove = [
+        "diaffrin_api_entitymodel.csv",
+        "diaffrin_api_mouvement.csv",
+        "diaffrin_api_paiement.csv"
+    ]
+    for f in files_to_remove:
+        path = os.path.join(BACKUP_DIR, f)
+        if os.path.exists(path):
+            os.remove(path)
+
+    # Puis safe de revenir sur master
+    subprocess.run("git checkout master", shell=True, cwd=BASE_DIR, check=True)
+
     subprocess.run("git checkout master", shell=True, cwd=BASE_DIR, check=True)
 
 except Exception:
