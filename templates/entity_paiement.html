@@ -6,6 +6,7 @@
     <h2>Status des paiements - {{ mois_selected }} {{ year_selected }}
         <span class="status" data-status="{{ request.GET.status }}">
             Listes des {{ request.GET.status }}
+            {% if request.GET.status %} Listes des {{ request.GET.status }} {% else %}{% endif %}
         </span>
     </h2>
 
