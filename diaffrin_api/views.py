@@ -16,14 +16,18 @@ from django.contrib.auth import authenticate, login
 from .utils import is_active,  get_matching_status
 from .serializer import EntitySerializer
 
+@login_required
+def test_api(request):
+    commune = Commune.objects.get(code="150202")
+    entities= commune.entitymodel_set.all()
+    entities = entities.filter(active=False)
+    for i in entities:
+        i.save()
 
 @login_required
 def home(request):
     commune = Commune.objects.get(code="150202")
     entities= commune.entitymodel_set.all()
-
-    for i in entities:
-        i.save()
     locality = request.GET.get("locality", "")
     status = request.GET.get("status", "")
     property_ = request.GET.get("property", "")
