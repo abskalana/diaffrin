@@ -25,6 +25,8 @@ def remove_csv_files():
         if os.path.exists(path):
             os.remove(path)
 
+
+remove_csv_files()
 # --- Connexion MySQL et export CSV ---
 conn = mysql.connector.connect(
     host=DB_HOST,
@@ -46,7 +48,7 @@ try:
     subprocess.run("git fetch origin", shell=True, cwd=BASE_DIR, check=True)
 
     # Supprimer les anciens CSV avant checkout
-    remove_csv_files()
+
 
     # Checkout ou créer la branche backup_table
     subprocess.run("git checkout -B backup_table", shell=True, cwd=BASE_DIR, check=True)
