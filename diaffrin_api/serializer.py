@@ -33,7 +33,7 @@ class EntityBulkCreateView(APIView):
         if not mois : mois = MOIS_MAP[now.month]
         property_value = request.GET.get("prop", "ESPACE PUBLIC")
         locality_value = request.GET.get("loc","Kalana")
-        entities = EntityModel.objects.filter(property=property_value,locality=locality_value)
+        entities = EntityModel.objects.filter(property=property_value,locality=locality_value,active=True)
         serializer = EntitySerializer(
             entities,
             many=True,
