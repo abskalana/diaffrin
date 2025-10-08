@@ -271,6 +271,7 @@ TYPE_CHOICES = [
 TYPE_TICKET = [
         ("TK100", "TK100"),
         ("TK1000", "TK1000"),
+        ("TK500", "TK500"),
         ("TK5000", "TK5000"),
     ]
 
