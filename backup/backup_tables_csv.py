@@ -57,7 +57,7 @@ try:
     subprocess.run(f'git commit -m "{msg}" || true', shell=True, cwd=BASE_DIR, check=False)
 
     # Push sur la branche backup_table
-    subprocess.run("git push -u origin backup_table", shell=True, cwd=BASE_DIR, check=True)
+    subprocess.run("git push -u origin backup_table --force", shell=True, cwd=BASE_DIR, check=True)
 
     # Supprimer les CSV générés avant de revenir sur master
     remove_csv_files()
