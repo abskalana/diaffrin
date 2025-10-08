@@ -63,7 +63,7 @@ try:
     remove_csv_files()
 
     # Retour sur master
-    subprocess.run("git checkout master", shell=True, cwd=BASE_DIR, check=True)
+    subprocess.run("git checkout -f master", shell=True, cwd=BASE_DIR, check=True)
 
 except :
    pass
