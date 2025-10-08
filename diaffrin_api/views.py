@@ -15,6 +15,8 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth import authenticate, login
 from .utils import is_active,  get_matching_status
 from .serializer import EntitySerializer
+from django.http import HttpResponse
+
 
 @login_required
 def test_api(request):
@@ -23,6 +25,8 @@ def test_api(request):
     entities = entities.filter(active=False)
     for i in entities:
         i.save()
+
+    return HttpResponse("OK", content_type="text/plain", status=200)
 
 @login_required
 def home(request):
