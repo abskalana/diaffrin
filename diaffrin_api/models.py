@@ -48,7 +48,7 @@ class EntityModel(models.Model):
 
     class Meta:
         ordering = ['-date_created']
-        #nique_together = ('numero', 'contact_phone')
+        unique_together = ('numero', 'contact_phone')
 
     def save(self, *args, **kwargs):
         self.active = is_active(self)
