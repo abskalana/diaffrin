@@ -4,6 +4,7 @@ import mysql.connector
 import subprocess
 from datetime import datetime
 
+# --- Configuration MySQL ---
 DB_NAME = "db_kolenda"
 DB_USER = "root"
 DB_PASS = "KalanaKa@1212s"
@@ -14,7 +15,17 @@ BASE_DIR = "/root/kalana/diaffrin"
 BACKUP_DIR = os.path.join(BASE_DIR, "backup")
 os.makedirs(BACKUP_DIR, exist_ok=True)
 
-# --- Connexion MySQL ---
+# --- Tables à exporter ---
+tables = ["diaffrin_api_entitymodel", "diaffrin_api_mouvement", "diaffrin_api_paiement"]
+
+# --- Fonction pour supprimer CSV ---
+def remove_csv_files():
+    for table in tables:
+        path = os.path.join(BACKUP_DIR, f"{table}.csv")
+        if os.path.exists(path):
+            os.remove(path)
+
+# --- Connexion MySQL et export CSV ---
 conn = mysql.connector.connect(
     host=DB_HOST,
     user=DB_USER,
@@ -22,10 +33,6 @@ conn = mysql.connector.connect(
     database=DB_NAME
 )
 
-# --- Tables à exporter ---
-tables = ["diaffrin_api_entitymodel", "diaffrin_api_mouvement", "diaffrin_api_paiement"]
-
-# --- Exporter chaque table en CSV ---
 for table in tables:
     query = f"SELECT * FROM {table}"
     df = pd.read_sql(query, conn)
@@ -34,31 +41,29 @@ for table in tables:
 
 conn.close()
 
-# --- Git commit sur branche backup ---
+# --- Git operations ---
 try:
     subprocess.run("git fetch origin", shell=True, cwd=BASE_DIR, check=True)
-    subprocess.run("git checkout backup_table", shell=True, cwd=BASE_DIR, check=True)
-    subprocess.run(f"git add {BACKUP_DIR}", shell=True, cwd=BASE_DIR, check=True)
 
+    # Supprimer les anciens CSV avant checkout
+    remove_csv_files()
+
+    # Checkout ou créer la branche backup_table
+    subprocess.run("git checkout -B backup_table", shell=True, cwd=BASE_DIR, check=True)
+
+    # Ajouter et commit les nouveaux CSV
+    subprocess.run(f"git add {BACKUP_DIR}", shell=True, cwd=BASE_DIR, check=True)
     msg = f'Backup CSV automatique {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}'
     subprocess.run(f'git commit -m "{msg}" || true', shell=True, cwd=BASE_DIR, check=False)
 
-    subprocess.run("git push origin backup_table", shell=True, cwd=BASE_DIR, check=True)
+    # Push sur la branche backup_table
+    subprocess.run("git push -u origin backup_table", shell=True, cwd=BASE_DIR, check=True)
 
-    files_to_remove = [
-        "diaffrin_api_entitymodel.csv",
-        "diaffrin_api_mouvement.csv",
-        "diaffrin_api_paiement.csv"
-    ]
-    for f in files_to_remove:
-        path = os.path.join(BACKUP_DIR, f)
-        if os.path.exists(path):
-            os.remove(path)
+    # Supprimer les CSV générés avant de revenir sur master
+    remove_csv_files()
 
-    # Puis safe de revenir sur master
+    # Retour sur master
     subprocess.run("git checkout master", shell=True, cwd=BASE_DIR, check=True)
 
-    subprocess.run("git checkout master", shell=True, cwd=BASE_DIR, check=True)
-
-except Exception:
-    pass
+except :
+   pass
