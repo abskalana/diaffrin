@@ -76,6 +76,7 @@ def get_entity_paiement(request):
     status = request.GET.get("status", "")
 
     entities= commune.entitymodel_set.all()
+    entities = entities.filter(active=True)
     if city:
         entities = entities.filter(city=city)
 
