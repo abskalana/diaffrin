@@ -60,6 +60,9 @@ class EntityModel(models.Model):
     def get_absolute_url(self):
         return reverse("entity-detail", kwargs={"pk": str(self.id)})
 
+    def get_phone(self):
+        return self.contact_phone if self.active else "--"
+
     def get_display_name(self):
         prenom = self.contact_prenom or ""
         nom = (self.contact_nom or "").upper()  # nom en majuscule
