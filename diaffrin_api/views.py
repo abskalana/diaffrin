@@ -239,9 +239,21 @@ def entity_paiements(request):
     mois = request.GET.get('mois')
     status = request.GET.get('status',"")
     ticket = request.GET.get('ticket')
+
+    nom = request.GET.get('nom', "")
+    phone = request.GET.get('telephone',"")
+
     download = request.GET.get("download")
     commune = Commune.objects.get(code="150202")
     paiements = Paiement.objects.select_related("entity_model").order_by("-date_created")
+
+    if nom:
+        paiements = paiements.filter(
+            Q(entity_model__contact_nom__icontains=nom) |
+            Q(entity_model__contact_prenom__icontains=nom)
+        )
+    if telephone and len(telephone) == 8:
+        paiements = paiements.filter(entity_model__contact_phone=telephone)
 
     if annee and annee.isdigit():
         paiements = paiements.filter(annee=int(annee))
@@ -252,6 +264,7 @@ def entity_paiements(request):
 
     if ticket:
        paiements = paiements.filter(ticket_type=ticket)
+
 
     context = {
         'commune': commune,
