@@ -71,26 +71,32 @@ class PaiementSerializer(serializers.ModelSerializer):
         model = Paiement
         fields = '__all__'
 
+    def create(self, validated_data):
+        entity = validated_data.get("entity_model")
+        mois = validated_data.get("mois")
+        annee = validated_data.get("annee")
+        paiement, created = Paiement.objects.update_or_create(
+            entity_model=entity,
+            mois=mois,
+            annee=annee,
+            defaults=validated_data
+        )
+        return paiement
+
 
 class PaiementBulkCreateView(APIView):
+
     def post(self, request):
         mdata = request.data
         append_to_csv("paiement_data.csv", mdata)
-        serializer = PaiementSerializer(data=mdata, many=True)
-        mois = None
-        annee = None
-        entities_to_update = []
+        serializer = PaiementSerializer(data=mdata)
         if serializer.is_valid():
-            instances = serializer.save()
-            for i in instances:
-                mois = i.mois
-                annee = i.annee
-                entities_to_update.append(i.entity_model)
-            entity_serializer = EntitySerializer(entities_to_update, many=True,context={"mois": mois, "annee": annee})
+            paiement = serializer.save()
+            entity_serializer = EntitySerializer(paiement.entity_model,
+                context={"mois": paiement.mois, "annee": paiement.annee}
+            )
             return Response(entity_serializer.data, status=status.HTTP_201_CREATED)
 
-        if serializer.errors:
-            append_to_txt("paiement_data_errors.txt", serializer.errors, mdata)
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        append_to_txt("paiement_data_errors.txt", serializer.errors, mdata)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

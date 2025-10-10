@@ -156,7 +156,7 @@ class Paiement(models.Model):
 
     class Meta:
         ordering = ['-date_created']
-        unique_together = ('entity_model', 'annee', 'period', 'value','status')
+        unique_together = ('entity_model', 'annee', 'mois')
 
     def save(self, *args, **kwargs):
         if not self.mois :self.mois = MOIS_MAP[self.datetime.today().month]
