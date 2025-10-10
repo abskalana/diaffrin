@@ -81,11 +81,12 @@
                     <td>{{ paiement.entity_model.property }}</td>
                     <td>{{ paiement.entity_model.contact_nom }}</td>
                     <td>{{ paiement.entity_model.contact_prenom }}</td>
-                          {% if paiement.entity_model.is_active %}
+                         <td> {% if paiement.entity_model.is_active %}
         {{ paiement.entity_model.contact_phone }}
             {% else %}
         --
          {% endif %}
+                    </td>
 
 
                     <td>{{ paiement.entity_model.porte }}</td>
