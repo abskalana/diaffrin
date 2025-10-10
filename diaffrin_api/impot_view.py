@@ -1,10 +1,11 @@
 from rest_framework import serializers
 from .file_utils import append_to_csv
-from .models import Impot
+from .models import Impot, EntityModel
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from datetime import datetime
+from .serializer import EntitySerializer
 
 class ImpotSerializer(serializers.ModelSerializer):
     entity_model = serializers.PrimaryKeyRelatedField(queryset=EntityModel.objects.all())
