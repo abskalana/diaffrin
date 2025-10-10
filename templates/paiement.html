@@ -5,36 +5,47 @@
 <h2>Historique paiement</h2>
 <br><br>
 <form method="get" class="d-flex justify-content-center align-items-center mb-3 flex-wrap">
-    <div class="me-2 mb-2">
-        <input type="number" class="form-control" name="annee" id="annee" value="{{ annee }}" placeholder="Année">
-    </div>
+   <div class="me-2 mb-2">
+    <input type="number" class="form-control" name="annee" id="annee" value="{{ annee }}" placeholder="Année">
+</div>
 
-    <div class="me-2 mb-2">
-        <select class="form-control" name="mois" id="mois">
-            <option value="">-- Tous --</option>
-            {% for key, label in MONTH_CHOICES %}
-                <option value="{{ key }}" {% if mois == key %}selected{% endif %}>{{ label }}</option>
-            {% endfor %}
-        </select>
-    </div>
+<div class="me-2 mb-2">
+    <select class="form-control" name="mois" id="mois">
+        <option value="">-- Tous --</option>
+        {% for key, label in MONTH_CHOICES %}
+            <option value="{{ key }}" {% if mois == key %}selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+    </select>
+</div>
 
-    <div class="me-2 mb-2">
-        <select class="form-control" name="status" id="status">
-            <option value="">-- Tous --</option>
-            {% for key, label in STATUS_CHOICES %}
-                <option value="{{ key }}" {% if status == key %}selected{% endif %}>{{ label }}</option>
-            {% endfor %}
-        </select>
-    </div>
+<div class="me-2 mb-2">
+    <select class="form-control" name="status" id="status">
+        <option value="">-- Tous --</option>
+        {% for key, label in STATUS_CHOICES %}
+            <option value="{{ key }}" {% if status == key %}selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+    </select>
+</div>
 
-    <div class="me-2 mb-2">
-        <select class="form-control" name="ticket_type" id="ticket_type">
-            <option value="">-- Tous --</option>
-            {% for key, label in TYPE_TICKET %}
-                <option value="{{ key }}" {% if ticket_type == key %}selected{% endif %}>{{ label }}</option>
-            {% endfor %}
-        </select>
-    </div>
+<div class="me-2 mb-2">
+    <select class="form-control" name="ticket_type" id="ticket_type">
+        <option value="">-- Tous --</option>
+        {% for key, label in TYPE_TICKET %}
+            <option value="{{ key }}" {% if ticket_type == key %}selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+    </select>
+</div>
+
+<!-- Nouveau champ Nom -->
+<div class="me-2 mb-2">
+    <input type="text" class="form-control" name="nom" id="nom" value="{{ nom }}" placeholder="Nom">
+</div>
+
+<!-- Nouveau champ Téléphone -->
+<div class="me-2 mb-2">
+    <input type="text" class="form-control" name="telephone" id="telephone" value="{{ telephone }}" placeholder="Téléphone">
+</div>
+
 
     <!-- Boutons alignés avec les inputs -->
     <div class="d-flex mb-2">
