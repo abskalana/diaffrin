@@ -81,7 +81,7 @@
                     <td>{{ paiement.entity_model.property }}</td>
                     <td>{{ paiement.entity_model.contact_nom }}</td>
                     <td>{{ paiement.entity_model.contact_prenom }}</td>
-                    <td>{{ paiement.entity_model.get_phone }}</td>
+                    <td>{{ paiement.entity_model.contact_phone if paiement.entity_model.is_active else "--" }}</td>
                     <td>{{ paiement.entity_model.porte }}</td>
                     <td>{{ paiement.entity_model.status }}</td>
                     <td>{{ paiement.mois }}</td>
