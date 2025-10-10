@@ -62,9 +62,7 @@
                 <th>Prénom Contact</th>
                 <th>Téléphone</th>
                 <th>Porte</th>
-                <th>Status Entité</th>
                 <th>Mois</th>
-                <th>Année</th>
                 <th>Valeur Paiement</th>
                 <th>Status Paiement</th>
                 <th>Date Paiement</th>
@@ -92,9 +90,7 @@
 </td>
 
                     <td>{{ paiement.entity_model.porte }}</td>
-                    <td>{{ paiement.entity_model.status }}</td>
-                    <td>{{ paiement.mois }}</td>
-                    <td>{{ paiement.annee }}</td>
+                    <td>{{ paiement.mois }} {{ paiement.annee }}</td>
                     <td>{{ paiement.value }}</td>
                     <td>{{ paiement.status }}</td>
                     <td>{{ paiement.date_created|date:"d/m/Y H\hi"  }}</td>
