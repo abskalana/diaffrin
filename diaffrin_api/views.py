@@ -14,7 +14,7 @@ from django.db.models import Q
 from django.contrib.auth import authenticate, login
 from .utils import is_active,  get_matching_status
 from .serializer import EntitySerializer
-
+from file_utils import append_to_csv,append_to_txt
 
 @login_required
 def test_api(request):
