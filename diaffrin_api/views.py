@@ -49,12 +49,16 @@ def home(request):
         entities = entities.filter(property=property_)
     if activity:
         entities = entities.filter(activity=activity)
-    entity_privee_nbr= 10
-    entity_privee_porte = 10
-    entity_privee_montant = 10
-    entity_public_nbr = 10
-    entity_public_porte = 10
-    entity_public_montant = 10
+
+    entities_privee = entities.filter(property="PRIVEE")
+    entities_public = entities.filter(property=  "ESPACE PUBLIC")
+
+    entity_privee_nbr= entities_privee.count()
+    entity_privee_porte = sum(e.porte for e in entities_privee)
+    entity_privee_montant = entity_privee_porte*TARIF_TICKET_PRIVEE
+    entity_public_nbr = entities_public.count()
+    entity_public_porte = sum(e.porte for e in entities_public)
+    entity_public_montant = entity_privee_porte*TARIF_TICKET_PUBLIC
     montant_total = entity_public_montant+entity_privee_montant
     context = {
          'commune': commune,

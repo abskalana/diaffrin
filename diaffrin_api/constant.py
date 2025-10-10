@@ -306,3 +306,6 @@ NATURE_CHOICES = [
         ("propriété", "propriété"),
         ("Mairie", "Mairie"),
 ]
+
+TARIF_TICKET_PRIVEE = 500
+TARIF_TICKET_PUBLIC = 5000
