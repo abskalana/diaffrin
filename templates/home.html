@@ -54,6 +54,29 @@
         </select>
     </div>
 
+    <!-- Nom -->
+<div class="me-2 mb-2">
+    <input type="text"
+           class="form-control"
+           name="nom"
+           id="nom"
+           value="{{ request.GET.nom }}"
+           placeholder="Nom (3 caractères min)"
+           minlength="3">
+</div>
+
+<!-- Téléphone -->
+<div class="me-2 mb-2">
+    <input type="text"
+           class="form-control"
+           name="telephone"
+           id="telephone"
+           value="{{ request.GET.telephone }}"
+           placeholder="Téléphone"
+           pattern="\d{8}"
+           title="Veuillez entrer un numéro de téléphone à 8 chiffres">
+</div>
+
     <!-- Boutons -->
     <div class="d-flex mb-2">
         <button type="submit" class="btn btn-primary me-2">Filtrer</button>
