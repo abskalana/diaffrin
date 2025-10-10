@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .impot_view import ImpotSerializer
+
 from .models import EntityModel, Paiement
 from .constant import *
 from rest_framework.views import APIView
@@ -25,6 +25,7 @@ class EntitySerializer(serializers.ModelSerializer):
         return None
 
     def get_impot(self, obj):
+        from .impot_view import ImpotSerializer
         annee = self.context.get("annee")
         impot = obj.get_impot(annee)
         if impot: return ImpotSerializer(paiement).data
