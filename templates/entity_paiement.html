@@ -121,13 +121,14 @@
         <th scope="col">Phone</th>
         <th scope="col">Activité</th>
         <th scope="col">Propriété</th>
-        <th scope="col">Type</th>
+
         <th scope="col">#Porte</th>
 
         <th scope="col">Paiement montant</th>
         <th scope="col">Paiement Status</th>
         <th scope="col">Paiement Mois</th>
         <th scope="col">Paiement Date</th>
+        <th scope="col">Comment</th>
         <th scope="col">Detail</th>
 
     </tr>
@@ -149,7 +150,6 @@
 </td>
         <td>{{ entity.activity }}</td>
         <td>{{ entity.property }}</td>
-        <td>{{ entity.type_entity }}</td>
         <td>{{ entity.porte }}</td>
         <td>
             {% if entity.paiement %}
@@ -183,6 +183,12 @@
             <span class="text-muted">--</span>
             {% endif %}
         </td>
+
+          {% if entity.paiement %}
+            {{ entity.paiement.commentaire }}
+            {% else %}
+            <span class="text-muted">--</span>
+            {% endif %}
 
         <td>
            <a href="{% url 'entity-detail' entity.id %}">Détails</a>
