@@ -158,6 +158,12 @@ class Paiement(models.Model):
         ordering = ['-date_created']
         unique_together = ('entity_model', 'annee', 'period', 'value','status')
 
+    def save(self, *args, **kwargs):
+        if not self.mois :self.mois = MOIS_MAP[self.datetime.today().month]
+        self.period = self.period if self.period else self.mois
+        super().save(*args, **kwargs)
+
+
 
 class Impot(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
