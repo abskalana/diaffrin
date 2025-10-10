@@ -8,14 +8,12 @@ from diaffrin_api.forms import MouvementForm
 from .constant import *
 from diaffrin_api.models import Commune, EntityModel,  Paiement, Mouvement
 from django.views.decorators.csrf import csrf_exempt
-from django.http import JsonResponse
-from django.http import HttpResponse
+from django.http import JsonResponse,HttpResponse
 import json
-from django.shortcuts import get_object_or_404
+from django.db.models import Q
 from django.contrib.auth import authenticate, login
 from .utils import is_active,  get_matching_status
 from .serializer import EntitySerializer
-from django.http import HttpResponse
 
 
 @login_required
