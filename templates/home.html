@@ -17,22 +17,22 @@
     </thead>
     <tbody>
        <tr>
-        <td> {% if entity_privee_nbr > 0 %} {{ entity_privee_nbr }} <small class="text-muted">entités</small>{% else %} --{% endif %} </td>
-        <td> {% if entity_public_nbr > 0 %} {{ entity_public_nbr }} <small class="text-muted">entités</small> {% else %} --{% endif %}</td>
-        <td>{% if total_entity > 0 %} {{ total_entity }} <small class="text-muted">entités</small> {% else %} --{% endif %}</td>
+        <td>{% if entity_privee_nbr > 0 %} <strong>{{ entity_privee_nbr }}</strong> <small class="text-muted">entités</small>{% else %} --{% endif %} </td>
+        <td>{% if entity_public_nbr > 0 %} <strong>{{ entity_public_nbr }}</strong>  <small class="text-muted">entités</small> {% else %} --{% endif %}</td>
+        <td>{% if total_entity > 0 %} <strong>{{ total_entity }} </strong> <small class="text-muted">entités</small> {% else %} --{% endif %}</td>
       </tr>
          <tr>
 
-        <td> {% if entity_privee_porte > 0 %} {{ entity_privee_porte }} <small class="text-muted">portes</small> {% else %} --{% endif %} </td>
-        <td> {% if entity_public_porte > 0 %} {{ entity_public_porte }} <small class="text-muted">portes</small> {% else %} --{% endif %}</td>
-        <td>{% if total_porte > 0 %} {{ total_porte }} <small class="text-muted">portes</small> {% else %} --{% endif %}</td>
+        <td>{% if entity_privee_porte > 0 %}  <strong>{{ entity_privee_porte }}</strong>  <small class="text-muted">portes</small> {% else %} --{% endif %} </td>
+        <td>{% if entity_public_porte > 0 %} <strong> {{ entity_public_porte }}</strong>  <small class="text-muted">portes</small> {% else %} --{% endif %}</td>
+        <td>{% if total_porte > 0 %}  <strong>{{ total_porte }} </strong> <small class="text-muted">portes</small> {% else %} --{% endif %}</td>
 
       </tr>
 
       <tr>
-         <td> {% if entity_privee_montant > 0 %} {{ entity_privee_montant }} <small class="text-muted">fcfa</small> {% else %} --{% endif %} </td>
-        <td> {% if entity_public_montant > 0 %} {{ entity_public_montant }} <small class="text-muted">fcfa</small> {% else %} --{% endif %}</td>
-        <td>{% if total_montant > 0 %} {{ total_montant }} <small class="text-muted">fcfa</small> {% else %} --{% endif %}</td>
+         <td>{% if entity_privee_montant > 0 %} <strong> {{ entity_privee_montant }}</strong>  <small class="text-muted">fcfa</small> {% else %} --{% endif %} </td>
+        <td>{% if entity_public_montant > 0 %}  <strong>{{ entity_public_montant }}</strong>  <small class="text-muted">fcfa</small> {% else %} --{% endif %}</td>
+        <td>{% if total_montant > 0 %}  <strong>{{ total_montant }}</strong>  <small class="text-muted">fcfa</small> {% else %} --{% endif %}</td>
 
       </tr>
     </tbody>
