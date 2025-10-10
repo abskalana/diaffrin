@@ -1,10 +1,59 @@
 {% extends 'parent.html' %}
 
 {% block content %}
+<div class="container">
+    <h2> Listes des entités - {{  request.GET.city|default:"" }} {{  request.GET.locality|default:"" }} {{ request.GET.property|default:"" }}
+
+    </h2>
+
+
+<div class="table-responsive mt-3">
+  <table class="table table-bordered text-center align-middle">
+    <thead class="table-dark">
+      <tr>
+        <th>#Entités -Espace Privé</th>
+        <th>#Porte  - Espace Privé</th>
+        <th>Montant - Espace Privé</th>
+        <th>#Entité - Espace Public</th>
+        <th>#Porte  - Espace Public</th>
+        <th>Montant - Espace Public</th>
+        <th>Montant Total </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="table-primary">
+          <td>{{entity_public_montant}} </td>
+          <td>{{entity_privee_porte}} </td>
+          <td>{{entity_privee_montant}} </td>
+          <td>{{entity_public_nbr}}</td>
+          <td>{{entity_public_porte}}</td>
+          <td>{{entity_public_montant}}</td>
+          <td>{{montant_total}}</td>
+
+</tr>
+    </tbody>
+  </table>
+</div>
+
+  <!-- Lien aligné à droite -->
+  <div>
+
+  </div>
+
 <br>
-<h4>Listes des commerces et services de la commune</h4>
-<br>
+
 <form method="get" class="d-flex justify-content-center align-items-center mb-3 flex-wrap">
+    <!-- City -->
+    <div class="me-2 mb-2">
+        <select class="form-control" name="city" id="city">
+            <option value="">-- Tous --</option>
+            {% for p in cities %}
+                <option value="{{ p }}" {% if request.GET.city == p %}selected{% endif %}>{{ p }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+
     <!-- Locality -->
     <div class="me-2 mb-2">
         <select class="form-control" name="locality" id="locality">
@@ -14,6 +63,7 @@
             {% endfor %}
         </select>
     </div>
+
 
     <!-- Property -->
     <div class="me-2 mb-2">

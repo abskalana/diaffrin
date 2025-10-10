@@ -39,7 +39,7 @@ def home(request):
     phone = request.GET.get('telephone', "").strip()
 
     active = request.GET.get("active", "")
-    if phone and len(phone)==8: entities = entities.filter(contact_phone=phone)
+    if phone and len(phone)== 8: entities = entities.filter(contact_phone=phone)
     if nom and len(nom)> 2: entities = entities.filter(Q(contact_nom__icontains=nom) | Q(contact_prenom__icontains=nom))
     if locality:
         entities = entities.filter(locality=locality)
@@ -49,10 +49,24 @@ def home(request):
         entities = entities.filter(property=property_)
     if activity:
         entities = entities.filter(activity=activity)
-
+    entity_privee_nbr= 10
+    entity_privee_porte = 10
+    entity_privee_montant = 10
+    entity_public_nbr = 10
+    entity_public_porte = 10
+    entity_public_montant = 10
+    montant_total = entity_public_montant+entity_privee_montant
     context = {
-        'commune': commune,
+         'commune': commune,
          "entities": entities,
+         'entity_privee_nbr':entity_privee_nbr,
+        'entity_privee_porte': entity_privee_porte,
+        'entity_privee_montant': entity_privee_montant,
+        'entity_public_nbr': entity_public_nbr,
+        'entity_public_porte': entity_public_porte,
+        'entity_public_montant': entity_public_montant,
+        'montant_total': montant_total,
+         "cities": PLACES,  # ne contient PAS "Tous"
          "localities": LOCALITY_LIST,  # ne contient PAS "Tous"
          "properties": PROPERTY_LIST,  # ne contient PAS "Tous"
          "activities": ACTIVITY_LIST,  # ne contient PAS "Tous"
