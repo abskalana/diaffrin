@@ -247,7 +247,7 @@ def entity_paiements(request):
     commune = Commune.objects.get(code="150202")
     paiements = Paiement.objects.select_related("entity_model").order_by("-date_created")
 
-    if nom:
+    if nom and len(nom) > 1:
         paiements = paiements.filter(
             Q(entity_model__contact_nom__icontains=nom) |
             Q(entity_model__contact_prenom__icontains=nom)
