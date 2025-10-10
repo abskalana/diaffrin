@@ -39,68 +39,72 @@
 <form method="get" class="container mb-3">
     <div class="row g-2 justify-content-center align-items-center">
 
-        <!-- Année -->
-        <div class="col-md-2 col-6">
-            <input type="number" name="annee" class="form-control" value="{{ year_selected|default:current_year }}">
-        </div>
-
-        <!-- Mois -->
-        <div class="col-md-2 col-6">
-            <select name="mois" class="form-select">
-                <option value="">Tous</option>
-                {% for m in MONTH_CHOICES %}
-                <option value="{{ m.0 }}" {% if mois_selected == m.0 %}selected{% endif %}>{{ m.1 }}</option>
-                {% endfor %}
-            </select>
-        </div>
-
-        <!-- City -->
-        <div class="col-md-2 col-6">
-            <select class="form-select" name="city" id="city">
-                <option value="">-- Tous --</option>
-                {% for l in city %}
-                <option value="{{ l }}" {% if request.GET.city == l %}selected{% endif %}>{{ l }}</option>
-                {% endfor %}
-            </select>
-        </div>
-
-        <!-- Locality -->
-        <div class="col-md-2 col-6">
-            <select class="form-select" name="locality" id="locality">
-                <option value="">-- Tous --</option>
-                {% for l in localities %}
-                <option value="{{ l }}" {% if request.GET.locality == l %}selected{% endif %}>{{ l }}</option>
-                {% endfor %}
-            </select>
-        </div>
-
-        <!-- Property -->
-        <div class="col-md-2 col-6">
-            <select class="form-select" name="property" id="property">
-                <option value="">-- Tous --</option>
-                {% for p in properties %}
-                <option value="{{ p }}" {% if request.GET.property == p %}selected{% endif %}>{{ p }}</option>
-                {% endfor %}
-            </select>
-        </div>
-
-        <!-- Status -->
-        <div class="col-md-2 col-6">
-            <select class="form-select" name="status" id="status">
-                <option value="">-- Tous --</option>
-                {% for p in statuses %}
-                <option value="{{ p }}" {% if request.GET.status == p %}selected{% endif %}>{{ p }}</option>
-                {% endfor %}
-            </select>
-        </div>
-
-
-        <!-- Boutons -->
-        <div class="col-auto d-flex">
-            <button type="submit" class="btn btn-primary me-2">Filtrer</button>
-            <a href="{% url 'home' %}" class="btn btn-secondary">Réinitialiser</a>
-        </div>
+    <!-- Année -->
+    <div class="col-md-2 col-6">
+        <input type="number" name="annee" class="form-control" value="{{ year_selected|default:current_year }}">
     </div>
+
+    <!-- Mois -->
+    <div class="col-md-2 col-6">
+        <select name="mois" class="form-select">
+            <option value="">Tous</option>
+            {% for m in MONTH_CHOICES %}
+            <option value="{{ m.0 }}" {% if mois_selected == m.0 %}selected{% endif %}>{{ m.1 }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <!-- City -->
+    <div class="col-md-2 col-6">
+        <select class="form-select" name="city" id="city">
+            <option value="">-- Tous --</option>
+            {% for l in city %}
+            <option value="{{ l }}" {% if request.GET.city == l %}selected{% endif %}>{{ l }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <!-- Locality -->
+    <div class="col-md-2 col-6">
+        <select class="form-select" name="locality" id="locality">
+            <option value="">-- Tous --</option>
+            {% for l in localities %}
+            <option value="{{ l }}" {% if request.GET.locality == l %}selected{% endif %}>{{ l }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <!-- Property -->
+    <div class="col-md-2 col-6">
+        <select class="form-select" name="property" id="property">
+            <option value="">-- Tous --</option>
+            {% for p in properties %}
+            <option value="{{ p }}" {% if request.GET.property == p %}selected{% endif %}>{{ p }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <!-- Status -->
+    <div class="col-md-2 col-6">
+        <select class="form-select" name="status" id="status">
+            <option value="">-- Tous --</option>
+            {% for p in statuses %}
+            <option value="{{ p }}" {% if request.GET.status == p %}selected{% endif %}>{{ p }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <!-- Nom ou Numéro -->
+    <div class="col-md-2 col-6">
+        <input type="text" name="nom_numero" class="form-control" placeholder="Nom ou Numéro" value="{{ request.GET.nom_numero|default:'' }}">
+    </div>
+
+    <!-- Boutons -->
+    <div class="col-auto d-flex">
+        <button type="submit" class="btn btn-primary me-2">Filtrer</button>
+        <a href="{% url 'home' %}" class="btn btn-secondary">Réinitialiser</a>
+    </div>
+</div>
 </form>
 
 

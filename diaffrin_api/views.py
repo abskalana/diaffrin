@@ -74,8 +74,16 @@ def get_entity_paiement(request):
     locality = request.GET.get("locality", "")
     property_ = request.GET.get("property", "")
     status = request.GET.get("status", "")
+    nom_numero = request.GET.get("nom_numero", "").strip()
 
-    entities= commune.entitymodel_set.all()
+    entities = commune.entitymodel_set.all()
+    if nom_numero and len(nom_numero) >= 3:
+        if nom_numero.isdigit():
+            entities = entities.filter(contact_phone=nom_numero)
+        else:
+            entities = entities.filter(Q(contact_nom__icontains=nom_numero) | Q(contact_prenom__icontains=nom_numero))
+
+
     if city:
         entities = entities.filter(city=city)
 
