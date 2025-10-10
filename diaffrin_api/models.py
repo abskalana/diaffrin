@@ -44,6 +44,7 @@ class EntityModel(models.Model):
     commune = models.ForeignKey(Commune, on_delete=models.CASCADE,default="150202")
     active = models.BooleanField(default=True)
     numero = models.IntegerField(default=1)
+    nif = models.CharField(max_length=30, blank=True, null=True)
     slug = models.SlugField(max_length=40, unique=True, blank=True, null=True)
 
     class Meta:
@@ -88,6 +89,14 @@ class EntityModel(models.Model):
         try:
             return Paiement.objects.get(entity_model=self, annee=annee, mois=mois)
         except :
+            return None
+
+    def get_impot(self, annee=None):
+        now = timezone.now()
+        if annee is None: annee = now.year
+        try:
+            return Impot.objects.get(entity_model=self, annee=annee)
+        except:
             return None
 
 
@@ -149,4 +158,22 @@ class Paiement(models.Model):
     class Meta:
         ordering = ['-date_created']
         unique_together = ('entity_model', 'annee', 'mois', 'value')
+
+
+class Impot(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    value = models.IntegerField(default=0)
+    annee = models.IntegerField(default=datetime.today().year)
+    centre = models.CharField(max_length=50, choices=CENTRE_IMPOT, default="YANFOLILA")
+    status = models.CharField(max_length=20, choices=STATUS_IMPOT)
+    entity_model = models.ForeignKey(EntityModel, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    coord = models.CharField(max_length=30)
+    commentaire =  models.CharField(max_length=100, blank=True, null=True,default="")
+    date_created = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        ordering = ['-date_created']
+        unique_together = ('entity_model', 'annee')
+
 

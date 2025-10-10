@@ -1,4 +1,6 @@
 from rest_framework import serializers
+
+from .impot_view import ImpotSerializer
 from .models import EntityModel, Paiement
 from .constant import *
 from rest_framework.views import APIView
@@ -10,6 +12,7 @@ from .file_utils import append_to_csv,append_to_txt
 from datetime import datetime
 class EntitySerializer(serializers.ModelSerializer):
     paiement = serializers.SerializerMethodField()
+    impot = serializers.SerializerMethodField()
     class Meta:
         model = EntityModel
         fields = '__all__'
@@ -19,6 +22,12 @@ class EntitySerializer(serializers.ModelSerializer):
         annee = self.context.get("annee")
         paiement = obj.get_paiement(mois, annee)
         if paiement: return PaiementSerializer(paiement).data
+        return None
+
+    def get_impot(self, obj):
+        annee = self.context.get("annee")
+        impot = obj.get_impot(annee)
+        if impot: return ImpotSerializer(paiement).data
         return None
 
 

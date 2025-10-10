@@ -3,6 +3,7 @@ from django.views.generic.base import RedirectView
 from django.views.static import serve
 from diaffrin import settings
 from . import views
+from .impot_view import ImpotListView
 
 from .serializer import EntityBulkCreateView,PaiementBulkCreateView
 
@@ -15,6 +16,7 @@ urlpatterns = [
     path('operations/add/', views.create_mouvement, name="mouvement_add"),
     path('operations/list/', views.mouvement_list, name="mouvement_list"),
     path("api/paiement/create/", PaiementBulkCreateView.as_view(), name="paiement-create"),
+    path("api/impot/", ImpotListView.as_view(), name="api-impot"),
     path("api/paiement/list/", views.entity_paiements, name="paiement-list"),
     path('api/mobileauth/', views.login_view, name="mobileauth"),
     path('api/entity/create/', EntityBulkCreateView.as_view(), name='entity-create'),

@@ -256,6 +256,20 @@ STATUS_CHOICES = [
         ("AUTRE", "AUTRE"),
     ]
 
+
+STATUS_IMPOT = [
+        ("PAYÉ", "PAYÉ"),
+        ("NON_PAYÉ", "NON_PAYÉ"),
+        ("PAYE_CENTRE_IMPOT", "PAYE_CENTRE_IMPOT"),
+        ("AUTRE", "AUTRE"),
+]
+
+CENTRE_IMPOT = [
+        ("YANFOLILA", "YANFOLILA"),
+        ("BOUGOUNI", "BOUGOUNI"),
+        ("AUTRE", "AUTRE"),
+]
+
 SENS_CHOICES = [
         ("entree", "entree"),
         ("sortie", "sortie"),
