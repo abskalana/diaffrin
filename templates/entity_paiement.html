@@ -140,7 +140,13 @@
         <td>{{ entity.locality }}</td>
         <td>{{ entity.contact_nom }}</td>
         <td>{{ entity.contact_prenom }}</td>
-        <td>{{ entity.contact_phone }}</td>
+        <td>
+    {% if entity.contact_phone|length == 8 %}
+        {{ entity.contact_phone }}
+    {% else %}
+        ---
+    {% endif %}
+</td>
         <td>{{ entity.activity }}</td>
         <td>{{ entity.property }}</td>
         <td>{{ entity.type_entity }}</td>
