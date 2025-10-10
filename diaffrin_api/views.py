@@ -328,7 +328,7 @@ def entity_detail_view(request, pk):
     }
     return render(request, 'detail.html', context)
 
-
+@csrf_exempt
 def new_post_paiement(request):
     if request.method == "POST":
         data = json.loads(request.data)
