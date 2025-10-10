@@ -35,11 +35,11 @@ def home(request):
     property_ = request.GET.get("property", "")
     activity = request.GET.get("activity", "")
 
-    nom = request.GET.get('nom', "")
-    phone = request.GET.get('telephone', "")
+    nom = request.GET.get('nom', "").strip()
+    phone = request.GET.get('telephone', "").strip()
 
     active = request.GET.get("active", "")
-    if phone and len(phone)> 8: entities = entities.filter(contact_phone=phone)
+    if phone and len(phone)==8: entities = entities.filter(contact_phone=phone)
     if nom and len(nom)> 2: entities = entities.filter(Q(contact_nom__icontains=nom) | Q(contact_prenom__icontains=nom))
     if locality:
         entities = entities.filter(locality=locality)
