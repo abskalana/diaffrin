@@ -183,13 +183,13 @@
             <span class="text-muted">--</span>
             {% endif %}
         </td>
-
+<td>
           {% if entity.paiement %}
             {{ entity.paiement.commentaire }}
             {% else %}
             <span class="text-muted">--</span>
             {% endif %}
-
+</td>
         <td>
            <a href="{% url 'entity-detail' entity.id %}">Détails</a>
         </td>
