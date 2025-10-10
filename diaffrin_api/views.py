@@ -56,9 +56,10 @@ def home(request):
     entity_privee_nbr= entities_privee.count()
     entity_privee_porte = sum(e.porte for e in entities_privee)
     entity_privee_montant = entity_privee_porte*TARIF_TICKET_PRIVEE
+
     entity_public_nbr = entities_public.count()
     entity_public_porte = sum(e.porte for e in entities_public)
-    entity_public_montant = entity_privee_porte*TARIF_TICKET_PUBLIC
+    entity_public_montant = entity_public_porte*TARIF_TICKET_PUBLIC
     montant_total = entity_public_montant+entity_privee_montant
     context = {
          'commune': commune,
@@ -69,7 +70,9 @@ def home(request):
         'entity_public_nbr': entity_public_nbr,
         'entity_public_porte': entity_public_porte,
         'entity_public_montant': entity_public_montant,
-        'montant_total': montant_total,
+         'total_entity': entity_privee_nbr+entity_public_nbr,
+         'total_porte': entity_public_porte+entity_privee_porte,
+         'total_montant': entity_public_montant+entity_privee_montant,
          "cities": PLACES,  # ne contient PAS "Tous"
          "localities": LOCALITY_LIST,  # ne contient PAS "Tous"
          "properties": PROPERTY_LIST,  # ne contient PAS "Tous"
