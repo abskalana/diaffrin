@@ -61,6 +61,7 @@ class EntityModel(models.Model):
     def get_absolute_url(self):
         return reverse("entity-detail", kwargs={"pk": str(self.id)})
 
+    @property
     def get_phone(self):
         return self.contact_phone if self.active else "--"
 
