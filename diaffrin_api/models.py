@@ -156,7 +156,7 @@ class Paiement(models.Model):
 
     class Meta:
         ordering = ['-date_created']
-        unique_together = ('entity_model', 'annee', 'period', 'status')
+        unique_together = ('entity_model', 'annee', 'period', 'value','status')
 
 
 class Impot(models.Model):
