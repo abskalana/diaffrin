@@ -327,34 +327,3 @@ def entity_detail_view(request, pk):
         'payments': payments,
     }
     return render(request, 'detail.html', context)
-
-@csrf_exempt
-def new_post_paiement(request):
-    if request.method == "POST":
-        data = json.loads(request.data)
-        append_to_txt("paiement_data_brute.txt", "--", data)
-        pk = data.get("id", None)
-        if pk and len(pk)>4:
-            paiement = get_object_or_404(Paiement, pk=pk)
-            paiement.status = data.get("status", paiement.status)
-            paiement.value = data.get("value", paiement.value)
-            paiement.commentaire = data.get("commentaire", paiement.commentaire)
-            paiement.save()
-            entity_serializer = EntitySerializer(paiement.entity_model,
-                                                 context={"mois": paiement.mois, "annee": paiement.annee}
-                                                 )
-            return Response(entity_serializer.data, status=status.HTTP_201_CREATED)
-        else:
-            append_to_csv("paiement_data.csv", data)
-            serializer = PaiementSerializer(data=data)
-            if serializer.is_valid():
-                paiement = serializer.save()
-                entity_serializer = EntitySerializer(paiement.entity_model,
-                                                     context={"mois": paiement.mois, "annee": paiement.annee}
-                                                     )
-                return Response(entity_serializer.data, status=status.HTTP_201_CREATED)
-
-            append_to_txt("paiement_data_errors.txt", serializer.errors, data)
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    return Response("error", status=status.HTTP_400_BAD_REQUEST)

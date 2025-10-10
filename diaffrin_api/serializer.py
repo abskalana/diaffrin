@@ -71,18 +71,6 @@ class PaiementSerializer(serializers.ModelSerializer):
         model = Paiement
         fields = '__all__'
 
-    def create(self, validated_data):
-        entity = validated_data.get("entity_model")
-        mois = validated_data.get("mois")
-        annee = validated_data.get("annee")
-        paiement, created = Paiement.objects.update_or_create(
-            entity_model=entity,
-            mois=mois,
-            annee=annee,
-            defaults=validated_data
-        )
-        return paiement
-
 
 class PaiementBulkCreateView(APIView):
 
@@ -99,4 +87,19 @@ class PaiementBulkCreateView(APIView):
 
         append_to_txt("paiement_data_errors.txt", serializer.errors, mdata)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request, pk):
+        try:
+            paiement = Paiement.objects.get(pk=pk)
+        except Paiement.DoesNotExist:
+            return Response({"error": "Paiement not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        for key, value in request.data.items():
+            setattr(paiement, key, value)
+        paiement.save()
+
+        entity_serializer = EntitySerializer(paiement.entity_model,
+                                             context={"mois": paiement.mois, "annee": paiement.annee}
+                                             )
+        return Response(entity_serializer.data, status=status.HTTP_201_CREATED)
 
