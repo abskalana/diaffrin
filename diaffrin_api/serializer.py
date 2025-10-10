@@ -52,10 +52,10 @@ class EntityBulkCreateView(APIView):
 
     def post(self, request):
         append_to_csv("entity_data.csv", request.data)
-        serializer = EntitySerializer(data=request.data, many=True)
+        serializer = EntitySerializer(data=request.data)
         if serializer.is_valid():
-            instances = serializer.save()
-            return Response(EntitySerializer(instances, many=True).data, status=status.HTTP_201_CREATED)
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
 
         if serializer.errors:
             append_to_txt("entity_data_errors.txt", serializer.errors, request.data)
