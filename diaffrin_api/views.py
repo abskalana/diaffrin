@@ -252,8 +252,8 @@ def entity_paiements(request):
             Q(entity_model__contact_nom__icontains=nom) |
             Q(entity_model__contact_prenom__icontains=nom)
         )
-    if telephone and len(telephone) == 8:
-        paiements = paiements.filter(entity_model__contact_phone=telephone)
+    if phone and len(phone) == 8:
+        paiements = paiements.filter(entity_model__contact_phone=phone)
 
     if annee and annee.isdigit():
         paiements = paiements.filter(annee=int(annee))
