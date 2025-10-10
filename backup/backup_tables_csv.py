@@ -16,7 +16,7 @@ BACKUP_DIR = os.path.join(BASE_DIR, "backup")
 os.makedirs(BACKUP_DIR, exist_ok=True)
 
 # --- Tables à exporter ---
-tables = ["diaffrin_api_entitymodel", "diaffrin_api_mouvement", "diaffrin_api_paiement"]
+tables = ["diaffrin_api_entitymodel", "diaffrin_api_mouvement", "diaffrin_api_paiement","diaffrin_api_impot"]
 
 # --- Fonction pour supprimer CSV ---
 def remove_csv_files():
