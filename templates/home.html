@@ -6,34 +6,39 @@
 
     </h2>
 
-
 <div class="table-responsive mt-3">
-  <table class="table table-bordered text-center align-middle">
+  <table class="table table-bordered table-striped text-center align-middle">
     <thead class="table-dark">
       <tr>
-        <th>#Entités -Espace Privé</th>
-        <th>#Porte  - Espace Privé</th>
-        <th>Montant - Espace Privé</th>
-        <th>#Entité - Espace Public</th>
-        <th>#Porte  - Espace Public</th>
-        <th>Montant - Espace Public</th>
-        <th>Montant Total </th>
+        <th></th>
+        <th>Public</th>
+        <th>Privée</th>
+        <th>Total</th>
       </tr>
     </thead>
     <tbody>
-      <tr class="table-primary">
-          <td>{{entity_public_montant}} </td>
-          <td>{{entity_privee_porte}} </td>
-          <td>{{entity_privee_montant}} </td>
-          <td>{{entity_public_nbr}}</td>
-          <td>{{entity_public_porte}}</td>
-          <td>{{entity_public_montant}}</td>
-          <td>{{montant_total}}</td>
-
-</tr>
+      <tr>
+        <td>Nombre</td>
+        <td>{{entity_public_nbr}}</td>
+        <td>{{entity_privee_nbr}}</td>
+        <td>{{entity_nbr_total}}</td>
+      </tr>
+      <tr>
+        <td>Porte</td>
+        <td>{{entity_public_porte}}</td>
+        <td>{{entity_privee_porte}}</td>
+        <td>{{entity_porte_total}}</td>
+      </tr>
+      <tr>
+        <td>Montant</td>
+        <td>{{entity_public_montant}}</td>
+        <td>{{entity_privee_montant}}</td>
+        <td>{{entity_montant_total}}</td>
+      </tr>
     </tbody>
   </table>
 </div>
+
 
   <!-- Lien aligné à droite -->
   <div>
