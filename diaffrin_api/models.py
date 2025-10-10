@@ -145,6 +145,7 @@ class Paiement(models.Model):
     value = models.IntegerField(default=0)
     ticket_type = models.CharField(max_length=20, choices=TYPE_TICKET,default="")
     annee = models.IntegerField(default=datetime.today().year)
+    period = models.CharField(max_length=50, choices=MONTH_CHOICES, default="Septembre")
     mois = models.CharField(max_length=50, choices=MONTH_CHOICES,default="")
     status = models.CharField(max_length=20, choices=STATUS_CHOICES)
     entity_model = models.ForeignKey(EntityModel, on_delete=models.CASCADE)
@@ -155,7 +156,7 @@ class Paiement(models.Model):
 
     class Meta:
         ordering = ['-date_created']
-        unique_together = ('entity_model', 'annee', 'mois', 'value')
+        unique_together = ('entity_model', 'annee', 'period', 'value','status')
 
 
 class Impot(models.Model):

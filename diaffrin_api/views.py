@@ -327,3 +327,20 @@ def entity_detail_view(request, pk):
         'payments': payments,
     }
     return render(request, 'detail.html', context)
+
+
+def update_paiement(request, pk):
+    if request.method == "PUT":
+        import json
+        data = json.loads(request.body)
+        paiement = get_object_or_404(Paiement, pk=pk)
+        paiement.status = data.get("status", paiement.status)
+        paiement.value = data.get("value", paiement.value)
+        paiement.save()
+        entity = paiement.entity_model
+        mois = paiement.mois
+        annee = paiement.annee
+        entities_to_update = [entity]
+        entity_serializer = EntitySerializer(entities_to_update, many=True, context={"mois": mois, "annee": annee})
+        return Response(entity_serializer.data, status=status.HTTP_201_CREATED)
+    return JsonResponse({"error": "Method not allowed"}, status=405)
