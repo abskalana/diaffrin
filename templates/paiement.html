@@ -38,12 +38,12 @@
 
 <!-- Nouveau champ Nom -->
 <div class="me-2 mb-2">
-    <input type="text" class="form-control" name="nom" id="nom" value="{{ nom }}" placeholder="Nom">
+    <input type="text" class="form-control" name="nom" id="nom" value="{{ request.nom }}" placeholder="Nom">
 </div>
 
 <!-- Nouveau champ Téléphone -->
 <div class="me-2 mb-2">
-    <input type="text" class="form-control" name="telephone" id="telephone" value="{{ telephone }}" placeholder="Téléphone">
+    <input type="text" class="form-control"   pattern="\d{8}" name="telephone" id="telephone" value="{{ request.telephone }}" placeholder="Téléphone">
 </div>
 
 
