@@ -94,8 +94,10 @@ class PaiementBulkCreateView(APIView):
         except Paiement.DoesNotExist:
             return Response({"error": "Paiement not found"}, status=status.HTTP_404_NOT_FOUND)
 
-        for key, value in request.data.items():
-            setattr(paiement, key, value)
+        updatable_fields = ["value", "ticket_type", "annee", "period", "mois", "status"]
+        for key in updatable_fields:
+            if key in request.data:
+                setattr(paiement, key, request.data[key])
         paiement.save()
 
         entity_serializer = EntitySerializer(paiement.entity_model,
