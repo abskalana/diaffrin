@@ -334,21 +334,17 @@ def entity_detail_view(request, pk):
 
 
 def recherche_entity(request):
-    query = request.GET.get('q', '')
-    entity = None
-    payments = []
+    nom = request.GET.get('nom', '').strip()
+    prenom = request.GET.get('prenom', '').strip()
+    telephone = request.GET.get('telephone', '').strip()
 
-    if query:
-        # Recherche souple sur nom, prénom ou numéro
-        entity = EntityModel.objects.filter(contact_phone=query).first()
+    entities = EntityModel.objects.all()
 
+    if nom or prenom or telephone:
+        entities = entities.filter(
+            Q(contact_nom__icontains=nom) if nom else Q(),
+            Q(contact_prenom__icontains=prenom) if prenom else Q(),
+            Q(contact_phone__icontains=telephone) if telephone else Q()
+        )
 
-        if entity:
-            payments = Paiement.objects.filter(entity_model=entity).order_by('-date_created')
-
-    context = {
-        'query': query,
-        'entity': entity,
-        'payments': payments
-    }
-    return render(request, 'recherche_entity.html', context)
+    return render(request, 'recherche_entity.html', {'entities': entities})

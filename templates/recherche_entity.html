@@ -3,128 +3,80 @@
 {% block content %}
 <div class="container my-5">
 
-    <!-- Barre de recherche -->
-    <form method="get" class="mb-4 d-flex" role="search">
-        <input type="text" name="q" value="{{ query|default:'' }}" class="form-control me-2"
-               placeholder="Rechercher par numéro...">
-        <button class="btn btn-outline-primary" type="submit">Rechercher</button>
+    <!-- Formulaire de recherche -->
+    <form method="get" class="mb-4 row g-2" role="search">
+        <div class="col-md-3">
+            <input type="text" name="nom" value="{{ request.GET.nom|default:'' }}" class="form-control" placeholder="Nom...">
+        </div>
+        <div class="col-md-3">
+            <input type="text" name="prenom" value="{{ request.GET.prenom|default:'' }}" class="form-control" placeholder="Prénom...">
+        </div>
+        <div class="col-md-3">
+            <input type="text" name="telephone" value="{{ request.GET.telephone|default:'' }}" class="form-control" placeholder="Téléphone...">
+        </div>
+        <div class="col-md-3">
+            <button class="btn btn-primary w-100" type="submit">Rechercher</button>
+        </div>
     </form>
 
-    {% if query and not entity %}
-        <div class="alert alert-warning">Aucune entité trouvée pour "{{ query }}".</div>
+    {% if not entities %}
+        <div class="alert alert-warning">Aucune entité trouvée.</div>
+    {% else %}
+        <div class="table-responsive shadow-sm">
+            <table class="table table-striped table-bordered align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>#</th>
+                        <th>Localité</th>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Téléphone</th>
+                        <th>Activité</th>
+                        <th>Propriété</th>
+                        <th>Type</th>
+                        <th>#Porte</th>
+                        <th>Status</th>
+                        <th>Info</th>
+                        <th>Date création</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entity in entities %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ entity.locality|default:"-" }}</td>
+                        <td>{{ entity.contact_nom|default:"-" }}</td>
+                        <td>{{ entity.contact_prenom|default:"-" }}</td>
+                        <td>
+                            {% if entity.contact_phone|length == 8 %}
+                                {{ entity.contact_phone }}
+                            {% else %}
+                                ---
+                            {% endif %}
+                        </td>
+                        <td>{{ entity.activity|default:"-" }}</td>
+                        <td>{{ entity.property }}</td>
+                        <td>{{ entity.type_entity }}</td>
+                        <td>{{ entity.porte }}</td>
+                        <td>
+                            <span class="badge
+                                {% if entity.status == 'OUVERT' %} bg-success
+                                {% elif entity.status == 'FERMÉ' %} bg-danger
+                                {% else %} bg-secondary {% endif %}">
+                                {{ entity.status }}
+                            </span>
+                        </td>
+                        <td>
+                            <a href="{% url 'entity-detail' entity.id %}" class="btn btn-sm btn-outline-primary">
+                                Détail
+                            </a>
+                        </td>
+                        <td>{{ entity.date_created|date:"d/m/Y H:i" }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     {% endif %}
-
-    {% if entity %}
-    <!-- Carte Informations Entité -->
-    <div class="card mb-4 shadow-sm">
-        <div class="card-header bg-primary text-white">
-            <h3 class="mb-0">{{ entity.get_display_name|default:"Entité" }}</h3>
-        </div>
-        <div class="card-body">
-            <div class="row mb-2">
-                <div class="col-md-4"><strong>Nom :</strong> {{ entity.contact_nom|default:"-" }}</div>
-                <div class="col-md-4"><strong>Prénom :</strong> {{ entity.contact_prenom|default:"-" }}</div>
-                <div class="col-md-4"><strong>Téléphone :</strong> {{ entity.contact_phone|default:"-" }}</div>
-            </div>
-            <div class="row mb-2">
-                <div class="col-md-4"><strong>Numéro :</strong> {{ entity.numero }}</div>
-                <div class="col-md-4"><strong>Ville :</strong> {{ entity.city }}</div>
-                <div class="col-md-4"><strong>Localité :</strong> {{ entity.locality|default:"-" }}</div>
-            </div>
-            <div class="row mb-2">
-                <div class="col-md-4"><strong>Type :</strong> {{ entity.type_entity }}</div>
-                <div class="col-md-4"><strong>Propriété :</strong> {{ entity.property }}</div>
-                <div class="col-md-4"><strong>Statut :</strong>
-                    <span class="badge
-                        {% if entity.status == 'OUVERT' %} bg-success
-                        {% elif entity.status == 'FERMÉ' %} bg-danger
-                        {% else %} bg-secondary {% endif %}">
-                        {{ entity.status }}
-                    </span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Historique des paiements -->
-    <div class="card shadow-sm">
-        <div class="card-header bg-success text-white">
-            <h4 class="mb-0">Historique des paiements</h4>
-        </div>
-        <div class="card-body">
-            {% if payments %}
-            <div class="table-responsive">
-                <table class="table table-striped table-bordered">
-                    <thead class="thead-light">
-                        <tr>
-                            <th>Date</th>
-                            <th>Valeur</th>
-                            <th>Type de ticket</th>
-                            <th>Mois</th>
-                            <th>Année</th>
-                            <th>Statut</th>
-                            <th>Commentaire</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for p in payments %}
-                        <tr>
-                            <td>{{ p.date_created|date:"d/m/Y H:i" }}</td>
-                            <td>{{ p.value }} F CFA</td>
-                            <td>{{ p.ticket_type }}</td>
-                            <td>{{ p.mois }}</td>
-                            <td>{{ p.annee }}</td>
-                            <td>
-                                <span class="status" data-status="{{  p.status  }}">
-                    {{ p.status}}
-
-                            </td>
-                            <td>{{ p.commentaire|default:"-" }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-            {% else %}
-                <p class="text-muted">Aucun paiement trouvé pour cette entité.</p>
-            {% endif %}
-        </div>
-    </div>
-    {% endif %}
-
 </div>
-{% endblock %}
-
-
-{% block script %}
-<script type="text/javascript">
-document.addEventListener('DOMContentLoaded', function() {
-    // Valeur par défaut : Kalana Mairie
-    var coord = "{{ entity.coord|default:'10.7867836,-8.1955414' }}";
-    var lat = 10.7867836;
-    var lon = -8.1955414;
-
-    if (coord.includes(";")) {
-        var parts = coord.split(";");
-        lat = parseFloat(parts[0]) || lat;
-        lon = parseFloat(parts[1]) || lon;
-    } else if (coord.includes(",")) {
-        var parts = coord.split(",");
-        lat = parseFloat(parts[0]) || lat;
-        lon = parseFloat(parts[1]) || lon;
-    }
-
-    var map = new google.maps.Map(document.getElementById("map"), {
-        center: { lat: lat, lng: lon },
-        zoom: 17
-    });
-
-    new google.maps.Marker({
-        position: { lat: lat, lng: lon },
-        map: map,
-        title: "{{ entity.get_display_name }}"
-    });
-});
-</script>
-
 {% endblock %}
