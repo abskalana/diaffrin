@@ -38,7 +38,7 @@ def home(request):
     nom = request.GET.get('nom', "").strip()
     phone = request.GET.get('telephone', "").strip()
 
-    active = request.GET.get("active", 1)
+    active = request.GET.get("active", True)
     if phone and len(phone)== 8: entities = entities.filter(contact_phone=phone)
     if nom and len(nom)> 2: entities = entities.filter(Q(contact_nom__icontains=nom) | Q(contact_prenom__icontains=nom))
     if active:
@@ -332,9 +332,6 @@ def entity_detail_view(request, pk):
     return render(request, 'detail.html', context)
 
 
-from django.shortcuts import render, get_object_or_404
-from django.db.models import Q
-from .models import EntityModel, Paiement  # adapte selon ton nom de modèle Paiement
 
 def recherche_entity(request):
     query = request.GET.get('q', '')
