@@ -2,7 +2,11 @@
 
 {% block content %}
 <div class="container my-5">
-
+<br><br>
+    <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">Rechercher une entité</h3>
+    </div>
+    <br><br>
     <!-- Formulaire de recherche -->
     <form method="get" class="mb-4 row g-2" role="search">
         <div class="col-md-3">
@@ -18,7 +22,7 @@
             <button class="btn btn-primary w-100" type="submit">Rechercher</button>
         </div>
     </form>
-
+<br><br>
     {% if not entities %}
         <div class="alert alert-warning">Aucune entité trouvée.</div>
     {% else %}
@@ -59,15 +63,10 @@
                         <td>{{ entity.type_entity }}</td>
                         <td>{{ entity.porte }}</td>
                         <td>
-                            <span class="badge
-                                {% if entity.status == 'OUVERT' %} bg-success
-                                {% elif entity.status == 'FERMÉ' %} bg-danger
-                                {% else %} bg-secondary {% endif %}">
-                                {{ entity.status }}
-                            </span>
+                           {{ entity.status }}
                         </td>
                         <td>
-                            <a href="{% url 'entity-detail' entity.id %}" class="btn btn-sm btn-outline-primary">
+                            <a href="{% url 'entity-detail' entity.id %}" >
                                 Détail
                             </a>
                         </td>
