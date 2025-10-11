@@ -38,9 +38,12 @@ def home(request):
     nom = request.GET.get('nom', "").strip()
     phone = request.GET.get('telephone', "").strip()
 
-    active = request.GET.get("active", "")
+    active = request.GET.get("active", True)
     if phone and len(phone)== 8: entities = entities.filter(contact_phone=phone)
     if nom and len(nom)> 2: entities = entities.filter(Q(contact_nom__icontains=nom) | Q(contact_prenom__icontains=nom))
+    if active:
+        entities = entities.filter(active=active)
+
     if locality:
         entities = entities.filter(locality=locality)
     if status:
@@ -327,3 +330,28 @@ def entity_detail_view(request, pk):
         'payments': payments,
     }
     return render(request, 'detail.html', context)
+
+
+from django.shortcuts import render, get_object_or_404
+from django.db.models import Q
+from .models import EntityModel, Paiement  # adapte selon ton nom de modèle Paiement
+
+def recherche_entity(request):
+    query = request.GET.get('q', '')
+    entity = None
+    payments = []
+
+    if query:
+        # Recherche souple sur nom, prénom ou numéro
+        entity = EntityModel.objects.filter(contact_phone=query)
+
+
+        if entity:
+            payments = Paiement.objects.filter(entity_model=entity).order_by('-date_created')
+
+    context = {
+        'query': query,
+        'entity': entity,
+        'payments': payments
+    }
+    return render(request, 'recherche_entity.html', context)

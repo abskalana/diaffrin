@@ -1,0 +1,133 @@
+{% extends 'parent.html' %}
+
+{% block content %}
+<div class="container my-5">
+
+    <!-- Barre de recherche -->
+    <form method="get" class="mb-4 d-flex" role="search">
+        <input type="text" name="q" value="{{ query|default:'' }}" class="form-control me-2"
+               placeholder="Rechercher par nom, prénom ou numéro...">
+        <button class="btn btn-outline-primary" type="submit">Rechercher</button>
+    </form>
+
+    {% if query and not entity %}
+        <div class="alert alert-warning">Aucune entité trouvée pour "{{ query }}".</div>
+    {% endif %}
+
+    {% if entity %}
+    <!-- Carte Informations Entité -->
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">{{ entity.get_display_name|default:"Entité" }}</h3>
+        </div>
+        <div class="card-body">
+            <div class="row mb-2">
+                <div class="col-md-4"><strong>Nom :</strong> {{ entity.contact_nom|default:"-" }}</div>
+                <div class="col-md-4"><strong>Prénom :</strong> {{ entity.contact_prenom|default:"-" }}</div>
+                <div class="col-md-4"><strong>Téléphone :</strong> {{ entity.contact_phone|default:"-" }}</div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-4"><strong>Numéro :</strong> {{ entity.numero }}</div>
+                <div class="col-md-4"><strong>Ville :</strong> {{ entity.city }}</div>
+                <div class="col-md-4"><strong>Localité :</strong> {{ entity.locality|default:"-" }}</div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-4"><strong>Type :</strong> {{ entity.type_entity }}</div>
+                <div class="col-md-4"><strong>Propriété :</strong> {{ entity.property }}</div>
+                <div class="col-md-4"><strong>Statut :</strong>
+                    <span class="badge
+                        {% if entity.status == 'OUVERT' %} bg-success
+                        {% elif entity.status == 'FERMÉ' %} bg-danger
+                        {% else %} bg-secondary {% endif %}">
+                        {{ entity.status }}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Historique des paiements -->
+    <div class="card shadow-sm">
+        <div class="card-header bg-success text-white">
+            <h4 class="mb-0">Historique des paiements</h4>
+        </div>
+        <div class="card-body">
+            {% if payments %}
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Date</th>
+                            <th>Valeur</th>
+                            <th>Type de ticket</th>
+                            <th>Mois</th>
+                            <th>Année</th>
+                            <th>Statut</th>
+                            <th>Commentaire</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for p in payments %}
+                        <tr>
+                            <td>{{ p.date_created|date:"d/m/Y H:i" }}</td>
+                            <td>{{ p.value }} F CFA</td>
+                            <td>{{ p.ticket_type }}</td>
+                            <td>{{ p.mois }}</td>
+                            <td>{{ p.annee }}</td>
+                            <td>
+                                <span class="badge
+                                    {% if p.status == 'payé' %} bg-success
+                                    {% elif p.status == 'en attente' %} bg-warning
+                                    {% else %} bg-danger {% endif %}">
+                                    {{ p.status }}
+                                </span>
+                            </td>
+                            <td>{{ p.commentaire|default:"-" }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+                <p class="text-muted">Aucun paiement trouvé pour cette entité.</p>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+
+</div>
+{% endblock %}
+
+
+{% block script %}
+<script type="text/javascript">
+document.addEventListener('DOMContentLoaded', function() {
+    // Valeur par défaut : Kalana Mairie
+    var coord = "{{ entity.coord|default:'10.7867836,-8.1955414' }}";
+    var lat = 10.7867836;
+    var lon = -8.1955414;
+
+    if (coord.includes(";")) {
+        var parts = coord.split(";");
+        lat = parseFloat(parts[0]) || lat;
+        lon = parseFloat(parts[1]) || lon;
+    } else if (coord.includes(",")) {
+        var parts = coord.split(",");
+        lat = parseFloat(parts[0]) || lat;
+        lon = parseFloat(parts[1]) || lon;
+    }
+
+    var map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: lat, lng: lon },
+        zoom: 17
+    });
+
+    new google.maps.Marker({
+        position: { lat: lat, lng: lon },
+        map: map,
+        title: "{{ entity.get_display_name }}"
+    });
+});
+</script>
+
+{% endblock %}
