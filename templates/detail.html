@@ -7,7 +7,7 @@
       <!-- Carte Informations Entité -->
     <div class="card mb-4 shadow-sm">
         <div class="card-header bg-primary text-white">
-            <h3 class="mb-0">{{ entity.get_display_name|default:"--" }}</h3>
+            <h3 class="mb-0">{{ entity.get_display_name|default:"" }}- {{ entity.activity }}</h3>
         </div>
         <div class="card-body">
             <div class="row mb-2">
@@ -21,7 +21,7 @@
                 <div class="col-md-4"><strong>Localité :</strong> {{ entity.locality|default:"-" }}</div>
             </div>
             <div class="row mb-2">
-                <div class="col-md-4"><strong>Activité :</strong> {{ entity.activity }}</div>
+                <div class="col-md-4"><strong>Numero :</strong> {{ entity.numero }}</div>
                 <div class="col-md-4"><strong>Type :</strong> {{ entity.type_entity }}</div>
                 <div class="col-md-4"><strong>Statut :</strong>
                     <span class="badge
@@ -34,7 +34,7 @@
             </div>
         </div>
     </div>
-
+<br>
     <!-- Historique des paiements -->
     <div class="card mb-4">
         <div class="card-header bg-success text-white">
@@ -75,7 +75,7 @@
             {% endif %}
         </div>
     </div>
-
+<br>
     <!-- Localisation géographique -->
     <div class="card mb-4">
         <div class="card-header bg-info text-white">
@@ -87,6 +87,7 @@
     </div>
 
 </div>
+
 {% endblock %}
 
 {% block script %}
