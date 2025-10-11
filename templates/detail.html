@@ -3,8 +3,8 @@
 {% block content %}
 <div class="container my-5">
 
-    {% if entity %}
-    <!-- Carte Informations Entité -->
+    <!-- Informations de l'entité -->
+      <!-- Carte Informations Entité -->
     <div class="card mb-4 shadow-sm">
         <div class="card-header bg-primary text-white">
             <h3 class="mb-0">{{ entity.get_display_name|default:"--" }}</h3>
@@ -36,7 +36,7 @@
     </div>
 
     <!-- Historique des paiements -->
-    <div class="card shadow-sm">
+    <div class="card mb-4">
         <div class="card-header bg-success text-white">
             <h4 class="mb-0">Historique des paiements</h4>
         </div>
@@ -56,23 +56,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for p in payments %}
+                        {% for paiement in payments %}
                         <tr>
-                            <td>{{ p.date_created|date:"d/m/Y H:i" }}</td>
-                            <td>{{ p.value }} F CFA</td>
-                            <td>{{ p.ticket_type }}</td>
-                            <td>{{ p.mois }}</td>
-                            <td>{{ p.annee }}</td>
-                            <td>
-                                <span class="badge
-                                    {% if p.status == 'VALIDÉ' %} bg-success
-                                    {% elif p.status == 'EN ATTENTE' %} bg-warning
-                                    {% elif p.status == 'REJETÉ' %} bg-danger
-                                    {% else %} bg-secondary {% endif %}">
-                                    {{ p.status }}
-                                </span>
-                            </td>
-                            <td>{{ p.commentaire|default:"-" }}</td>
+                            <td>{{ paiement.date_created|date:"d/m/Y H:i" }}</td>
+                            <td>{{ paiement.value }}</td>
+                            <td>{{ paiement.ticket_type }}</td>
+                            <td>{{ paiement.mois }}</td>
+                            <td>{{ paiement.annee }}</td>
+                            <td>{{ paiement.status }}</td>
+                            <td>{{ paiement.commentaire|default:"-" }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -84,9 +76,15 @@
         </div>
     </div>
 
-    {% else %}
-        <div class="alert alert-info">Aucune entité sélectionnée.</div>
-    {% endif %}
+    <!-- Localisation géographique -->
+    <div class="card mb-4">
+        <div class="card-header bg-info text-white">
+            <h4 class="mb-0">Localisation géographique</h4>
+        </div>
+        <div class="card-body">
+            <div id="map" style="width: 100%; height: 400px;"></div>
+        </div>
+    </div>
 
 </div>
 {% endblock %}
@@ -94,8 +92,10 @@
 {% block script %}
 <script type="text/javascript">
 document.addEventListener('DOMContentLoaded', function() {
+    // Valeur par défaut : Kalana Mairie
     var coord = "{{ entity.coord|default:'10.7867836,-8.1955414' }}";
-    var lat = 10.7867836, lon = -8.1955414;
+    var lat = 10.7867836;
+    var lon = -8.1955414;
 
     if (coord.includes(";")) {
         var parts = coord.split(";");
@@ -107,19 +107,17 @@ document.addEventListener('DOMContentLoaded', function() {
         lon = parseFloat(parts[1]) || lon;
     }
 
-    var mapEl = document.getElementById("map");
-    if (mapEl) {
-        var map = new google.maps.Map(mapEl, {
-            center: { lat: lat, lng: lon },
-            zoom: 17
-        });
+    var map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: lat, lng: lon },
+        zoom: 17
+    });
 
-        new google.maps.Marker({
-            position: { lat: lat, lng: lon },
-            map: map,
-            title: "{{ entity.get_display_name|default:'Entité' }}"
-        });
-    }
+    new google.maps.Marker({
+        position: { lat: lat, lng: lon },
+        map: map,
+        title: "{{ entity.get_display_name }}"
+    });
 });
 </script>
+
 {% endblock %}
