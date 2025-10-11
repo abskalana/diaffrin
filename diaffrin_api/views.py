@@ -340,7 +340,7 @@ def recherche_entity(request):
 
     if query:
         # Recherche souple sur nom, prénom ou numéro
-        entity = EntityModel.objects.filter(contact_phone=query)
+        entity = EntityModel.objects.filter(contact_phone=query).first()
 
 
         if entity:
